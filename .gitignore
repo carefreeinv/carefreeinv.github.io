@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.vscode/
+node_modules/
+coverage/
+*.log
+*.tmp
+__pycache__/
+.venv/
+*.pyc
+*.ZoneIdentifier
+Thumbs.db

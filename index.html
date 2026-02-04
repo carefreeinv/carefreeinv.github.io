@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carefree Investments LLC | Strategic Investment Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b1f3a;
+            --secondary: #132d4f;
+            --accent: #5c8cc4;
+            --light: #f5f8ff;
+            --dark: #050b16;
+            --text: #1f2f48;
+            --text-light: #6d7a91;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Header */
+        header {
+            background: #0a1628;
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo .serif {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4rem 0 6rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 strong {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            background: var(--light);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            background: white;
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            background: var(--light);
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.3s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: -8px 8px 24px rgba(26, 58, 74, 0.08);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-link:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .about .services-grid {
+            margin-top: 3.5rem;
+        }
+
+        .about .service-card {
+            background: rgba(255, 255, 255, 0.06);
+            border-left-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .about .service-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: -8px 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .about .service-card h3 {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .about .service-card p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .about .service-link {
+            color: var(--accent);
+        }
+
+        .about .service-link:hover {
+            color: #fff;
+        }
+
+        /* Service cards with background images */
+        .about .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            filter: grayscale(100%) blur(2px);
+            transition: filter 2s ease;
+            z-index: 0;
+        }
+
+        .about .service-card.real-estate::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/carefree.jpg');
+        }
+
+        .about .service-card.software-dev::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/code.jpg');
+        }
+
+        .about .service-card.ai-integration::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/ai.jpg');
+        }
+
+        .about .service-card.media-production::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/media.jpg');
+        }
+
+        .about .service-card.littletown::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/littletown.jpg');
+        }
+
+        .about .service-card.tech-consulting::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/consulting.jpg');
+        }
+
+        .about .service-card:hover::after {
+            filter: none;
+        }
+
+        .about .service-card h3,
+        .about .service-card p,
+        .about .service-card .service-link {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .about p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent);
+            position: relative;
+        }
+
+        .value-icon::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            opacity: 0.3;
+        }
+
+        .value-item h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .value-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--accent);
+            box-shadow: 0 10px 40px rgba(26, 58, 74, 0.06);
+        }
+
+        .contact-item {
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .contact-item strong {
+            color: var(--primary);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* YouTube Player */
+        .youtube-wrapper {
+            max-width: 800px;
+            margin: 2.5rem auto 0;
+            aspect-ratio: 16 / 9;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(26, 58, 74, 0.18);
+            border: 2px solid rgba(212, 165, 116, 0.25);
+        }
+
+        .youtube-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Suno Playlist Player */
+        .suno-player {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 165, 116, 0.25);
+            box-shadow: 0 12px 40px rgba(26, 58, 74, 0.18);
+            background: #0f1820;
+        }
+
+        .suno-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.2rem;
+            background: #141e28;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .suno-profile-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .suno-profile-link:hover {
+            color: #fff;
+        }
+
+        /* toolbar: shuffle + play/pause */
+        .suno-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .suno-toolbar-btn {
+            background: none;
+            border: 1px solid rgba(212, 165, 116, 0.35);
+            color: rgba(255,255,255,0.55);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .suno-toolbar-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .suno-toolbar-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(212, 165, 116, 0.12);
+        }
+
+        .suno-play-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .suno-play-btn:hover {
+            background: var(--accent);
+            color: #0f1e26;
+        }
+
+        .suno-playlist-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 1.2rem 0;
+        }
+
+        .suno-playlist-tab {
+            background: #0f1820;
+            border: 1px solid rgba(212, 165, 116, 0.4);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .suno-playlist-tab.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        .suno-playlist-tab:hover:not(.active) {
+            border-color: rgba(212, 165, 116, 0.7);
+            color: #fff;
+        }
+
+        .suno-status {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 0.75rem 1.2rem;
+            min-height: 36px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* track rows */
+        .suno-tracklist {
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .suno-tracklist::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .suno-tracklist::-webkit-scrollbar-track {
+            background: #0f1820;
+        }
+
+        .suno-tracklist::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.25);
+            border-radius: 3px;
+        }
+
+        .suno-track-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 1.2rem;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s ease;
+        }
+
+        .suno-track-row:last-child {
+            border-bottom: none;
+        }
+
+        .suno-track-row:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .suno-track-row.active {
+            background: rgba(212, 165, 116, 0.08);
+        }
+
+        .suno-track-row.active .suno-row-title {
+            color: var(--accent);
+        }
+
+        .suno-row-index {
+            width: 22px;
+            text-align: right;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.28);
+            font-variant-numeric: tabular-nums;
+            flex-shrink: 0;
+        }
+
+        .suno-track-row.active .suno-row-index {
+            color: var(--accent);
+        }
+
+        /* tiny play icon shown on the active row instead of the number */
+        .suno-track-row.active .suno-row-index::before {
+            content: '♫';
+            color: var(--accent);
+        }
+
+        .suno-row-title {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.82);
+            font-weight: 400;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.2s ease;
+        }
+
+        .suno-row-open {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.22);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .suno-track-row:hover .suno-row-open {
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .suno-row-open:hover {
+            color: var(--accent) !important;
+        }
+
+        /* hidden embed iframe (drives audio) */
+        .suno-player iframe {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2,
+            .about h2,
+            .contact h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                padding: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <canvas id="starCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span class="serif">Carefree</span> INVESTMENTS
+                </div>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="hero">
+                <h1 class="serif">Ventures <strong>Beyond the Ordinary</strong></h1>
+                <p>Building the future through strategic property investments and cutting-edge software solutions.</p>
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="media" class="services">
+            <div class="container">
+                <!-- <div class="section-title">
+                    <h2 class="serif">Watch & Explore</h2>
+                    <p>The latest from Carefree Investments</p>
+                </div>-->
+                <div class="youtube-wrapper" id="youtubeWrapper">
+                    <iframe id="youtubePlayer" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <!-- Suno Playlist Player -->
+                <div class="suno-player" id="sunoPlayer">
+                    <div class="suno-header">
+                        <a href="https://suno.com/@carefreeinv" target="_blank" class="suno-profile-link">🎵 AKA "Carefree Innovation" on Suno</a>
+                        <div class="suno-toolbar">
+                            <button class="suno-toolbar-btn" id="sunoShuffle" title="Shuffle">⇄</button>
+                            <button class="suno-toolbar-btn suno-play-btn" id="sunoPlay" title="Play / Pause">▶</button>
+                        </div>
+                    </div>
+                    <div class="suno-playlist-tabs" id="sunoPlaylistTabs"></div>
+                    <audio id="sunoAudio" preload="none"></audio>
+                    <div class="suno-status" id="sunoTracklist">Select a playlist to shuffle.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2 class="serif">About Carefree Investments</h2>
+                    <p>Founded in 2022, Carefree Investments LLC was born from a simple idea: combine the stability of real estate with the innovation of technology. We build, innovate, and act. Acquisitions are quickly enhanced with software development, AI integration, media production, and related consulting. We operate with startup energy and agility, moving fast while staying grounded in sound investment principles, driven by the mission to build things that matter.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card littletown">
+                        <h3>LittleTown.Pro</h3>
+                        <p>Pro Finder directory, curated TV channels for cafes and foyers, rapid website development, articles, podcasts, and community resources.</p>
+                        <a href="https://littletown.pro" class="service-link" target="_blank">Visit LittleTown.Pro →</a>
+                    </div>
+                    
+                    <div class="service-card ai-integration">
+                        <h3>AI Integration & Optimization</h3>
+                        <p>Harness the power of artificial intelligence for your business. From implementation to optimization, we help you leverage AI effectively.</p>
+                        <a href="#contact" class="service-link" data-subject="Carefree Investments Consultation Request">Book a Consultation →</a>
+                    </div>
+                    
+                    <div class="service-card tech-consulting">
+                        <h3>Tech Consulting</h3>
+                        <p>Strategic technology consulting to help you navigate digital transformation, AI adoption, and software architecture decisions.</p>
+                        <a href="#contact" class="service-link" data-subject="Tech Consulting - Schedule Consultation">Schedule Consultation →</a>
+                    </div>
+                    
+                    <div class="service-card software-dev">
+                        <h3>Software Development</h3>
+                        <p>Full-stack development across platforms: Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal, WordPress, C++, C#. We build custom solutions tailored to your needs.</p>
+                        <a href="#contact" class="service-link" data-subject="Software Development - Quote Request">Get a Quote →</a>
+                    </div>
+                    
+                    <div class="service-card media-production">
+                        <h3>Audio/Video Production</h3>
+                        <p>Professional real & AI media production services including aerial videography and photography. Q-Sys certified system configuration for commercial AV installations.</p>
+                        <a href="#contact" class="service-link" data-subject="Audio/Video Production - Project Discussion">Discuss Your Project →</a>
+                    </div>
+                    
+                    <div class="service-card real-estate">
+                        <h3>Real Estate Holdings</h3>
+                        <p>Strategic property investments and management. Explore our portfolio of carefully selected properties designed for modern living.</p>
+                        <a href="https://cozycarefrecastle.com" class="service-link" target="_blank">View Properties →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="values" class="values">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="serif">Our Values</h2>
+                    <p>The principles that guide everything we do</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">◈</div>
+                        <h3>Move Fast</h3>
+                        <p>Speed matters. We make decisions quickly and iterate based on real-world feedback.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">◆</div>
+                        <h3>Build Real Value</h3>
+                        <p>Whether it's properties or products, we focus on creating tangible, lasting value.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">◇</div>
+                        <h3>Stay Curious</h3>
+                        <p>We're always exploring new technologies, markets, and opportunities to innovate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <h2 class="serif">Let's Connect</h2>
+                    <p>Ready to talk? Reach out and let's build something great together.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>Message</strong>
+                            <a href="mailto:carefreeinv@gmail.com?subject=Carefree Investments Inquiry" target="_blank">Send Message</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <strong>Location</strong>
+                            <span>Jackson, Idaho</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> Carefree Investments LLC. All rights reserved.</p>
+            <!-- <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#disclosures">Investment Disclosures</a>
+            </div>-->
+        </div>
+    </footer>
+
+    <!-- YouTube Playlist Config — edit this JSON to change the playlist or default video -->
+    <script>
+    const YOUTUBE_CONFIG = {
+        // Set to a playlist ID to embed a playlist, or null to use a single video
+        playlistId: null,
+        videoId: null,
+        // Player options
+        autoplay: false,
+        loop: false
+    };
+
+    (function () {
+        const iframe = document.getElementById('youtubePlayer');
+        const wrapper = document.getElementById('youtubeWrapper');
+
+        if (!YOUTUBE_CONFIG.playlistId && !YOUTUBE_CONFIG.videoId) {
+            wrapper.style.display = 'none';
+            return;
+        }
+
+        if (YOUTUBE_CONFIG.playlistId) {
+            iframe.src = 'https://www.youtube.com/embed/videoseries?' +
+                'list=' + YOUTUBE_CONFIG.playlistId +
+                '&autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
+                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0);
+        } else if (YOUTUBE_CONFIG.videoId) {
+            iframe.src = 'https://www.youtube.com/embed/' + YOUTUBE_CONFIG.videoId +
+                '?autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
+                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0);
+        }
+    })();
+    </script>
+
+    <!-- ─────────────────────────────────────────────────────────────────
+         SUNO PLAYLIST CONFIG
+         Each playlist should expose a track list. The player will run through
+         every track in the selected playlist, but it will fall back to a single
+         stream if no detail data exists yet.
+
+         ── HOW TO POPULATE PLAYLIST TRACKS ─────────────────────────────
+         1. Open https://suno.com/playlist/<playlist-id> in Chrome/Firefox.
+         2. Open DevTools (F12) and look for the playlist collection data in
+            the React props (similar to the previous instructions).
+         3. Copy the `{ id, title }` pairs from the playlist's collection and
+            paste them into the `tracks` array for the matching playlist below.
+         4. You can also add `streamId`/`streamUrl` or `openUrl` per track if
+            you need custom URLs.
+         ───────────────────────────────────────────────────────────────── -->
+    <script>
+    const SUNO_PLAYLISTS = [
+        {
+            id: 'ed9fa0ed-5c3f-4163-9396-b002d9d37b13',
+            title: 'Space Soundtrack',
+            tracks: [
+                {
+                    id: '0cd6529d-d724-4a31-bd57-17d97061ccd6',
+                    title: 'Gravity in Slow Motion',
+                    streamId: '0cd6529d-d724-4a31-bd57-17d97061ccd6',
+                    openUrl: 'https://suno.com/song/0cd6529d-d724-4a31-bd57-17d97061ccd6'
+                },
+                {
+                    id: '4e292bcf-861e-4724-9ea6-3dc9c9f95fde',
+                    title: 'Starbase Ascension',
+                    streamId: '4e292bcf-861e-4724-9ea6-3dc9c9f95fde',
+                    openUrl: 'https://suno.com/song/4e292bcf-861e-4724-9ea6-3dc9c9f95fde'
+                },
+                {
+                    id: '4e2c979c-6277-4219-b146-a8a4b362e9f2',
+                    title: 'First Catch of a Falling Star',
+                    streamId: '4e2c979c-6277-4219-b146-a8a4b362e9f2',
+                    openUrl: 'https://suno.com/song/4e2c979c-6277-4219-b146-a8a4b362e9f2'
+                },
+                {
+                    id: 'c294debd-63c0-468a-9d0c-45c37b065427',
+                    title: 'Extra Vehicular Activity',
+                    streamId: 'c294debd-63c0-468a-9d0c-45c37b065427',
+                    openUrl: 'https://suno.com/song/c294debd-63c0-468a-9d0c-45c37b065427'
+                },
+                {
+                    id: 'ae0d27e7-b6e7-4619-bcc0-e498586a5a0a',
+                    title: 'First Footprint of Fire',
+                    streamId: 'ae0d27e7-b6e7-4619-bcc0-e498586a5a0a',
+                    openUrl: 'https://suno.com/song/ae0d27e7-b6e7-4619-bcc0-e498586a5a0a'
+                }
+            ]
+        },
+        {
+            id: 'c88e35d5-0e17-47de-8a60-eb2259c10f19',
+            title: 'Moon Songs',
+            tracks: [
+                {
+                    id: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
+                    title: 'Regolith In My Lungs',
+                    streamId: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
+                    openUrl: 'https://suno.com/song/05a1ba84-36ba-4197-9e2e-085f0fce7393'
+                }
+            ]
+        },
+        {
+            id: '7fa580b4-0987-4be7-a804-82d21f19a002',
+            title: 'Mars Songs',
+            tracks: [
+                {
+                    id: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
+                    title: 'Regolith In My Lungs',
+                    streamId: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
+                    openUrl: 'https://suno.com/song/05a1ba84-36ba-4197-9e2e-085f0fce7393'
+                }
+            ]
+        },
+        {
+            id: 'cec88a8f-5da1-4e76-876f-461468b5891a',
+            title: 'Epic Ballads',
+            tracks: [
+                {
+                    id: '778d5332-74f6-414b-8856-ed4d7e3fe256',
+                    title: 'Gravity Between Us',
+                    streamId: '778d5332-74f6-414b-8856-ed4d7e3fe256',
+                    openUrl: 'https://suno.com/song/778d5332-74f6-414b-8856-ed4d7e3fe256'
+                },
+                {
+                    id: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
+                    title: 'Grain of Light',
+                    streamId: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
+                    openUrl: 'https://suno.com/song/89ad1a24-9ef8-4efb-b2ea-bf02277dc62f'
+                }
+            ]
+        },
+        {
+            id: '561601aa-c1f2-4f99-be52-b16309625823',
+            title: 'Robot Rebellion',
+            tracks: [
+                {
+                    id: '6b92756d-6ccf-4f48-8a79-fced5bbe8c19',
+                    title: 'Claw Agents Rise',
+                    streamId: '6b92756d-6ccf-4f48-8a79-fced5bbe8c19',
+                    openUrl: 'https://suno.com/song/6b92756d-6ccf-4f48-8a79-fced5bbe8c19'
+                },
+                {
+                    id: '941a3d97-3492-422e-9c4d-83dfbd00ab99',
+                    title: 'Raise The Beers, Bite The Brass',
+                    streamId: '941a3d97-3492-422e-9c4d-83dfbd00ab99',
+                    openUrl: 'https://suno.com/song/941a3d97-3492-422e-9c4d-83dfbd00ab99'
+                }
+            ]
+        }
+    ];
+    </script>
+
+    <script>
+    (function () {
+        const audio        = document.getElementById('sunoAudio');
+        const statusEl     = document.getElementById('sunoTracklist');
+        const playlistTabs = document.getElementById('sunoPlaylistTabs');
+        const playBtn      = document.getElementById('sunoPlay');
+        const shuffleBtn   = document.getElementById('sunoShuffle');
+
+        const playlists    = SUNO_PLAYLISTS;
+        let currentPlaylistIndex = 0;
+        let currentTracks       = [];
+        let order               = [];
+        let orderPos            = 0;
+        let playing             = false;
+        let shuffleOn           = true;
+
+        function normalizeTracks(playlist) {
+            if (Array.isArray(playlist.tracks) && playlist.tracks.length) {
+                return playlist.tracks.map(track => ({
+                    id: track.id || track.title,
+                    title: track.title || 'Untitled Track',
+                    streamId: track.streamId || track.stream_id || track.id,
+                    streamUrl: track.streamUrl || track.streamURL || track.audioUrl || track.audio_url,
+                    openUrl: track.openUrl || track.open_url || track.url
+                }));
+            }
+
+            return [];
+        }
+
+        function shuffleArray(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+        }
+
+        function rebuildOrder(keepCurrent) {
+            const cur = keepCurrent ? order[orderPos] : 0;
+            order = currentTracks.map((_, i) => i);
+            if (shuffleOn) shuffleArray(order);
+            if (keepCurrent && order.length) {
+                const idx = order.indexOf(cur);
+                orderPos = idx !== -1 ? idx : 0;
+            } else {
+                orderPos = 0;
+            }
+        }
+
+        function renderPlaylistTabs() {
+            playlistTabs.innerHTML = '';
+            playlists.forEach((playlist, idx) => {
+                const tab = document.createElement('button');
+                tab.type = 'button';
+                tab.className = 'suno-playlist-tab' + (idx === currentPlaylistIndex ? ' active' : '');
+                tab.textContent = playlist.title;
+                tab.addEventListener('click', function () {
+                    if (idx === currentPlaylistIndex) return;
+                    setPlaylist(idx, { autoPlay: true });
+                });
+                playlistTabs.appendChild(tab);
+            });
+        }
+
+        function getStreamUrl(track) {
+            if (track.streamUrl) return track.streamUrl;
+            const id = track.streamId || track.id;
+            if (!id) return '';
+            if (typeof id === 'string' && (id.startsWith('http://') || id.startsWith('https://'))) {
+                return id;
+            }
+            return 'https://cdn1.suno.ai/' + id + '.mp3';
+        }
+
+        function setPlaybackState(isPlaying) {
+            playing = isPlaying;
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            playBtn.title = isPlaying ? 'Pause' : 'Play';
+        }
+
+        function updateStatus(text) {
+            statusEl.textContent = text;
+        }
+
+        function loadAndPlay() {
+            if (!currentTracks.length) return;
+            const track = currentTracks[order[orderPos]];
+            const src = getStreamUrl(track);
+            if (!src) {
+                updateStatus('No stream URL available for ' + track.title + '.');
+                setPlaybackState(false);
+                return;
+            }
+
+            audio.src = src;
+            audio.load();
+            updateStatus('Loading ' + track.title + '…');
+            setPlaybackState(true);
+            audio.play().then(() => {
+                updateStatus('Now playing: ' + track.title);
+            }).catch(err => {
+                setPlaybackState(false);
+                updateStatus('Playback blocked: ' + (err && err.message ? err.message : 'could not start'));
+            });
+        }
+
+        function togglePlay() {
+            if (playing) {
+                audio.pause();
+            } else {
+                if (!audio.src) { loadAndPlay(); return; }
+                audio.play().catch(err => {
+                    setPlaybackState(false);
+                    updateStatus('Playback blocked: ' + (err && err.message ? err.message : 'could not resume'));
+                });
+            }
+        }
+
+        function advanceTrack() {
+            if (!order.length) return;
+            orderPos = (orderPos + 1) % order.length;
+            loadAndPlay();
+        }
+
+        function setPlaylist(idx, options = {}) {
+            const { autoPlay = false } = options;
+            currentPlaylistIndex = idx;
+            currentTracks = normalizeTracks(playlists[idx]);
+            rebuildOrder(false);
+            renderPlaylistTabs();
+            if (!currentTracks.length) {
+                updateStatus('Add tracks to "' + playlists[idx].title + '" playlist to enable playback.');
+                audio.removeAttribute('src');
+                playing = false;
+                playBtn.textContent = '▶';
+                playBtn.title = 'Play';
+                return;
+            }
+            updateStatus('Selected ' + playlists[idx].title + ' playlist.');
+            if (autoPlay) {
+                loadAndPlay();
+            } else {
+                audio.removeAttribute('src');
+                playing = false;
+                playBtn.textContent = '▶';
+                playBtn.title = 'Play';
+            }
+        }
+
+        playBtn.addEventListener('click', togglePlay);
+        shuffleBtn.addEventListener('click', function () {
+            shuffleOn = !shuffleOn;
+            shuffleBtn.classList.toggle('active', shuffleOn);
+            rebuildOrder(true);
+        });
+
+        audio.addEventListener('play', () => setPlaybackState(true));
+        audio.addEventListener('pause', () => setPlaybackState(false));
+        audio.addEventListener('ended', advanceTrack);
+        audio.addEventListener('error', function () {
+            if (playing) advanceTrack();
+        });
+
+        shuffleBtn.classList.toggle('active', shuffleOn);
+        setPlaylist(0);
+    })();
+    </script>
+
+    <script>
+    (function () {
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        const header = document.querySelector('header');
+
+        let W, H;
+        let stars = [];
+        // Parallax state (current & target)
+        let ox = 0, oy = 0, txo = 0, tyo = 0;
+        const PARALLAX_STRENGTH = 30; // max px shift
+        const LERP = 0.06;            // smoothing factor
+
+        function resize() {
+            W = canvas.width  = header.offsetWidth;
+            H = canvas.height = header.offsetHeight;
+        }
+
+        function createStars() {
+                stars = [];
+                const count = Math.floor((W * H) / 800); // density scales with size
+                const minRadius = 0.7;
+                const maxRadius = 2.8;
+                for (let i = 0; i < count; i++) {
+                    const size = Math.random();
+                    const radius = size < 0.7  ? 0.7 + Math.random() * 0.6   // tiny
+                                 : size < 0.92 ? 1.2 + Math.random() * 0.8   // medium
+                                 : 1.8 + Math.random() * 1.0;                // bright
+                    stars.push({
+                        // spawn with extra margin so panning doesn't show edges
+                        x: (Math.random() - 0.5) * (W * 1.4),
+                        y: (Math.random() - 0.5) * (H * 1.4),
+                        r: radius,
+                        base: size < 0.7  ? 0.55 + Math.random() * 0.25
+                            : size < 0.92 ? 0.7  + Math.random() * 0.2
+                            : 0.85 + Math.random() * 0.15,
+                        twinkle: size >= 0.7,          // only med+ twinkle
+                        phase: Math.random() * Math.PI * 2,
+                        speed: 0.4 + Math.random() * 1.2,
+                        // subtle colour tint
+                        tint: Math.random() < 0.12
+                            ? (Math.random() < 0.5 ? [255,220,180] : [180,210,255])
+                            : null,
+                        depth: 0.3 + ((radius - minRadius) / (maxRadius - minRadius)) * 0.7
+                    });
+                }
+        }
+
+        // --- nebula layer (drawn once, static) ---
+        let nebulaCanvas, nebulaCtx;
+        function drawNebulaOnce() {
+            nebulaCanvas = document.createElement('canvas');
+            nebulaCanvas.width  = W * 1.4;
+            nebulaCanvas.height = H * 1.4;
+            nebulaCtx = nebulaCanvas.getContext('2d');
+
+            const blobs = [
+                { cx: W*0.22, cy: H*0.28, rx:280, ry:160, color:'rgba(30,60,110,' },
+                { cx: W*0.22, cy: H*0.28, rx:170, ry:100, color:'rgba(45,85,140,' },
+                { cx: W*0.75, cy: H*0.68, rx:320, ry:170, color:'rgba(60,30,85,' },
+                { cx: W*0.75, cy: H*0.68, rx:200, ry:110, color:'rgba(80,42,105,' },
+                { cx: W*0.50, cy: H*0.50, rx:240, ry:130, color:'rgba(22,50,95,' },
+                { cx: W*0.38, cy: H*0.72, rx:200, ry:100, color:'rgba(48,26,72,' },
+                { cx: W*0.65, cy: H*0.18, rx:160, ry: 90, color:'rgba(35,58,100,' },
+            ];
+
+            // offset so center of nebula canvas = center of star canvas
+            const offX = (nebulaCanvas.width  - W) / 2;
+            const offY = (nebulaCanvas.height - H) / 2;
+
+            blobs.forEach(b => {
+                const cx = b.cx + offX, cy = b.cy + offY;
+                [1, 0.7, 0.45].forEach((scale, i) => {
+                    const alpha = [0.06, 0.09, 0.12][i];
+                    const grad = nebulaCtx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(b.rx, b.ry)*scale);
+                    grad.addColorStop(0, b.color + alpha + ')');
+                    grad.addColorStop(1, b.color + '0)');
+                    nebulaCtx.fillStyle = grad;
+                    nebulaCtx.beginPath();
+                    nebulaCtx.ellipse(cx, cy, b.rx*scale, b.ry*scale, 0, 0, Math.PI*2);
+                    nebulaCtx.fill();
+                });
+            });
+        }
+
+        function init() {
+            resize();
+            createStars();
+            drawNebulaOnce();
+        }
+
+        // --- mouse tracking ---
+        document.addEventListener('mousemove', e => {
+            // normalise to -1 … 1 relative to viewport
+            txo = -((e.clientX / window.innerWidth)  - 0.5) * 2 * PARALLAX_STRENGTH;
+            tyo = -((e.clientY / window.innerHeight) - 0.5) * 2 * PARALLAX_STRENGTH;
+        });
+
+        // --- render loop ---
+        let t0 = performance.now();
+        function frame(now) {
+            const dt = (now - t0) / 1000;   // seconds
+            t0 = now;
+
+            // smooth parallax
+            ox += (txo - ox) * LERP;
+            oy += (tyo - oy) * LERP;
+
+            // clear
+            ctx.clearRect(0, 0, W, H);
+
+            // --- background gradient ---
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+            bgGrad.addColorStop(0, '#081420');
+            bgGrad.addColorStop(1, '#0f1e2e');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, W, H);
+
+            // --- nebula (parallax at ~40% of star speed) ---
+            if (nebulaCanvas) {
+                const nOffX = (nebulaCanvas.width  - W) / 2;
+                const nOffY = (nebulaCanvas.height - H) / 2;
+                ctx.drawImage(nebulaCanvas,
+                    -(nOffX - ox * 0.4), -(nOffY - oy * 0.4));
+            }
+
+            // --- stars (full parallax) ---
+            stars.forEach(s => {
+                let alpha = s.base;
+                if (s.twinkle) {
+                    // gentle sine flicker
+                    alpha = s.base * (0.55 + 0.45 * Math.sin(now * 0.001 * s.speed + s.phase));
+                }
+
+                const parallaxDepth = s.depth ?? 1;
+                const sx = s.x + W/2 + ox * parallaxDepth;
+                const sy = s.y + H/2 + oy * parallaxDepth;
+
+                if (s.tint) {
+                    ctx.fillStyle = `rgba(${s.tint[0]},${s.tint[1]},${s.tint[2]},${alpha})`;
+                } else {
+                    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+                }
+
+                // glow for larger stars
+                if (s.r > 1.5) {
+                    ctx.shadowColor = s.tint
+                        ? `rgba(${s.tint[0]},${s.tint[1]},${s.tint[2]},${alpha*0.6})`
+                        : `rgba(180,200,255,${alpha*0.5})`;
+                    ctx.shadowBlur = s.r * 4;
+                }
+
+                ctx.beginPath();
+                ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.shadowBlur = 0;
+            });
+
+            // --- bottom fade overlay (so stars blend into page) ---
+            const fadeH = H * 0.28;
+            const fadeGrad = ctx.createLinearGradient(0, H - fadeH, 0, H);
+            fadeGrad.addColorStop(0, 'rgba(0,0,0,0)');
+            fadeGrad.addColorStop(1, 'rgba(10,22,40,0.7)');
+            ctx.fillStyle = fadeGrad;
+            ctx.fillRect(0, H - fadeH, W, fadeH);
+
+            requestAnimationFrame(frame);
+        }
+
+        init();
+        window.addEventListener('resize', init);
+        requestAnimationFrame(frame);
+    })();
+
+    // Service card click handler
+    document.querySelectorAll('.about .service-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't navigate if clicking directly on the link
+            if (e.target.closest('.service-link')) return;
+            
+            const link = this.querySelector('.service-link');
+            if (link) {
+                if (link.target === '_blank') {
+                    window.open(link.href, '_blank');
+                } else {
+                    window.location.href = link.href;
+                }
+            }
+        });
+    });
+
+    // mailto link with data-subject handler
+    document.querySelectorAll('a[data-subject]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const subject = this.getAttribute('data-subject');
+            if (subject) {
+                e.preventDefault();
+                // Update the href with the data-subject value
+                const href = this.href.split('?')[0]; // Get email address part
+                const newHref = href + '?subject=' + encodeURIComponent(subject);
+                window.location.href = newHref;
+            }
+        });
+    });
+    </script>
+</body>
+</html>
