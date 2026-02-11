@@ -11,3 +11,6 @@ __pycache__/
 *.ZoneIdentifier
 Thumbs.db
 var/
+*.pem
+*.key
+*.crt

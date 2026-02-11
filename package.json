@@ -1,0 +1,17 @@
+{
+  "name": "carefree-investments-website",
+  "version": "1.0.0",
+  "description": "Static website for Carefree Investments LLC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

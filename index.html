@@ -879,7 +879,7 @@
                     <p>The latest from Carefree Investments</p>
                 </div>-->
                 <div class="youtube-wrapper" id="youtubeWrapper">
-                    <iframe id="youtubePlayer" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="youtubePlayer" src="" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
 
                 <!-- Suno Playlist Player -->
@@ -1012,7 +1012,7 @@
     const YOUTUBE_CONFIG = {
         // Set to a playlist ID to embed a playlist, or null to use a single video
         playlistId: null,
-        videoId: null,
+        videoId: 'UCI2a7WpoQM',
         // Player options
         autoplay: false,
         loop: false
@@ -1028,14 +1028,16 @@
         }
 
         if (YOUTUBE_CONFIG.playlistId) {
-            iframe.src = 'https://www.youtube.com/embed/videoseries?' +
+            iframe.src = 'https://www.youtube-nocookie.com/embed/videoseries?' +
                 'list=' + YOUTUBE_CONFIG.playlistId +
                 '&autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
-                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0);
+                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0) +
+                '&rel=0';
         } else if (YOUTUBE_CONFIG.videoId) {
-            iframe.src = 'https://www.youtube.com/embed/' + YOUTUBE_CONFIG.videoId +
+            iframe.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_CONFIG.videoId +
                 '?autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
-                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0);
+                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0) +
+                '&rel=0';
         }
     })();
     </script>
