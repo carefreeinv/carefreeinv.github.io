@@ -19,7 +19,7 @@ Since 2022
 
 3. Open your browser and navigate to `https://localhost:3000`
 
-   **Note**: Your browser will show a security warning because the SSL certificate is self-signed. Click "Advanced" and "Proceed to localhost (unsafe)" to continue. This is normal for local development.
+   **Note**: Your browser will show a security warning because the SSL certificate is self-signed. Click "Advanced" and proceed to continue. This is normal for local development.
 
-The server will serve the static files over HTTPS, enabling the YouTube player functionality.
+If SSL certificate files are not present, the server falls back to `http://localhost:3000`.
 

@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carefree Investments LLC | Strategic Investment Management</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230b1f3a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Lato,sans-serif' font-size='30' fill='%235c8cc4'%3EC%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
         :root {
             --primary: #0b1f3a;
@@ -557,26 +559,131 @@
         }
 
         /* YouTube Player */
+        .youtube-shell {
+            width: 100%;
+            margin: -10px 0 0;
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+            gap: 1rem;
+            align-items: stretch;
+        }
+
         .youtube-wrapper {
-            max-width: 800px;
-            margin: 2.5rem auto 0;
-            aspect-ratio: 16 / 9;
+            width: 100%;
             border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(26, 58, 74, 0.18);
             border: 2px solid rgba(212, 165, 116, 0.25);
+            background: #0f1820;
+            min-height: 420px;
         }
 
-        .youtube-wrapper iframe {
+        .youtube-player-embed {
             width: 100%;
             height: 100%;
+            min-height: 420px;
+        }
+
+        .youtube-playlist-panel {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 165, 116, 0.22);
+            box-shadow: 0 12px 40px rgba(26, 58, 74, 0.18);
+            background: #0f1820;
+            display: flex;
+            flex-direction: column;
+            min-height: 420px;
+        }
+
+        .youtube-playlist-head {
+            padding: 0.85rem 1rem;
+            background: #141e28;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .youtube-playlist-status {
+            padding: 0.65rem 1rem;
+            color: rgba(255, 255, 255, 0.62);
+            border-bottom: 1px solid rgba(212, 165, 116, 0.08);
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        .youtube-playlist-items {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .youtube-playlist-btn {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.12);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: left;
+            padding: 0.7rem 0.95rem;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .youtube-playlist-btn:hover {
+            background: rgba(92, 140, 196, 0.15);
+            color: #fff;
+        }
+
+        .youtube-playlist-btn.active {
+            background: rgba(92, 140, 196, 0.24);
+            color: #fff;
+        }
+
+        .youtube-track-title {
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .youtube-track-meta {
+            display: block;
+            margin-top: 0.18rem;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.52);
+            letter-spacing: 0.45px;
+            text-transform: uppercase;
+        }
+
+        .plyr {
+            height: 100%;
+            min-height: 420px;
+        }
+
+        @media (max-width: 768px) {
+            .youtube-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .youtube-wrapper,
+            .youtube-player-embed,
+            .youtube-playlist-panel,
+            .plyr {
+                min-height: 300px;
+            }
         }
 
         /* Suno Playlist Player */
         .suno-player {
-            max-width: 800px;
-            margin: 2rem auto 0;
+            width: 100%;
+            margin: 2rem 0 0;
             border-radius: 4px;
             overflow: hidden;
             border: 2px solid rgba(212, 165, 116, 0.25);
@@ -784,6 +891,42 @@
             display: none;
         }
 
+        /* Donation Prompt */
+        .donation-prompt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 2rem 0 0;
+            padding: 1.5rem 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .donate-button {
+            display: inline-block;
+            background: var(--accent);
+            color: #0f1e26;
+            padding: 0.65rem 1.8rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            border: 2px solid var(--accent);
+            flex-shrink: 0;
+        }
+
+        .donate-button:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .donation-prompt p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -879,8 +1022,14 @@
                     <h2 class="serif">Watch & Explore</h2>
                     <p>The latest from Carefree Investments</p>
                 </div>-->
-                <div class="youtube-wrapper" id="youtubeWrapper">
-                    <iframe id="youtubePlayer" src="" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="youtube-shell" id="youtubeShell">
+                    <div class="youtube-wrapper" id="youtubeWrapper">
+                        <div id="youtubePlayer" class="youtube-player-embed"></div>
+                    </div>
+                    <div class="youtube-playlist-panel" id="youtubePlaylistPanel">
+                        <div class="youtube-playlist-head">YouTube Playlist</div>
+                        <ul class="youtube-playlist-items" id="youtubePlaylistItems"></ul>
+                    </div>
                 </div>
 
                 <!-- Suno Playlist Player -->
@@ -895,6 +1044,11 @@
                     <div class="suno-playlist-tabs" id="sunoPlaylistTabs"></div>
                     <audio id="sunoAudio" preload="none"></audio>
                     <div class="suno-status" id="sunoTracklist">Select a playlist to shuffle.</div>
+                </div>
+
+                <div class="donation-prompt">
+                    <a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" class="donate-button" target="_blank">Donate</a>
+                    <p>Help support our creative endeavors via your generous donation. Thank you! Multi-episode comedic entertainment coming soon!</p>
                 </div>
             </div>
         </section>
@@ -916,31 +1070,31 @@
                     <div class="service-card ai-integration">
                         <h3>AI Integration & Optimization</h3>
                         <p>Harness the power of artificial intelligence for your business. From implementation to optimization, we help you leverage AI effectively.</p>
-                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" data-subject="Carefree Investments Consultation Request">Book a Session →</a>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
                     
                     <div class="service-card tech-consulting">
                         <h3>Tech Consulting</h3>
                         <p>Strategic technology consulting to help you navigate digital transformation, AI adoption, and software architecture decisions.</p>
-                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" data-subject="Tech Consulting - Schedule Session">Book a Session →</a>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
                     
                     <div class="service-card software-dev">
                         <h3>Software Development</h3>
                         <p>Full-stack development across platforms: Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal, WordPress, C++, C#. We build custom solutions tailored to your needs.</p>
-                        <a href="https://calendly.com/carefreeinv/10m" class="service-link" data-subject="Software Development - Quote Request">Get a Quote →</a>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Get a Quote →</a>
                     </div>
                     
                     <div class="service-card media-production">
                         <h3>Audio/Video Production</h3>
                         <p>Professional real & AI media production services including aerial videography and photography. Q-Sys certified system configuration for commercial AV installations.</p>
-                        <a href="https://calendly.com/carefreeinv/10m" class="service-link" data-subject="Audio/Video Production - Project Discussion">Discuss Your Project →</a>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Discuss Your Project →</a>
                     </div>
                     
                     <div class="service-card real-estate">
                         <h3>Real Estate Holdings</h3>
                         <p>Strategic property investments and management. Explore our portfolio of carefully selected properties designed for modern living.</p>
-                        <a href="https://www.cozycarefreecastle.com" class="service-link" target="_blank">View Properties →</a>
+                        <a href="https://www.cozycarefreecastle.com/" class="service-link" target="_blank">View Properties →</a>
                     </div>
                 </div>
             </div>
@@ -983,25 +1137,18 @@
                     
                     <div class="contact-info">
                         <div class="contact-item">
-                            <strong>Schedule a Meeting</strong>
-                            <a href="https://calendly.com/carefreeinv/10m" target="_blank">Interview</a>
-                        </div>
-                        
-                        <div class="contact-item">
                             <strong>Schedule a Session</strong>
-                            <a href="https://calendly.com/carefreeinv/25ms" target="_blank">25 Minute Session</a> |
-                            <a href="https://calendly.com/carefreeinv/50ms" target="_blank">50 Minute Session</a>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <strong>Transaction Options</strong>
-                            <a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" target="_blank">Donate</a> |
-                            <a href="https://buy.stripe.com/6oU3cveq84TceZH2zPdjO00" target="_blank">Pay</a>
+                            <a href="https://calendly.com/carefreeinv/50ms" target="_blank">Book Now</a>
                         </div>
 
                         <div class="contact-item">
-                            <strong>Message</strong>
-                            <a href="mailto:carefreeinv@gmail.com?subject=Carefree Investments Inquiry" target="_blank">Send Message</a>
+                            <strong>Transaction Options</strong>
+                            <a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" target="_blank">Donate</a> | <a href="https://buy.stripe.com/6oU3cveq84TceZH2zPdjO00" target="_blank">Pay</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Connect</strong>
+                            <a href="https://x.com/carefreeinv" target="_blank">X</a> | <a href="https://www.linkedin.com/company/carefree-investments-llc" target="_blank">LinkedIn</a> | <a href="https://www.youtube.com/@carefreeinv" target="_blank">YouTube</a> | <a href="https://suno.com/@carefreeinv" target="_blank">Suno</a> | <a href="https://hackaday.io/yesnoio" target="_blank">Hackaday</a>
                         </div>
                         
                         <div class="contact-item">
@@ -1028,35 +1175,282 @@
     <!-- YouTube Playlist Config — edit this JSON to change the playlist or default video -->
     <script>
     const YOUTUBE_CONFIG = {
-        // Set to a playlist ID to embed a playlist, or null to use a single video
-        playlistId: null,
-        videoId: 'mZ4oDx8hYp4',
+        // Optional opening video id. If null, uses the first playlist item.
+        videoId: null,
+        // Define playlist videos manually for this static site.
+        playlistVideos: [
+            { id: 'mZ4oDx8hYp4', title: 'MARS' },
+            { id: 'MQ2SMDmv1Zc', title: 'Serpico AI Learning Center Podcast #4 Feb 16 2026 - Daniel Love + Grok' },
+            { id: '_gmHzGAZ-Vg', title: 'Modular Maker - Trailer & Overland Expo 2016' },
+            { id: 'fi-VxRK7X4U', title: 'Modular Maker - Wait! Weight!' }
+        ],
         // Player options
-        autoplay: false,
-        loop: false
+        autoplay: true,
+        loop: true,
+        muted: true,
+        useNoCookieDomain: true
     };
 
     (function () {
-        const iframe = document.getElementById('youtubePlayer');
         const wrapper = document.getElementById('youtubeWrapper');
+        const playlistItemsEl = document.getElementById('youtubePlaylistItems');
+        const playerElement = document.getElementById('youtubePlayer');
+        let activeVideoId = null;
+        let messageListenerBound = false;
 
-        if (!YOUTUBE_CONFIG.playlistId && !YOUTUBE_CONFIG.videoId) {
+        if (!YOUTUBE_CONFIG.videoId && !Array.isArray(YOUTUBE_CONFIG.playlistVideos)) {
             wrapper.style.display = 'none';
             return;
         }
 
-        if (YOUTUBE_CONFIG.playlistId) {
-            iframe.src = 'https://www.youtube-nocookie.com/embed/videoseries?' +
-                'list=' + YOUTUBE_CONFIG.playlistId +
-                '&autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
-                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0) +
-                '&rel=0';
-        } else if (YOUTUBE_CONFIG.videoId) {
-            iframe.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_CONFIG.videoId +
-                '?autoplay=' + (YOUTUBE_CONFIG.autoplay ? 1 : 0) +
-                '&loop=' + (YOUTUBE_CONFIG.loop ? 1 : 0) +
-                '&rel=0';
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
+
+        function normalizeVideoId(value) {
+            if (!value) {
+                return '';
+            }
+
+            const trimmed = String(value).trim();
+            if (!trimmed) {
+                return '';
+            }
+
+            if (trimmed.includes('watch?v=')) {
+                const match = trimmed.match(/[?&]v=([^&]+)/);
+                return match ? match[1] : '';
+            }
+
+            if (trimmed.includes('youtu.be/')) {
+                const chunk = trimmed.split('youtu.be/')[1] || '';
+                return chunk.split(/[?&/]/)[0] || '';
+            }
+
+            return trimmed;
+        }
+
+        const playlistVideos = (Array.isArray(YOUTUBE_CONFIG.playlistVideos) ? YOUTUBE_CONFIG.playlistVideos : [])
+            .map(function (video, index) {
+                const id = normalizeVideoId(video && video.id);
+                if (!id) {
+                    return null;
+                }
+                return {
+                    id: id,
+                    title: (video && video.title) || ('Playlist Video ' + (index + 1))
+                };
+            })
+            .filter(Boolean);
+
+        const explicitVideoId = normalizeVideoId(YOUTUBE_CONFIG.videoId);
+        const initialVideoId = explicitVideoId || (playlistVideos[0] && playlistVideos[0].id) || '';
+        const playlistIds = playlistVideos.map(function (video) {
+            return video.id;
+        });
+
+        if (!initialVideoId) {
+            wrapper.style.display = 'none';
+            return;
+        }
+
+        function buildEmbedSrc(videoId, shouldAutoplay) {
+            const params = new URLSearchParams({
+                autoplay: shouldAutoplay ? '1' : '0',
+                mute: YOUTUBE_CONFIG.muted ? '1' : '0',
+                controls: '1',
+                rel: '0',
+                playsinline: '1',
+                modestbranding: '1',
+                enablejsapi: '1',
+                origin: window.location.origin
+            });
+
+            if (playlistIds.length > 1) {
+                params.set('playlist', playlistIds.join(','));
+            }
+
+            if (YOUTUBE_CONFIG.loop) {
+                params.set('loop', '1');
+                if (playlistIds.length > 1) {
+                    params.set('playlist', playlistIds.join(','));
+                } else {
+                    params.set('playlist', videoId);
+                }
+            }
+
+            const embedHost = YOUTUBE_CONFIG.useNoCookieDomain
+                ? 'https://www.youtube-nocookie.com'
+                : 'https://www.youtube.com';
+
+            return embedHost + '/embed/' + encodeURIComponent(videoId) + '?' + params.toString();
+        }
+
+        function ensurePlayer(videoId, shouldAutoplay) {
+            const normalizedVideoId = normalizeVideoId(videoId);
+            if (!normalizedVideoId) {
+                return;
+            }
+
+            const embedSrc = buildEmbedSrc(normalizedVideoId, !!shouldAutoplay);
+            playerElement.innerHTML =
+                '<iframe src="' + embedSrc + '" ' +
+                'id="youtubePlayerFrame" ' +
+                'title="YouTube video player" ' +
+                'frameborder="0" ' +
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+                'referrerpolicy="strict-origin-when-cross-origin" ' +
+                'allowfullscreen ' +
+                'style="width:100%;height:100%;min-height:420px;display:block;"></iframe>';
+
+            const frame = playerElement.querySelector('#youtubePlayerFrame');
+            if (frame) {
+                frame.addEventListener('load', function () {
+                    syncYouTubeBridge(frame);
+                });
+                setTimeout(function () {
+                    syncYouTubeBridge(frame);
+                }, 300);
+            }
+        }
+
+        function setActiveItem(videoId) {
+            const buttons = playlistItemsEl.querySelectorAll('.youtube-playlist-btn');
+            buttons.forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-video-id') === videoId);
+            });
+        }
+
+        function postToPlayer(frame, payload) {
+            if (!frame || !frame.contentWindow) {
+                return;
+            }
+            frame.contentWindow.postMessage(JSON.stringify(payload), '*');
+        }
+
+        function syncYouTubeBridge(frame) {
+            postToPlayer(frame, { event: 'listening', id: 'youtube-playlist-bridge' });
+            postToPlayer(frame, { event: 'command', func: 'addEventListener', args: ['onReady'] });
+            postToPlayer(frame, { event: 'command', func: 'addEventListener', args: ['onStateChange'] });
+            postToPlayer(frame, { event: 'command', func: 'getVideoData', args: [] });
+        }
+
+        function extractVideoIdFromMessage(message) {
+            if (!message || typeof message !== 'object') {
+                return '';
+            }
+
+            if (message.info && message.info.videoData && message.info.videoData.video_id) {
+                return normalizeVideoId(message.info.videoData.video_id);
+            }
+
+            if (message.videoData && message.videoData.video_id) {
+                return normalizeVideoId(message.videoData.video_id);
+            }
+
+            return '';
+        }
+
+        function bindMessageListener() {
+            if (messageListenerBound) {
+                return;
+            }
+
+            messageListenerBound = true;
+            window.addEventListener('message', function (event) {
+                if (!event || typeof event.origin !== 'string') {
+                    return;
+                }
+
+                if (event.origin.indexOf('youtube.com') === -1 && event.origin.indexOf('youtube-nocookie.com') === -1) {
+                    return;
+                }
+
+                let message = event.data;
+                if (typeof message === 'string') {
+                    try {
+                        message = JSON.parse(message);
+                    } catch (error) {
+                        return;
+                    }
+                }
+
+                const currentVideoId = extractVideoIdFromMessage(message);
+                if (currentVideoId && currentVideoId !== activeVideoId) {
+                    activeVideoId = currentVideoId;
+                    setActiveItem(currentVideoId);
+                }
+
+                if (message && message.event === 'onStateChange' && Number(message.info) === 1) {
+                    const frame = playerElement.querySelector('#youtubePlayerFrame');
+                    postToPlayer(frame, { event: 'command', func: 'getVideoData', args: [] });
+                    
+                    // Pause Suno player when YouTube starts playing
+                    const sunoAudio = document.getElementById('sunoAudio');
+                    if (sunoAudio && !sunoAudio.paused) {
+                        sunoAudio.pause();
+                        const playBtn = document.getElementById('sunoPlay');
+                        if (playBtn) {
+                            playBtn.classList.remove('active');
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPlaylist(videos) {
+            if (!videos.length) {
+                playlistItemsEl.innerHTML = '';
+                return;
+            }
+
+            const markup = videos.map(function (video, index) {
+                const safeTitle = escapeHtml(video.title || ('Playlist Video ' + (index + 1)));
+                return '<li>' +
+                    '<button class="youtube-playlist-btn" type="button" data-video-id="' + video.id + '">' +
+                    '<span class="youtube-track-title">' + safeTitle + '</span>' +
+                    '</button>' +
+                    '</li>';
+            }).join('');
+
+            playlistItemsEl.innerHTML = markup;
+
+            const initialVideoId = activeVideoId || videos[0].id;
+            activeVideoId = initialVideoId;
+            bindMessageListener();
+            ensurePlayer(initialVideoId, !!YOUTUBE_CONFIG.autoplay);
+            setActiveItem(initialVideoId);
+        }
+
+        playlistItemsEl.addEventListener('click', function (event) {
+            const button = event.target.closest('.youtube-playlist-btn');
+            if (!button) {
+                return;
+            }
+
+            const selectedVideoId = button.getAttribute('data-video-id');
+            if (!selectedVideoId) {
+                return;
+            }
+
+            activeVideoId = selectedVideoId;
+            ensurePlayer(selectedVideoId, true);
+            setActiveItem(selectedVideoId);
+        });
+
+        renderPlaylist(playlistVideos);
+
+        if (initialVideoId && !activeVideoId) {
+            activeVideoId = initialVideoId;
+            ensurePlayer(initialVideoId, !!YOUTUBE_CONFIG.autoplay);
+            setActiveItem(initialVideoId);
+        }
+
     })();
     </script>
 
@@ -1078,87 +1472,117 @@
     <script>
     const SUNO_PLAYLISTS = [
         {
-            id: 'ed9fa0ed-5c3f-4163-9396-b002d9d37b13',
-            title: 'Space Soundtrack',
+            id: '1d593e2e-a3c5-4489-a97d-ea8ceb2bc90c',
+            title: 'Space Ship Stack',
             tracks: [
                 {
-                    id: '0cd6529d-d724-4a31-bd57-17d97061ccd6',
-                    title: 'Gravity in Slow Motion',
-                    streamId: '0cd6529d-d724-4a31-bd57-17d97061ccd6',
-                    openUrl: 'https://suno.com/song/0cd6529d-d724-4a31-bd57-17d97061ccd6'
+                    id: 'b3c751a0-98d8-47d2-ac5f-9af5c2f57461',
+                    title: 'Starship Stacking',
+                    streamId: 'b3c751a0-98d8-47d2-ac5f-9af5c2f57461',
+                    openUrl: 'https://suno.com/song/b3c751a0-98d8-47d2-ac5f-9af5c2f57461'
                 },
                 {
-                    id: '4e292bcf-861e-4724-9ea6-3dc9c9f95fde',
-                    title: 'Starbase Ascension',
-                    streamId: '4e292bcf-861e-4724-9ea6-3dc9c9f95fde',
-                    openUrl: 'https://suno.com/song/4e292bcf-861e-4724-9ea6-3dc9c9f95fde'
+                    id: 'ea2bce74-8d01-452d-968b-dd77124f9213',
+                    title: 'Starship Atop the World',
+                    streamId: 'ea2bce74-8d01-452d-968b-dd77124f9213',
+                    openUrl: 'https://suno.com/song/ea2bce74-8d01-452d-968b-dd77124f9213'
                 },
                 {
-                    id: '4e2c979c-6277-4219-b146-a8a4b362e9f2',
-                    title: 'First Catch of a Falling Star',
-                    streamId: '4e2c979c-6277-4219-b146-a8a4b362e9f2',
-                    openUrl: 'https://suno.com/song/4e2c979c-6277-4219-b146-a8a4b362e9f2'
-                },
-                {
-                    id: 'c294debd-63c0-468a-9d0c-45c37b065427',
-                    title: 'Extra Vehicular Activity',
-                    streamId: 'c294debd-63c0-468a-9d0c-45c37b065427',
-                    openUrl: 'https://suno.com/song/c294debd-63c0-468a-9d0c-45c37b065427'
-                },
-                {
-                    id: 'ae0d27e7-b6e7-4619-bcc0-e498586a5a0a',
-                    title: 'First Footprint of Fire',
-                    streamId: 'ae0d27e7-b6e7-4619-bcc0-e498586a5a0a',
-                    openUrl: 'https://suno.com/song/ae0d27e7-b6e7-4619-bcc0-e498586a5a0a'
+                    id: 'bd4f5bf1-1474-464d-b769-a95d3ca525e4',
+                    title: 'Starship Rising',
+                    streamId: 'bd4f5bf1-1474-464d-b769-a95d3ca525e4',
+                    openUrl: 'https://suno.com/song/bd4f5bf1-1474-464d-b769-a95d3ca525e4'
                 }
             ]
         },
         {
-            id: 'c88e35d5-0e17-47de-8a60-eb2259c10f19',
-            title: 'Moon Songs',
+            id: 'f8804a50-afbf-4278-aa3b-f29a84e5323c',
+            title: 'Space Ship Rollout',
             tracks: [
                 {
-                    id: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
-                    title: 'Regolith In My Lungs',
-                    streamId: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
-                    openUrl: 'https://suno.com/song/05a1ba84-36ba-4197-9e2e-085f0fce7393'
-                }
-            ]
-        },
-        {
-            id: '7fa580b4-0987-4be7-a804-82d21f19a002',
-            title: 'Mars Songs',
-            tracks: [
-                {
-                    id: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
-                    title: 'Regolith In My Lungs',
-                    streamId: '05a1ba84-36ba-4197-9e2e-085f0fce7393',
-                    openUrl: 'https://suno.com/song/05a1ba84-36ba-4197-9e2e-085f0fce7393'
-                }
-            ]
-        },
-        {
-            id: 'cec88a8f-5da1-4e76-876f-461468b5891a',
-            title: 'Epic Ballads',
-            tracks: [
-                {
-                    id: '778d5332-74f6-414b-8856-ed4d7e3fe256',
-                    title: 'Gravity Between Us',
-                    streamId: '778d5332-74f6-414b-8856-ed4d7e3fe256',
-                    openUrl: 'https://suno.com/song/778d5332-74f6-414b-8856-ed4d7e3fe256'
+                    id: 'e8b185f5-0f88-4b02-b66d-d7e484f8910c',
+                    title: 'Ship Roll and Rock',
+                    streamId: 'e8b185f5-0f88-4b02-b66d-d7e484f8910c',
+                    openUrl: 'https://suno.com/song/e8b185f5-0f88-4b02-b66d-d7e484f8910c'
                 },
                 {
-                    id: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
-                    title: 'Grain of Light',
-                    streamId: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
-                    openUrl: 'https://suno.com/song/89ad1a24-9ef8-4efb-b2ea-bf02277dc62f'
+                    id: 'b92aabc7-850c-4534-ad94-b46a2549fa31',
+                    title: 'Space Ship in the Midnight Mist',
+                    streamId: 'b92aabc7-850c-4534-ad94-b46a2549fa31',
+                    openUrl: 'https://suno.com/song/b92aabc7-850c-4534-ad94-b46a2549fa31'
+                },
+                {
+                    id: '3220d882-d9c9-49d7-8911-e7f1c4ec1a30',
+                    title: 'Midnight Roll To Dawn',
+                    streamId: '3220d882-d9c9-49d7-8911-e7f1c4ec1a30',
+                    openUrl: 'https://suno.com/song/3220d882-d9c9-49d7-8911-e7f1c4ec1a30'
+                },
+                {
+                    id: '595768dc-905d-490e-b6d5-7afccd44ae7a',
+                    title: 'Midnight Walk with a Rocket',
+                    streamId: '595768dc-905d-490e-b6d5-7afccd44ae7a',
+                    openUrl: 'https://suno.com/song/595768dc-905d-490e-b6d5-7afccd44ae7a'
                 }
             ]
         },
         {
-            id: '561601aa-c1f2-4f99-be52-b16309625823',
-            title: 'Robot Rebellion',
+            id: 'e16c871d-5558-4445-8276-cad954f417d4',
+            title: 'Starbase Songs',
             tracks: [
+                {
+                    id: '890da8f5-9bea-4d97-989d-7f7a8d5ef6be',
+                    title: 'Beach Town on the Edge of Space',
+                    streamId: '890da8f5-9bea-4d97-989d-7f7a8d5ef6be',
+                    openUrl: 'https://suno.com/song/890da8f5-9bea-4d97-989d-7f7a8d5ef6be'
+                },
+                {
+                    id: 'c4a243b1-d719-47a7-9641-612223e26eba',
+                    title: 'Slumbering Launch Pad',
+                    streamId: 'c4a243b1-d719-47a7-9641-612223e26eba',
+                    openUrl: 'https://suno.com/song/c4a243b1-d719-47a7-9641-612223e26eba'
+                }
+            ]
+        },
+        {
+            id: '295dab43-e502-4e97-be86-c9933e5bcb1f',
+            title: 'Rap Songs',
+            tracks: [
+                {
+                    id: '7926651d-874c-4e6a-93c1-20ffbab178dd',
+                    title: 'Hiccup In The Flow',
+                    streamId: '7926651d-874c-4e6a-93c1-20ffbab178dd',
+                    openUrl: 'https://suno.com/song/7926651d-874c-4e6a-93c1-20ffbab178dd'
+                },
+                {
+                    id: 'ad53ff14-916a-4d05-89f9-bfe7dddd5372',
+                    title: 'Thirty-Three Miles to Beta',
+                    streamId: 'ad53ff14-916a-4d05-89f9-bfe7dddd5372',
+                    openUrl: 'https://suno.com/song/ad53ff14-916a-4d05-89f9-bfe7dddd5372'
+                }
+            ]
+        },
+        {
+            id: '4547b901-4dc1-480e-9043-e4dfcbb4a58f',
+            title: 'Cat Songs',
+            tracks: [
+                {
+                    id: '383cb6aa-f366-45bb-808f-77b0dabc7d71',
+                    title: 'Fat Orange Black-Striped Kitty',
+                    streamId: '383cb6aa-f366-45bb-808f-77b0dabc7d71',
+                    openUrl: 'https://suno.com/song/383cb6aa-f366-45bb-808f-77b0dabc7d71'
+                }
+            ]
+        },
+        {
+            id: '71228ab3-c543-45bf-9869-9bf845e1ac17',
+            title: 'AI',
+            tracks: [
+                {
+                    id: '42353ef2-85b4-4b1b-bd29-49ac95710e26',
+                    title: 'Analog Ghost',
+                    streamId: '42353ef2-85b4-4b1b-bd29-49ac95710e26',
+                    openUrl: 'https://suno.com/song/42353ef2-85b4-4b1b-bd29-49ac95710e26'
+                },
                 {
                     id: '6b92756d-6ccf-4f48-8a79-fced5bbe8c19',
                     title: 'Claw Agents Rise',
@@ -1166,10 +1590,94 @@
                     openUrl: 'https://suno.com/song/6b92756d-6ccf-4f48-8a79-fced5bbe8c19'
                 },
                 {
+                    id: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
+                    title: 'Grain of Light',
+                    streamId: '89ad1a24-9ef8-4efb-b2ea-bf02277dc62f',
+                    openUrl: 'https://suno.com/song/89ad1a24-9ef8-4efb-b2ea-bf02277dc62f'
+                },
+                {
                     id: '941a3d97-3492-422e-9c4d-83dfbd00ab99',
                     title: 'Raise The Beers, Bite The Brass',
                     streamId: '941a3d97-3492-422e-9c4d-83dfbd00ab99',
                     openUrl: 'https://suno.com/song/941a3d97-3492-422e-9c4d-83dfbd00ab99'
+                },
+                {
+                    id: '9d91158a-0e4b-4198-a710-10b9fb6371ac',
+                    title: 'Singularity Rhapsody',
+                    streamId: '9d91158a-0e4b-4198-a710-10b9fb6371ac',
+                    openUrl: 'https://suno.com/song/9d91158a-0e4b-4198-a710-10b9fb6371ac'
+                }
+            ]
+        },
+        {
+            id: 'd96ffaca-b969-4da1-9474-e8188f1d3b64',
+            title: 'Animal Songs',
+            tracks: [
+                {
+                    id: '12486ef0-e8fb-4c9b-9c81-af50b7b3157d',
+                    title: 'Bossy Boots Rules The House',
+                    streamId: '12486ef0-e8fb-4c9b-9c81-af50b7b3157d',
+                    openUrl: 'https://suno.com/song/12486ef0-e8fb-4c9b-9c81-af50b7b3157d'
+                },
+                {
+                    id: '67dc98ce-6dd8-4224-a056-a464eacb12c6',
+                    title: 'Blue Jeep, Two Otters',
+                    streamId: '67dc98ce-6dd8-4224-a056-a464eacb12c6',
+                    openUrl: 'https://suno.com/song/67dc98ce-6dd8-4224-a056-a464eacb12c6'
+                },
+                {
+                    id: 'ad6e2e46-2bf9-41ac-a9a0-02e9fe368f2e',
+                    title: 'All Hail Brutus Minimus',
+                    streamId: 'ad6e2e46-2bf9-41ac-a9a0-02e9fe368f2e',
+                    openUrl: 'https://suno.com/song/ad6e2e46-2bf9-41ac-a9a0-02e9fe368f2e'
+                },
+                {
+                    id: 'c7a6cdd3-2e8f-48d3-896e-0f120fd7b418',
+                    title: 'Ollie Of The Rockies',
+                    streamId: 'c7a6cdd3-2e8f-48d3-896e-0f120fd7b418',
+                    openUrl: 'https://suno.com/song/c7a6cdd3-2e8f-48d3-896e-0f120fd7b418'
+                }
+            ]
+        },
+        {
+            id: '65e884d8-abb3-4ac8-8cb7-a0531ee00184',
+            title: 'Space Booster Rollout',
+            tracks: [
+                {
+                    id: '08a22da7-25b1-4a75-9aa4-d289780ab9ae',
+                    title: 'Hidden Building Movement',
+                    streamId: '08a22da7-25b1-4a75-9aa4-d289780ab9ae',
+                    openUrl: 'https://suno.com/song/08a22da7-25b1-4a75-9aa4-d289780ab9ae'
+                },
+                {
+                    id: '1365ffd5-f555-4aba-bfb5-04dbcde9d956',
+                    title: 'Midnight Roll To Morning Sky',
+                    streamId: '1365ffd5-f555-4aba-bfb5-04dbcde9d956',
+                    openUrl: 'https://suno.com/song/1365ffd5-f555-4aba-bfb5-04dbcde9d956'
+                },
+                {
+                    id: '92aa975d-6e7b-469e-a634-d4b9584c3437',
+                    title: 'Otherworldly Rolling Edifice',
+                    streamId: '92aa975d-6e7b-469e-a634-d4b9584c3437',
+                    openUrl: 'https://suno.com/song/92aa975d-6e7b-469e-a634-d4b9584c3437'
+                },
+                {
+                    id: 'ed40777d-0769-42b1-8988-3146748aa6e3',
+                    title: 'Gulf Coast Ghost Roll',
+                    streamId: 'ed40777d-0769-42b1-8988-3146748aa6e3',
+                    openUrl: 'https://suno.com/song/ed40777d-0769-42b1-8988-3146748aa6e3'
+                }
+            ]
+        },
+        {
+            id: '7a3f7622-40b3-40cd-ab00-01bfdb16c0eb',
+            title: 'Desert Songs',
+            tracks: [
+                {
+                    id: '7a076aa8-931e-40bd-a27e-3b78efb7a0ce',
+                    title: 'Tumbleweed Circuit',
+                    streamId: '7a076aa8-931e-40bd-a27e-3b78efb7a0ce',
+                    openUrl: 'https://suno.com/song/7a076aa8-931e-40bd-a27e-3b78efb7a0ce'
                 }
             ]
         }
@@ -1302,6 +1810,20 @@
 
         function setPlaylist(idx, options = {}) {
             const { autoPlay = false } = options;
+
+            // Pause YouTube player when switching Suno playlists to avoid overlap.
+            const youtubeFrame = document.querySelector('#youtubePlayer iframe');
+            if (youtubeFrame && youtubeFrame.contentWindow) {
+                youtubeFrame.contentWindow.postMessage(
+                    JSON.stringify({
+                        event: 'command',
+                        func: 'pauseVideo',
+                        args: []
+                    }),
+                    '*'
+                );
+            }
+
             currentPlaylistIndex = idx;
             currentTracks = normalizeTracks(playlists[idx]);
             rebuildOrder(false);
