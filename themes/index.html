@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cool — Dark Editor Theme | Carefree Investments</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230b1f3a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Lato,sans-serif' font-size='30' fill='%235c8cc4'%3EC%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #00001e; color: #eef2ff; font-family: 'Lato', sans-serif; line-height: 1.7; }
+        .container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 0.5rem; }
+        h1 strong { color: #5546ff; font-weight: 700; }
+        .subtitle { color: #73737e; font-size: 1.1rem; margin-bottom: 2.5rem; }
+        .preview {
+            background: #00001e;
+            border: 1px solid #1a1a3a;
+            border-radius: 6px;
+            padding: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin-bottom: 2.5rem;
+        }
+        .ln { color: #888888; user-select: none; margin-right: 1.5rem; }
+        .kw { color: #3950ac; }
+        .fn { color: #07d147; }
+        .fc { color: #ffffff; }
+        .str { color: #ffc400; }
+        .num { color: #3950ac; }
+        .cm { color: #73737e; }
+        .op { color: #ae3b2f; }
+        .var { color: #a9b7c6; }
+        .prop { color: #f69b10; }
+        .cls { color: #07d147; }
+        .esc { color: #cc7832; }
+        .const { color: #823f10; }
+        .downloads { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .dl-btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border: 2px solid #5546ff;
+            color: #eef2ff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            border-radius: 3px;
+        }
+        .dl-btn:hover { background: #5546ff; color: #00001e; }
+        .info { color: #5a5a65; font-size: 0.85rem; margin-top: 1.5rem; }
+        .info a { color: #5546ff; text-decoration: none; }
+        .info a:hover { color: #eef2ff; }
+        .back { display: inline-block; margin-bottom: 2rem; color: #5546ff; text-decoration: none; font-size: 0.9rem; }
+        .back:hover { color: #eef2ff; }
+        .install { margin-top: 2rem; color: #73737e; font-size: 0.9rem; }
+        .install h2 { color: #a9b7c6; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .install code { color: #ffc400; font-family: 'Fira Code', monospace; font-size: 0.85rem; }
+        .install ol { padding-left: 1.5rem; }
+        .install li { margin-bottom: 0.3rem; }
+        .section { margin-bottom: 2.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back">&larr; carefreeinv.com</a>
+        <h1><strong>cool</strong> theme</h1>
+        <p class="subtitle">A dark editor color scheme optimized for Retina &amp; HiDPI displays.</p>
+
+        <div class="preview"><span class="ln"> 1</span><span class="cm">// cool theme preview</span>
+<span class="ln"> 2</span><span class="kw">class</span> <span class="cls">SolarTracker</span> <span class="op">{</span>
+<span class="ln"> 3</span>  <span class="kw">constructor</span><span class="op">(</span><span class="prop">latitude</span><span class="op">,</span> <span class="prop">longitude</span><span class="op">)</span> <span class="op">{</span>
+<span class="ln"> 4</span>    <span class="var">this</span><span class="op">.</span><span class="prop">lat</span> <span class="op">=</span> <span class="prop">latitude</span><span class="op">;</span>
+<span class="ln"> 5</span>    <span class="var">this</span><span class="op">.</span><span class="prop">lng</span> <span class="op">=</span> <span class="prop">longitude</span><span class="op">;</span>
+<span class="ln"> 6</span>    <span class="var">this</span><span class="op">.</span><span class="prop">phase</span> <span class="op">=</span> <span class="num">0</span><span class="op">;</span>
+<span class="ln"> 7</span>  <span class="op">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>  <span class="fn">computeNoon</span><span class="op">(</span><span class="prop">date</span><span class="op">)</span> <span class="op">{</span>
+<span class="ln">10</span>    <span class="kw">const</span> <span class="const">JD</span> <span class="op">=</span> <span class="fc">toJulianDay</span><span class="op">(</span><span class="prop">date</span><span class="op">);</span>
+<span class="ln">11</span>    <span class="kw">return</span> <span class="str">`noon at </span><span class="esc">${</span><span class="var">this</span><span class="op">.</span><span class="prop">lat</span><span class="esc">}</span><span class="str">, </span><span class="esc">${</span><span class="var">this</span><span class="op">.</span><span class="prop">lng</span><span class="esc">}</span><span class="str">`</span><span class="op">;</span>
+<span class="ln">12</span>  <span class="op">}</span>
+<span class="ln">13</span><span class="op">}</span></div>
+
+        <div class="downloads">
+            <a href="cool-vscode.zip" download class="dl-btn">Download for VSCode (.zip)</a>
+            <a href="cool-intellij.zip" download class="dl-btn">Download for IntelliJ / PhpStorm (.zip)</a>
+        </div>
+
+        <div class="section install">
+            <h2>VSCode Installation</h2>
+            <ol>
+                <li>Extract the zip to <code>~/.vscode/extensions/cool-vscode/</code></li>
+                <li>Restart VSCode</li>
+                <li>Press <code>Ctrl+Shift+P</code>, type <code>Color Theme</code>, and select <strong>cool</strong></li>
+            </ol>
+        </div>
+
+        <div class="section install">
+            <h2>IntelliJ / PhpStorm Installation</h2>
+            <ol>
+                <li>Download the <code>.zip</code> and extract <code>cool.icls</code></li>
+                <li>Copy to your IDE config: <code>~/.config/JetBrains/&lt;IDE&gt;/colors/</code></li>
+                <li>Restart and select <strong>cool</strong> under <em>Settings &rarr; Editor &rarr; Color Scheme</em></li>
+            </ol>
+        </div>
+
+        <p class="info">By <a href="/">Carefree Investments LLC</a></p>
+    </div>
+</body>
+</html>

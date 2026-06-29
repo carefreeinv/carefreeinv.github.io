@@ -371,16 +371,22 @@
                 url('images/media.jpg');
         }
 
-        .about .service-card.littletown::after {
-            background-image: 
-                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
-                url('images/littletown.jpg');
-        }
-
-        .about .service-card.tech-consulting::after {
-            background-image: 
+        .about .service-card.iot-integration::after {
+            background-image:
                 linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
                 url('images/consulting.jpg');
+        }
+
+        .about .service-card.hardware-prototyping::after {
+            background-image:
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/code.jpg');
+        }
+
+        .about .service-card.web-dev::after {
+            background-image:
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/littletown.jpg');
         }
 
         .about .service-card:hover::after {
@@ -927,6 +933,211 @@
             color: var(--text);
         }
 
+        /* Projects Section */
+        .projects {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-top: 3px solid var(--accent);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(26, 58, 74, 0.1);
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .service-link {
+            color: var(--secondary);
+        }
+
+        .project-card .service-link:hover {
+            color: var(--accent);
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: auto;
+            padding-top: 0.75rem;
+        }
+
+        .project-tag {
+            font-size: 0.65rem;
+            color: var(--text-light);
+            background: rgba(92, 140, 196, 0.08);
+            border: 1px solid rgba(92, 140, 196, 0.15);
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .project-filter-groups {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-filter-btn {
+            background: white;
+            border: 1px solid rgba(92, 140, 196, 0.35);
+            color: var(--text-light);
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-family: 'Lato', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .project-filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--primary);
+        }
+
+        .project-filter-btn.active {
+            border-color: var(--accent);
+            color: white;
+            background: var(--accent);
+        }
+
+        .project-filter-add {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.3rem;
+            margin-right: -0.35rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(92, 140, 196, 0.5);
+            background: rgba(92, 140, 196, 0.08);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .project-filter-add:hover {
+            color: white;
+            background: var(--accent);
+        }
+
+        .project-filter-btn.active .project-filter-add {
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .project-filter-btn.active .project-filter-add:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .web-node { cursor: pointer; }
+        .web-node circle { transition: stroke 0.15s ease, stroke-width 0.15s ease; }
+        .web-node:hover circle { stroke: var(--accent); stroke-width: 2.5px; }
+        .web-node:hover text { fill: var(--accent); }
+
+        /* In the News Section */
+        .news {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .news-card {
+            background: var(--light);
+            border-left: 3px solid var(--accent);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            box-shadow: -8px 8px 24px rgba(26, 58, 74, 0.08);
+            transform: translateX(4px);
+        }
+
+        .news-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .news-card .news-source {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .news-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .news-card .service-link {
+            color: var(--secondary);
+        }
+
+        .news-card .service-link:hover {
+            color: var(--accent);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -1002,6 +1213,8 @@
                 </div>
                 <ul>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" target="_blank">Donate</a></li>
                 </ul>
@@ -1061,36 +1274,54 @@
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card littletown">
-                        <h3>LittleTown.Pro</h3>
-                        <p>Pro Finder directory, curated TV channels for cafes and foyers, rapid website development, articles, podcasts, and community resources.</p>
-                        <a href="https://littletown.pro" class="service-link" target="_blank">Visit LittleTown.Pro →</a>
-                    </div>
-                    
                     <div class="service-card ai-integration">
-                        <h3>AI Integration & Optimization</h3>
-                        <p>Harness the power of artificial intelligence for your business. From implementation to optimization, we help you leverage AI effectively.</p>
+                        <h3>AI Systems Administration</h3>
+                        <p>Configuration, optimization, and security for AI platforms including Azure, NemoClaw, OpenClaw, ChatGPT, and xAI. Linux infrastructure, integration architecture, and ongoing administration.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
-                    
-                    <div class="service-card tech-consulting">
-                        <h3>Tech Consulting</h3>
-                        <p>Strategic technology consulting to help you navigate digital transformation, AI adoption, and software architecture decisions.</p>
-                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
-                    </div>
-                    
+
                     <div class="service-card software-dev">
                         <h3>Software Development</h3>
-                        <p>Full-stack development across platforms: Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal, WordPress, C++, C#. We build custom solutions tailored to your needs.</p>
+                        <p>Full-stack development across platforms: Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal (Acquia certified), Symfony, WordPress, C++, C#. Custom solutions backed by automated testing with Playwright, Behat, and PHPUnit.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Get a Quote →</a>
                     </div>
-                    
+
+                    <div class="service-card web-dev">
+                        <h3>Website Development</h3>
+                        <p>Drupal, static sites, and AI-powered website builds. From federal agencies and national media platforms to small-town storefronts.</p>
+                        <a href="#projects" class="service-link">View Projects →</a>
+                    </div>
+
+                    <div class="service-card iot-integration">
+                        <h3>IoT Integration</h3>
+                        <p>MQTT bridges, solar charge controller integration, sensor networks, and home/business automation built on Home Assistant and similar platforms.</p>
+                        <a href="#projects" class="service-link">View Projects →</a>
+                    </div>
+
+                    <div class="service-card hardware-prototyping">
+                        <h3>Hardware Prototyping</h3>
+                        <p>Custom electronics, modular hardware design, and embedded firmware. Raspberry Pi, Arduino, and CircuitPython development from breadboard to production board.</p>
+                        <a href="#projects" class="service-link">View Projects →</a>
+                    </div>
+
+                    <div class="service-card devops">
+                        <h3>DevOps & Infrastructure</h3>
+                        <p>Server provisioning and configuration management with Ansible, CI/CD pipelines, and Linux infrastructure for applications that need to scale and stay online.</p>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
+                    </div>
+
+                    <div class="service-card qa-testing">
+                        <h3>QA & Testing</h3>
+                        <p>Automated test suites built with Playwright, Behat, and PHPUnit. End-to-end coverage that catches regressions before they reach production.</p>
+                        <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
+                    </div>
+
                     <div class="service-card media-production">
-                        <h3>Audio/Video Production</h3>
-                        <p>Professional real & AI media production services including aerial videography and photography. Q-Sys certified system configuration for commercial AV installations.</p>
+                        <h3>Media Production</h3>
+                        <p>Video editing, AI music composition, Part 107 certified aerial cinematography, animation, FOH audio mixing, and Q-Sys commercial AV system configuration.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Discuss Your Project →</a>
                     </div>
-                    
+
                     <div class="service-card real-estate">
                         <h3>Real Estate Holdings</h3>
                         <p>Strategic property investments and management. Explore our portfolio of carefully selected properties designed for modern living.</p>
@@ -1099,6 +1330,559 @@
                 </div>
             </div>
         </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="serif">Projects</h2>
+                    <p>Open-source tools and experiments from Carefree Investments</p>
+                </div>
+
+                <div class="project-filter-groups" id="projectFilterBar"></div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+        </section>
+
+        <script>
+        const PROJECTS = [
+            {
+                title: "LittleTown.Pro",
+                description: "AI-powered website builder for small-town businesses and nonprofits. Pro Finder directory, curated TV channels, rapid website development, and community resources.",
+                url: "https://littletown.pro",
+                linkText: "Visit LittleTown.Pro",
+                tags: ["Active", "Website", "Software", "Media", "Marketing", "Company"],
+                weight: 5
+            },
+            {
+                title: "MQTTpi",
+                description: "An MQTT bridge for Raspberry Pi and Pico W that connects GPIO pins and sensors to Home Assistant. Configure hardware via YAML and publish states with auto-discovery.",
+                url: "https://carefreeinv.com/mqttpi",
+                linkText: "View Docs",
+                tags: ["Active", "IoT", "Hardware", "Automation"],
+                weight: 5
+            },
+            {
+                title: "SolarTracer MQTT",
+                description: "Reads EPEVER/Tracer BN MPPT solar charge controllers via RS-485 and publishes data to MQTT with Home Assistant auto-discovery. Features a real-time terminal dashboard and intelligent LiFePO4 battery estimates.",
+                url: "https://carefreeinv.com/epever-tracer-mqtt/",
+                linkText: "View Docs",
+                tags: ["Active", "IoT", "Solar", "Automation"],
+                weight: 5
+            },
+            {
+                title: "Diurnal Phase Clock",
+                description: "A real-time solar tracking tool that displays the current phase of day and night using NOAA algorithms. Divides the 24-hour cycle into a standardized 0–6 scale without DST.",
+                url: "https://carefreeinv.com/diurnal-phase-clock",
+                linkText: "View Clock",
+                tags: ["Active", "Software", "Solar"],
+                weight: 4
+            },
+            {
+                title: "Automatic Fume Extractor",
+                description: "An intelligent workbench bot that detects soldering activity via infrared thermal imaging and automatically activates LED lighting and fume extraction.",
+                url: "https://hackaday.io/project/166813-automatic-fume-extractor",
+                linkText: "View on Hackaday",
+                tags: ["Active", "Hardware", "Electronics", "IoT", "Media"],
+                weight: 4
+            },
+            {
+                title: "Retro Modules",
+                description: "Production-ready modular prototypes for retro-style electronics. Open-source designs for hobbyists and engineers building vintage-inspired modules.",
+                url: "https://retromodules.com",
+                linkText: "Visit RetroModules.com",
+                tags: ["Active", "Hardware", "Electronics"],
+                weight: 4
+            },
+            {
+                title: "Mobile Makerspace",
+                description: "Portable lab covering digital electronics, fabrication, AI tools, textiles, video editing, coding, music production, and both wood and metal shop work.",
+                tags: ["Active", "Hardware", "Software", "Media"],
+                weight: 3
+            },
+            {
+                title: "Cinematography",
+                description: "FAA Part 107 certified drone pilot and cinematographer with camera work experience since 1996. Aerial and ground camera operation and photography.",
+                url: "https://www.youtube.com/@carefreeinv",
+                linkText: "Watch on YouTube",
+                tags: ["Active", "Media", "Marketing"],
+                weight: 5
+            },
+            {
+                title: "Artificial Intelligence",
+                description: "Extensive integration, optimization, and systems administration across Anthropic Claude, OpenAI ChatGPT, SpaceX xAI Grok, Google Gemini, Microsoft Azure AI, Suno, Seedance, and more.",
+                url: "https://calendly.com/carefreeinv/50ms",
+                linkText: "Book a Session",
+                tags: ["Active", "Software", "Media"],
+                weight: 5
+            },
+            {
+                title: "Video Editing",
+                description: "Professional video editing and post-production using Adobe Premiere, Avid Media Composer, Final Cut Pro, and DaVinci Resolve.",
+                url: "https://www.youtube.com/@carefreeinv",
+                linkText: "Watch on YouTube",
+                tags: ["Active", "Media", "Marketing"],
+                weight: 5
+            },
+            {
+                title: "Live Broadcast Production",
+                description: "Over 5 years of professional live broadcast production experience including multi-camera switching, graphics, streaming, and real-time show direction, supported by a full video editing and front-of-house audio engineering pipeline.",
+                url: "https://www.youtube.com/@carefreeinv",
+                linkText: "Watch on YouTube",
+                tags: ["Media"],
+                weight: 5
+            },
+            {
+                title: "Audio Production",
+                description: "AI music composition on Suno, Q-Sys Level One certified systems configuration for commercial AV, and decades of front-of-house audio mixing experience.",
+                url: "https://suno.com/@carefreeinv",
+                linkText: "Listen on Suno",
+                tags: ["Active", "Media"],
+                weight: 5
+            },
+            {
+                title: "FOH Audio Engineering",
+                description: "Front-of-house audio engineering for live events, studio recording, and broadcast production. Decades of experience mixing live sound across venues, stages, and broadcast environments.",
+                url: "https://calendly.com/carefreeinv/50ms",
+                linkText: "Book a Session",
+                tags: ["Active", "Media"],
+                weight: 5
+            },
+            {
+                title: "lng",
+                description: "A compact interplanetary language translator designed for brevity. Converts text between languages using compact translation rules with token analysis and confidence scoring.",
+                url: "https://carefreeinv.com/lng",
+                linkText: "Try lng",
+                tags: ["Active", "Software", "Language"],
+                weight: 4
+            },
+            {
+                title: "TV Module",
+                description: "A Drupal module providing smart TV-like applications with channel and library modes. Streams categorized video content contextually on any page.",
+                url: "https://www.drupal.org/project/tv",
+                linkText: "View on Drupal.org",
+                tags: ["Active", "Drupal", "Media"],
+                weight: 3
+            },
+            {
+                title: "Clip Module",
+                description: "Create time-based references to media using SMPTE timecodes. Define In/Out points to embed specific segments of longer videos without duplicating source files.",
+                url: "https://www.drupal.org/project/clip",
+                linkText: "View on Drupal.org",
+                tags: ["Active", "Drupal", "Media"],
+                weight: 3
+            },
+            {
+                title: "Remote Video Module",
+                description: "Extends Drupal's core media module with enhanced remote video metadata storage and an admin interface for advanced video management.",
+                url: "https://www.drupal.org/project/remote_video",
+                linkText: "View on Drupal.org",
+                tags: ["Active", "Drupal", "Media"],
+                weight: 3
+            },
+            {
+                title: "Form Factory Kits Module",
+                description: "Accelerates custom form creation with reusable kit objects compatible with the Drupal Render API. Extensible by other modules with additional kit collections.",
+                url: "https://www.drupal.org/project/formfactorykits",
+                linkText: "View on Drupal.org",
+                tags: ["Active", "Drupal", "Software"],
+                weight: 3
+            },
+            {
+                title: "rgbl()",
+                description: "An Arduino library for consistent perceived brightness across Adafruit NeoPixel (WS2812) LED strips. Automatically compensates for multi-sub-LED secondary colors appearing brighter than primaries.",
+                url: "https://yesnoio.github.io/yesnoio-rgbl",
+                linkText: "View Docs",
+                tags: ["Active", "Hardware", "Electronics"],
+                weight: 2
+            },
+            {
+                title: "Responsive Table",
+                description: "A lightweight CSS pattern for mobile-friendly tables without JavaScript. Stacks cells into card-like layouts with inline labels at small viewports.",
+                url: "https://yesnoio.github.io/responsive-table",
+                linkText: "View Demo",
+                tags: ["Active", "Software"],
+                weight: 2
+            },
+            {
+                title: "cool Theme",
+                description: "A dark editor color scheme optimized for Retina and HiDPI displays. Available for IntelliJ/PhpStorm and VSCode.",
+                url: "/themes/",
+                linkText: "Download Theme",
+                tags: ["Active", "Software"],
+                weight: 2
+            },
+            {
+                title: "Cozy Carefree Castle",
+                description: "Custom Drupal website for a renovated Tudor-inspired Colorado vacation rental with application and reservation management.",
+                url: "https://www.cozycarefreecastle.com",
+                linkText: "Visit Site",
+                tags: ["Active", "Website", "Software", "Drupal", "Company"],
+                weight: 4
+            },
+            {
+                title: "Animation",
+                description: "2D and 3D animation production for storytelling, explainers, and creative projects.",
+                url: "https://www.youtube.com/@carefreeinv",
+                linkText: "Watch on YouTube",
+                tags: ["Active", "Media", "Marketing"],
+                weight: 4
+            },
+            {
+                title: "Marketing",
+                description: "Full-spectrum marketing services including brand strategy, content creation, social media, SEO, email campaigns, and ad production across video, photo, animation, and AI-generated assets.",
+                url: "https://calendly.com/carefreeinv/50ms",
+                linkText: "Book a Session",
+                tags: ["Active", "Marketing"],
+                weight: 5
+            },
+            {
+                title: "NPR",
+                description: "Drupal development on a national public media digital platform.",
+                url: "https://www.npr.org",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Nonprofit", "Media"],
+                weight: 5
+            },
+            {
+                title: "AmeriCorps.gov",
+                description: "Drupal development on a federal agency platform connecting Americans to public service opportunities.",
+                url: "https://www.americorps.gov",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Government"],
+                weight: 5
+            },
+            {
+                title: "Academy of Model Aeronautics",
+                description: "Drupal website with membership management, club directories, and FAA liaison services. The largest model aviation association in the US.",
+                url: "https://modelaircraft.org",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Association"],
+                weight: 4
+            },
+            {
+                title: "CARD.com",
+                description: "Drupal 7 prepaid card platform featuring licensed brands. Identification system maintenance and IVR system development.",
+                url: "https://card.com",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Company"],
+                weight: 3
+            },
+            {
+                title: "UBM Canon",
+                description: "Drupal development including SSO systems, REST API implementation, and Salesforce integration. Global advanced manufacturing media platform.",
+                url: "https://daniellove.com/project/drupal/website/ubmcanon",
+                linkText: "View Project",
+                tags: ["Website", "Software", "Drupal", "Company", "Media"],
+                weight: 3
+            },
+            {
+                title: "Packaging Digest",
+                description: "Client-side JavaScript application integrated with a Drupal 7 trade publication website.",
+                url: "https://daniellove.com/project/drupal/website/ubmcanon",
+                linkText: "View Project",
+                tags: ["Website", "Software", "Drupal", "Company", "Media"],
+                weight: 2
+            },
+            {
+                title: "EVAPCO",
+                description: "Drupal site featuring filtered search within complex regional polygons, with related ERP integration via Symfony middleware.",
+                url: "https://www.evapco.com",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Company"],
+                weight: 4
+            },
+            {
+                title: "AFT Connect",
+                description: "Drupal-based CRM integration platform with extensive form development and data pipeline architecture.",
+                url: "https://daniellove.com/project/drupal/website/aft-connect",
+                linkText: "View Project",
+                tags: ["Website", "Software", "Drupal", "Union"],
+                weight: 4
+            },
+            {
+                title: "Rufus Agbede",
+                description: "Artist portfolio website with a custom photo library management system and gallery presentation.",
+                url: "http://rufusagbede.com",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Drupal", "Individual"],
+                weight: 1
+            },
+            {
+                title: "Volcanic International",
+                description: "Website redesign and logo optimization. Ministry organization platform with content management and outreach tools.",
+                url: "https://www.volcanicinternational.org",
+                linkText: "Visit Site",
+                tags: ["Website", "Software", "Nonprofit"],
+                weight: 1
+            }
+        ];
+
+        (function () {
+            var grid = document.getElementById('projectsGrid');
+            var filterBar = document.getElementById('projectFilterBar');
+            var activeTags = ['Active'];
+
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            PROJECTS.sort(function (a, b) {
+                var wa = a.weight || 0, wb = b.weight || 0;
+                if (wb !== wa) return wb - wa;
+                return Math.random() - 0.5;
+            });
+
+            var tagOrder = [
+                'Active',
+                'Website', 'Software', 'Drupal',
+                'Hardware', 'Electronics', 'IoT', 'Automation',
+                'Media', 'Marketing',
+                'Solar', 'Language',
+                'Company', 'Nonprofit', 'Government', 'Association', 'Union', 'Individual'
+            ];
+            var allTags = [];
+            PROJECTS.forEach(function (p) {
+                (p.tags || []).forEach(function (t) {
+                    if (allTags.indexOf(t) === -1) allTags.push(t);
+                });
+            });
+            allTags.sort(function (a, b) {
+                var ai = tagOrder.indexOf(a), bi = tagOrder.indexOf(b);
+                if (ai === -1) ai = tagOrder.length;
+                if (bi === -1) bi = tagOrder.length;
+                return ai !== bi ? ai - bi : a.localeCompare(b);
+            });
+
+            function renderFilterBar() {
+                var isWide = window.innerWidth > window.innerHeight * 1.2;
+                var W, H, cx, cy, Rx1, Ry1, Rx2, Ry2, maxW;
+                if (isWide) {
+                    // Landscape / desktop: stretched elliptical web
+                    W = 800; H = 300; cx = 400; cy = 150;
+                    Rx1 = 95; Ry1 = 58; Rx2 = 185; Ry2 = 108;
+                    maxW = '900px';
+                } else {
+                    // Portrait / square: circular web
+                    W = 500; H = 420; cx = 250; cy = 210;
+                    Rx1 = 70; Ry1 = 70; Rx2 = 140; Ry2 = 140;
+                    maxW = '500px';
+                }
+                var rCenter = 20, rInner = 10, rOuter = 8;
+
+                var innerTagOrder = ['Software', 'Drupal', 'Hardware', 'Media', 'Marketing', 'Website'];
+                var outerTagOrder = [
+                    'Language', 'IoT', 'Electronics', 'Automation', 'Solar',
+                    'Company', 'Individual', 'Nonprofit', 'Government', 'Association', 'Union'
+                ];
+                var innerFiltered = innerTagOrder.filter(function (t) { return allTags.indexOf(t) !== -1; });
+                var outerFiltered = outerTagOrder.filter(function (t) { return allTags.indexOf(t) !== -1; });
+
+                var pos = {};
+                pos['Active'] = { x: cx, y: cy, r: rCenter, ring: 'center' };
+                innerFiltered.forEach(function (tag, i) {
+                    var a = (i / innerFiltered.length) * Math.PI * 2 - Math.PI / 2;
+                    pos[tag] = { x: cx + Math.cos(a) * Rx1, y: cy + Math.sin(a) * Ry1, angle: a, r: rInner, ring: 'inner', rx: Rx1, ry: Ry1 };
+                });
+                outerFiltered.forEach(function (tag, i) {
+                    var a = (i / outerFiltered.length) * Math.PI * 2 - Math.PI / 2;
+                    pos[tag] = { x: cx + Math.cos(a) * Rx2, y: cy + Math.sin(a) * Ry2, angle: a, r: rOuter, ring: 'outer', rx: Rx2, ry: Ry2 };
+                });
+
+                var cooccur = {};
+                PROJECTS.forEach(function (p) {
+                    var tags = p.tags || [];
+                    for (var i = 0; i < tags.length; i++) {
+                        for (var j = i + 1; j < tags.length; j++) {
+                            var k = [tags[i], tags[j]].sort().join('\x01');
+                            cooccur[k] = (cooccur[k] || 0) + 1;
+                        }
+                    }
+                });
+
+                var svgParts = [];
+
+                // Radial spokes
+                outerFiltered.forEach(function (tag) {
+                    var p = pos[tag];
+                    svgParts.push('<line x1="' + cx + '" y1="' + cy + '" x2="' + p.x.toFixed(1) + '" y2="' + p.y.toFixed(1) + '" stroke="rgba(92,140,196,0.07)" stroke-width="1"/>');
+                });
+                innerFiltered.forEach(function (tag) {
+                    var p = pos[tag];
+                    svgParts.push('<line x1="' + cx + '" y1="' + cy + '" x2="' + p.x.toFixed(1) + '" y2="' + p.y.toFixed(1) + '" stroke="rgba(92,140,196,0.1)" stroke-width="1"/>');
+                });
+                // Ring polygons
+                if (innerFiltered.length >= 3) {
+                    svgParts.push('<polygon points="' + innerFiltered.map(function (t) { return pos[t].x.toFixed(1) + ',' + pos[t].y.toFixed(1); }).join(' ') + '" fill="none" stroke="rgba(92,140,196,0.09)" stroke-width="1"/>');
+                }
+                if (outerFiltered.length >= 3) {
+                    svgParts.push('<polygon points="' + outerFiltered.map(function (t) { return pos[t].x.toFixed(1) + ',' + pos[t].y.toFixed(1); }).join(' ') + '" fill="none" stroke="rgba(92,140,196,0.07)" stroke-width="1"/>');
+                }
+
+                // Co-occurrence strands
+                Object.keys(cooccur).forEach(function (key) {
+                    var cnt = cooccur[key];
+                    if (cnt < 2) return;
+                    var pair = key.split('\x01');
+                    var pA = pos[pair[0]], pB = pos[pair[1]];
+                    if (!pA || !pB) return;
+                    var opacity = Math.min(0.48, 0.1 + cnt * 0.055);
+                    var sw = cnt >= 6 ? 2.5 : (cnt >= 4 ? 1.5 : 1);
+                    svgParts.push('<line x1="' + pA.x.toFixed(1) + '" y1="' + pA.y.toFixed(1) + '" x2="' + pB.x.toFixed(1) + '" y2="' + pB.y.toFixed(1) + '" stroke="rgba(92,140,196,' + opacity.toFixed(2) + ')" stroke-width="' + sw + '"/>');
+                });
+
+                // Nodes + labels
+                function nodeHtml(tag) {
+                    var p = pos[tag];
+                    if (!p) return '';
+                    var isActive = activeTags.indexOf(tag) !== -1;
+                    var isCenter = p.ring === 'center';
+                    var fill = isActive ? '#5c8cc4' : 'white';
+                    var stroke = isActive ? '#5c8cc4' : 'rgba(92,140,196,0.35)';
+                    var textFill = isCenter ? (isActive ? 'white' : '#5c8cc4') : '#0b1f3a';
+                    var html = '<g class="web-node" data-tag="' + escapeHtml(tag) + '">';
+                    html += '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + p.r + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isCenter ? 2 : 1.5) + '"/>';
+                    if (isCenter) {
+                        html += '<text x="' + p.x.toFixed(1) + '" y="' + p.y.toFixed(1) + '" dominant-baseline="middle" text-anchor="middle" font-size="7.5" font-family="Lato,sans-serif" font-weight="800" fill="' + textFill + '" letter-spacing="0.5" pointer-events="none">ACTIVE</text>';
+                    } else {
+                        var lx = cx + Math.cos(p.angle) * (p.rx + p.r + 8);
+                        var ly = cy + Math.sin(p.angle) * (p.ry + p.r + 8);
+                        var cosA = Math.cos(p.angle);
+                        var anchor = cosA > 0.25 ? 'start' : (cosA < -0.25 ? 'end' : 'middle');
+                        var fs = p.ring === 'inner' ? 8.5 : 8;
+                        html += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" dominant-baseline="middle" text-anchor="' + anchor + '" font-size="' + fs + '" font-family="Lato,sans-serif" font-weight="700" fill="' + textFill + '" letter-spacing="0.3" pointer-events="none">' + escapeHtml(tag.toUpperCase()) + '</text>';
+                    }
+                    html += '</g>';
+                    return html;
+                }
+
+                svgParts.push(nodeHtml('Active'));
+                innerFiltered.forEach(function (t) { svgParts.push(nodeHtml(t)); });
+                outerFiltered.forEach(function (t) { svgParts.push(nodeHtml(t)); });
+
+                filterBar.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:' + maxW + ';display:block;margin:0 auto;overflow:visible">' + svgParts.join('') + '</svg>';
+            }
+
+            function renderCards() {
+                var filtered = activeTags.length
+                    ? PROJECTS.filter(function (p) {
+                        return activeTags.every(function (t) { return (p.tags || []).indexOf(t) !== -1; });
+                    })
+                    : PROJECTS;
+
+                grid.innerHTML = filtered.map(function (p) {
+                    var tagsHtml = (p.tags || []).map(function (t) {
+                        return '<span class="project-tag">' + escapeHtml(t) + '</span>';
+                    }).join('');
+                    return '<div class="project-card">' +
+                        '<h3>' + escapeHtml(p.title) + '</h3>' +
+                        '<p>' + escapeHtml(p.description) + '</p>' +
+                        '<a href="' + escapeHtml(p.url) + '" class="service-link" target="_blank">' + escapeHtml(p.linkText) + ' →</a>' +
+                        '<div class="project-tags">' + tagsHtml + '</div>' +
+                        '</div>';
+                }).join('');
+            }
+
+            filterBar.addEventListener('click', function (e) {
+                var node = e.target.closest('.web-node');
+                if (!node) return;
+                var tag = node.getAttribute('data-tag');
+                var wIdx = activeTags.indexOf(tag);
+                var wasOnly = activeTags.length === 1 && wIdx === 0;
+                if (wasOnly) {
+                    activeTags = [];
+                } else if (wIdx !== -1) {
+                    activeTags.splice(wIdx, 1);
+                } else {
+                    activeTags.push(tag);
+                }
+                renderFilterBar();
+                renderCards();
+            });
+
+            grid.addEventListener('click', function (e) {
+                if (e.target.closest('.service-link')) return;
+                var card = e.target.closest('.project-card');
+                if (!card) return;
+                var link = card.querySelector('.service-link');
+                if (link) window.open(link.href, '_blank');
+            });
+
+            renderFilterBar();
+            renderCards();
+
+            var resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(renderFilterBar, 150);
+            });
+        })();
+        </script>
+
+        <section id="news" class="news">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="serif">In the News</h2>
+                    <p>Coverage and features from around the web</p>
+                </div>
+
+                <div class="news-grid" id="newsGrid"></div>
+            </div>
+        </section>
+
+        <script>
+        const NEWS_ITEMS = [
+            {
+                title: "Workbench Fume Extractor Sucks, But Has A Charming Personality",
+                source: "Hackaday",
+                date: "August 7, 2019",
+                description: "A DIY fume extraction bot that uses thermal imaging to detect soldering heat and automatically activates a fan, RGB lighting, and themed soundbites — all running on CircuitPython.",
+                url: "https://hackaday.com/2019/08/07/workbench-fume-extractor-sucks-but-has-a-charming-personality"
+            },
+            {
+                title: "Hackaday Prize Entry: What To Do With A Bunch Of Old Computer Adapters",
+                source: "Hackaday",
+                date: "July 2, 2015",
+                description: "Retro Modules repurposes vintage D-sub connectors from old computers into a modular electronics prototyping system with standardized pinouts for power, I²C, analog, and SPI.",
+                url: "https://hackaday.com/2015/07/02/hackaday-prize-entry-what-to-do-with-a-bunch-of-old-computer-adapters"
+            }
+        ];
+
+        (function () {
+            var grid = document.getElementById('newsGrid');
+
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            for (var i = NEWS_ITEMS.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = NEWS_ITEMS[i];
+                NEWS_ITEMS[i] = NEWS_ITEMS[j];
+                NEWS_ITEMS[j] = tmp;
+            }
+
+            grid.innerHTML = NEWS_ITEMS.map(function (item) {
+                return '<div class="news-card">' +
+                    '<span class="news-source">' + escapeHtml(item.source) + ' — ' + escapeHtml(item.date) + '</span>' +
+                    '<h3>' + escapeHtml(item.title) + '</h3>' +
+                    '<p>' + escapeHtml(item.description) + '</p>' +
+                    '<a href="' + escapeHtml(item.url) + '" class="service-link" target="_blank">Read Article →</a>' +
+                    '</div>';
+            }).join('');
+
+            grid.addEventListener('click', function (e) {
+                if (e.target.closest('.service-link')) return;
+                var card = e.target.closest('.news-card');
+                if (!card) return;
+                var link = card.querySelector('.service-link');
+                if (link) window.open(link.href, '_blank');
+            });
+        })();
+        </script>
 
         <section id="values" class="values">
             <div class="container">
@@ -1163,7 +1947,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; <script>document.write(new Date().getFullYear());</script> Carefree Investments LLC. All rights reserved.</p>
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> <a href="https://carefreeinv.com" style="color:inherit;text-decoration:none;" target="_blank">Carefree Investments LLC</a>. All rights reserved.</p>
             <!-- <div class="footer-links">
                 <a href="#privacy">Privacy Policy</a>
                 <a href="#terms">Terms of Service</a>
