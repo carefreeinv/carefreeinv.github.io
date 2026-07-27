@@ -1,0 +1,285 @@
+{
+  "anchor_commit": "81f16a0df0b7ced950783d3eb071263e64733be2",
+  "generated_at": "2026-07-27T03:30:27Z",
+  "platforms": [
+    "nemotron",
+    "grok",
+    "claude"
+  ],
+  "fleet": true,
+  "framework": "node",
+  "model_priority": [
+    "nim",
+    "grok",
+    "claude:sonnet",
+    "claude:opus",
+    "claude:fable"
+  ],
+  "preferred_orchestrator": "claude:fable",
+  "files": {
+    ".anchor/ANCHOR.md": {
+      "src": "anchor/ANCHOR.md",
+      "hash": "c16c1ed258a59f2f62186c7444a87385efaf6fd76a40a0e0e41b535502223845"
+    },
+    ".anchor/model-fitness.md": {
+      "src": "anchor/model-fitness.md",
+      "hash": "85da00e352ee06739752d2c46440488f3aeb2e4e6ca96325fda2e442e2fff653"
+    },
+    ".anchor/capacity-routing.md": {
+      "src": "anchor/capacity-routing.md",
+      "hash": "bbb79c8e9db69aae7cf4549794fde9bb080d69f9e260be8284878c381e945971"
+    },
+    ".anchor/system-prompts/mythos-core.md": {
+      "src": "anchor/system-prompts/mythos-core.md",
+      "hash": "7d223e45e7c2ce88461e86cf1a518f0763889944578f352c60a5c86b0ddbaa7d"
+    },
+    ".anchor/templates/plan.md": {
+      "src": "anchor/templates/plan.md",
+      "hash": "41718ebe714ba8237187d04b740c9f8208a072980576489b02e11a3e2f438279"
+    },
+    ".anchor/templates/task-spec.md": {
+      "src": "anchor/templates/task-spec.md",
+      "hash": "0f70c3cb036a79a2b4fd2a94457d9707ce162a1ea1db8d2679b25a07491c733e"
+    },
+    ".anchor/templates/review.md": {
+      "src": "anchor/templates/review.md",
+      "hash": "08ec82a23df1476bfc685ea91992b590d2fa9776bcee09a26d32b739c8e0a6d5"
+    },
+    ".anchor/templates/verification.md": {
+      "src": "anchor/templates/verification.md",
+      "hash": "69e89ed609b0f3da5f3e11c72a1c02f27d0f20e0ca85e4c222eae7e02c7151d4"
+    },
+    ".plans/README.md": {
+      "src": "anchor/scaffold/plans/README.md",
+      "hash": "c7c7802d02f68fb122ce8449e0f2d87c974622c7331539a23b023a069ad6cf5c"
+    },
+    ".plans/.gitignore": {
+      "src": "anchor/scaffold/plans/.gitignore",
+      "hash": "626704a188f580429d7b268dc7e88285c51d1774d5c7ffa53bce522eada4452c"
+    },
+    ".plans/bugs/.gitkeep": {
+      "src": "anchor/scaffold/plans/bugs/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/features/.gitkeep": {
+      "src": "anchor/scaffold/plans/features/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/in-progress/.gitkeep": {
+      "src": "anchor/scaffold/plans/in-progress/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/ambiguous/.gitkeep": {
+      "src": "anchor/scaffold/plans/ambiguous/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/blocked/.gitkeep": {
+      "src": "anchor/scaffold/plans/blocked/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/review-needed/.gitkeep": {
+      "src": "anchor/scaffold/plans/review-needed/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/drafts/.gitkeep": {
+      "src": "anchor/scaffold/plans/drafts/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".plans/completed/.gitkeep": {
+      "src": "anchor/scaffold/plans/completed/.gitkeep",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "NEMOTRON.md": {
+      "src": "platforms/nvidia-nim/NEMOTRON.md",
+      "hash": "96fa4ede6e127949b6a985f2ca960cf476ab648cd1edd55d4acf8648f10978c1"
+    },
+    "GROK.md": {
+      "src": "platforms/grok-build/GROK.md",
+      "hash": "aed11cc5608e8eb109b90fde8d0c2ce310637423b652e971b7b90b443e0d3344"
+    },
+    ".grok/skills/work/SKILL.md": {
+      "src": ".grok/skills/work/SKILL.md",
+      "hash": "f7ff284b73b311b4e50de793f425f852ed8cb3e95991e0f499086cbb82433770"
+    },
+    ".grok/skills/draft/SKILL.md": {
+      "src": ".grok/skills/draft/SKILL.md",
+      "hash": "4e8cc20f4327b8151b0e3bd997e09e5372ab981f8f7dae2dd5641ac7f860c33b"
+    },
+    ".grok/skills/review/SKILL.md": {
+      "src": ".grok/skills/review/SKILL.md",
+      "hash": "7aa0300793f892c4b9e3a9b25d27fc88a8fc4c0ba97ed8fc3a95b915f29bcd93"
+    },
+    ".grok/skills/audit/SKILL.md": {
+      "src": ".grok/skills/audit/SKILL.md",
+      "hash": "95655114605980d2a6f4772301f574f146f70199ec903afee5372030fb7c5c64"
+    },
+    ".grok/skills/deploy/SKILL.md": {
+      "src": ".grok/skills/deploy/SKILL.md",
+      "hash": "3acffa4665f51d6beecb8ed1bec64433aebaaf44e91a94e8e6f25b277707b38d"
+    },
+    ".grok/skills/commit-prep/SKILL.md": {
+      "src": ".grok/skills/commit-prep/SKILL.md",
+      "hash": "ecf671a3fee7a4ba13e57dea50da6269af346bc3c4d022c26e8a6eeed95c5879"
+    },
+    ".grok/skills/fleet-watch/SKILL.md": {
+      "src": ".grok/skills/fleet-watch/SKILL.md",
+      "hash": "69214df9e59798057ec01fd56d623b97e3906f515885ca85bf7651b1f71ad79c"
+    },
+    ".grok/skills/install-anchor/SKILL.md": {
+      "src": ".grok/skills/install-anchor/SKILL.md",
+      "hash": "aacf292949e4bb85e35c9483cbc9913307962b2286fa0e77bb2608d1c5879786"
+    },
+    ".grok/skills/local-models/SKILL.md": {
+      "src": "platforms/grok-build/skills/local-models/SKILL.md",
+      "hash": "bab3c9a4671cd3cbf60253cd13159bc22f880461ca39d9357cb868b4075674cc"
+    },
+    ".grok/skills/anchor/SKILL.md": {
+      "src": "platforms/grok-build/skills/anchor/SKILL.md",
+      "hash": "4f84dfeddd41c59389f7e4d8495788fd45948f9d3b526cdccf1c929cf740575c"
+    },
+    "CLAUDE.md": {
+      "src": "platforms/claude-code/CLAUDE.md",
+      "hash": "85d04422e21d4bf60bd9ce417b22d39bbda59caa5f0b5e4f286954d02cdff252"
+    },
+    ".claude/commands/work.md": {
+      "src": ".claude/commands/work.md",
+      "hash": "36305b0ab01255c196ac853da61da964dbb35026a94f0ac5ec77de4e7d4bc49b"
+    },
+    ".claude/commands/draft.md": {
+      "src": ".claude/commands/draft.md",
+      "hash": "537537c0092a7a8ab0c6d949b8578e39b09d30c0db9be988e368e6e5570911d4"
+    },
+    ".claude/commands/review.md": {
+      "src": ".claude/commands/review.md",
+      "hash": "897dca2153a7558f4344494b12368defeeeb714d100590056ce294bb012b55f6"
+    },
+    ".claude/commands/audit.md": {
+      "src": ".claude/commands/audit.md",
+      "hash": "ace43dc6d01981d82b72df8947f651aa002f1b719229883391b705036ae6c059"
+    },
+    ".claude/commands/deploy.md": {
+      "src": ".claude/commands/deploy.md",
+      "hash": "da08e68399ea29f521e8ac60bf0e0d486a0e012cb6047f5b19719b85542c82ee"
+    },
+    ".claude/commands/commit-prep.md": {
+      "src": ".claude/commands/commit-prep.md",
+      "hash": "67fa74a7ed7c5f45ce54b22378c29ea9c8732869965ed32327d414fa376013d5"
+    },
+    ".claude/commands/fleet-watch.md": {
+      "src": ".claude/commands/fleet-watch.md",
+      "hash": "13cd42c05a46118179d661f395a35921ab7215ffeb6376e8360e899134c77094"
+    },
+    ".claude/commands/install-anchor.md": {
+      "src": ".claude/commands/install-anchor.md",
+      "hash": "22f7715cfd540a0b774e1781916180028be87dc3428df85a72c42237bc38488e"
+    },
+    ".claude/commands/local-models.md": {
+      "src": "platforms/claude-code/commands/local-models.md",
+      "hash": "cdbe2dd783ac8e115a8a328a0690e6cf742581b02171a739b5a52062ec76499c"
+    },
+    ".claude/commands/anchor.md": {
+      "src": "platforms/claude-code/commands/anchor.md",
+      "hash": "15360fee33fc1fd43eeb34f48c0552e653e53269793a13a66b32a9236740c564"
+    },
+    ".anchor/scripts/anchor_client.py": {
+      "src": "scripts/anchor_client.py",
+      "hash": "91ab60a82d0deafbf508316f6a6f8a5bc6a4d1073d1d576110526b6a6d1b0540"
+    },
+    ".anchor/scripts/orchestrate.py": {
+      "src": "scripts/orchestrate.py",
+      "hash": "c4b0c0376206b3a3be9824bcebd52a541e9286366b219b68e7be91bfab351142"
+    },
+    ".anchor/scripts/work_once.py": {
+      "src": "scripts/work_once.py",
+      "hash": "0c7de1c4f18168b223a84f1257820b67f512b4b8404e8862c295e29a092ee9e5"
+    },
+    ".anchor/scripts/plan_select.py": {
+      "src": "scripts/plan_select.py",
+      "hash": "ced940412f90778695e780eb968bda74dc4ab34a87ba33872415b5f679cb9b2d"
+    },
+    ".anchor/scripts/plan_lease.py": {
+      "src": "scripts/plan_lease.py",
+      "hash": "b6a05f7ef32141c52875ef0e49133c7306ba48ad53604153ed254b3312f2691b"
+    },
+    ".anchor/scripts/plan_board.py": {
+      "src": "scripts/plan_board.py",
+      "hash": "611491dafbbe7f46c84442f2e9acb0fac980ff7a392db8b74b5b8033e9b6bb23"
+    },
+    ".anchor/scripts/worktree_for_agent.py": {
+      "src": "scripts/worktree_for_agent.py",
+      "hash": "2e351fef2dff6bccf5931817bc5e75a473b0eb2306cdf67e3b889d2785c19b8f"
+    },
+    ".anchor/scripts/fleet_watch.py": {
+      "src": "scripts/fleet_watch.py",
+      "hash": "305ab4fdc24a17841ec02e472ecfed64e596f4b61a411f1eae27aa111ff96906"
+    },
+    ".anchor/scripts/prompt_tuner.py": {
+      "src": "scripts/prompt_tuner.py",
+      "hash": "e34549ba829740d2259430a9d85c18e7e43304d8bb7fc5808a996a1e8500bfab"
+    },
+    ".anchor/scripts/router.py": {
+      "src": "scripts/router.py",
+      "hash": "f55e167ec90ac8059603d0a819fbe54ec03bf7d541a4eee757dcf2343192a0d9"
+    },
+    ".anchor/scripts/benchmark.py": {
+      "src": "scripts/benchmark.py",
+      "hash": "9cac6fef8fc15d0054eb5d68486ef1d7a982bb7e18717be35ec7f2e2e6865230"
+    },
+    ".anchor/scripts/fit_device.py": {
+      "src": "scripts/fit_device.py",
+      "hash": "a82ac246087c014dce28a4b1fb6a96d3de11de8a82a3147c5d24370057e224d7"
+    },
+    ".anchor/scripts/endpoints.yaml": {
+      "src": "scripts/endpoints.yaml",
+      "hash": "52311b6b680c9a792d7342afe4a7ff658efafff73be30a2c38c96883cab50353"
+    },
+    ".anchor/scripts/requirements.txt": {
+      "src": "scripts/requirements.txt",
+      "hash": "2d45ac2079cd0ecd3082ba5d7185c990429b7d16a4cf9ab84dc32db857f89e94"
+    },
+    ".anchor/mcp/anchor-prompts/server.py": {
+      "src": "mcp/anchor-prompts/server.py",
+      "hash": "d5a86d80c6417fd20af19c1d1805ee414b8c52e3e03fee64650c7eceefba5a57"
+    },
+    ".anchor/mcp/anchor-prompts/pyproject.toml": {
+      "src": "mcp/anchor-prompts/pyproject.toml",
+      "hash": "4ad2a5e1548316c1f8640e3e5716191d8be596a3bf3ddfc686e0bef1e193cde4"
+    },
+    ".anchor/mcp/anchor-prompts/README.md": {
+      "src": "mcp/anchor-prompts/README.md",
+      "hash": "b778bf7affb9a8d575897fb5b82032db66c8d115ea084f75fcd1afa63f32338e"
+    },
+    ".anchor/mcp/model-fleet/server.py": {
+      "src": "mcp/model-fleet/server.py",
+      "hash": "299f6651cf296312bf95c646c666d1fb3131c466f5c9fb64602cdde6e0987d6b"
+    },
+    ".anchor/mcp/model-fleet/pyproject.toml": {
+      "src": "mcp/model-fleet/pyproject.toml",
+      "hash": "26190154114aad3e01070dee7735efc5b009226414e6deafb98c4b59b7e6dfd5"
+    },
+    ".anchor/mcp/model-fleet/README.md": {
+      "src": "mcp/model-fleet/README.md",
+      "hash": "8c7363adc6714fe06ba5369554c86ecffbf80d9d53abe5f298b93ecd9b552d55"
+    },
+    ".anchor/mcp/project-orchestrator/server.py": {
+      "src": "mcp/project-orchestrator/server.py",
+      "hash": "be81ac7432846085f33d56758f9e6649a56a05ffc98407504dcb462231864283"
+    },
+    ".anchor/mcp/project-orchestrator/coordinator.py": {
+      "src": "mcp/project-orchestrator/coordinator.py",
+      "hash": "a6e0e4a2658c8074502bb94c4a0be92901ec4af4495b868ed2c9554052b7b8c1"
+    },
+    ".anchor/mcp/project-orchestrator/pyproject.toml": {
+      "src": "mcp/project-orchestrator/pyproject.toml",
+      "hash": "a9448f4899f44472012b18900f173e024d77c2d5875aa1b4c7946fb9c5a0ab3c"
+    },
+    ".anchor/mcp/project-orchestrator/README.md": {
+      "src": "mcp/project-orchestrator/README.md",
+      "hash": "c4787b1252b864565132c3751d49e29c7dc1a11462acbc01b0d244c38f22bc0a"
+    },
+    ".anchor/conventions.md": {
+      "src": null,
+      "hash": "4981513059e20d6fcb53e291df334a72fd560542c98c0618332be4b0602ab492"
+    }
+  }
+}
