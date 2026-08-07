@@ -166,6 +166,19 @@ the Anchor base skill set). Skill: `.grok/skills/local-models/SKILL.md`
 (source: `platforms/grok-build/skills/local-models/`). Uses
 `scripts/fit_device.py --probe` when fleet/scripts are available.
 
+## /content-update
+
+**This is yours — Claude and the other surfaces refuse it.** Refresh the
+`ARTICLES` array in `index.html` from long-form **Articles** published by
+`@carefreeinv` on X, using **live X access**. Record only what you observe:
+canonical permalinks as seen (never constructed), engagement counts as visible,
+`null` for anything you cannot see (never `0`, never an estimate). Summaries come
+from the Article's own text — 2–3 sentences, no inference about the business.
+Merge on `url`, keep-and-report anything missing from X rather than deleting, and
+**stop before committing** (hard rule 11 → `/commit-prep`). Ordering is the
+site's job, not yours. `--dry-run`, `--limit N`, `--account @handle`. Skill:
+`.grok/skills/content-update/SKILL.md`.
+
 ## /commit-prep
 
 **Required before any `git commit`.** Run `/commit-prep`: tests → CHANGELOG →

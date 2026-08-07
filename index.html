@@ -1138,6 +1138,76 @@
             color: var(--accent);
         }
 
+        /* Articles Section */
+        .articles {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .article-card {
+            background: var(--light);
+            border-left: 3px solid var(--accent);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            box-shadow: -8px 8px 24px rgba(26, 58, 74, 0.08);
+            transform: translateX(4px);
+        }
+
+        .article-card .article-meta {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .article-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .article-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .article-card .article-metrics {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 0.4px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .article-card .service-link {
+            color: var(--secondary);
+            align-self: flex-start;
+        }
+
+        .article-card .service-link:hover {
+            color: var(--accent);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -1214,6 +1284,7 @@
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#articles">Articles</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" target="_blank">Donate</a></li>
@@ -1832,6 +1903,145 @@
             window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(renderFilterBar, 150);
+            });
+        })();
+        </script>
+
+        <section id="articles" class="articles">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="serif">Articles</h2>
+                    <p>Long-form writing from @carefreeinv on X</p>
+                </div>
+
+                <div class="articles-grid" id="articlesGrid"></div>
+            </div>
+        </section>
+
+        <script>
+        /*
+         * Articles published by @carefreeinv on X.
+         *
+         * Maintained by the /content-update skill, which is Grok-only — it needs
+         * live X access. Do not hand-edit unless you are correcting a typo, and
+         * never invent a field: every value here is recorded as observed on X.
+         *
+         *   title        string  — as published on X
+         *   summary      string  — 2-3 sentences, drawn from the article's own text
+         *   url          string  — canonical permalink AS OBSERVED, never constructed
+         *   publishedAt  string  — ISO 8601 date, "YYYY-MM-DD"
+         *   likes        number  — observed count, or null if not visible
+         *   reposts      number  — observed count, or null if not visible
+         *   views        number  — optional, display only, or null
+         *   metricsAsOf  string  — ISO 8601 date the counts above were read
+         *
+         * Ordering is computed at render time, not stored, so the data stays
+         * purely factual and re-sorts correctly as engagement changes:
+         *
+         *   score = (likes || 0) + 2 * (reposts || 0)
+         *   sort by score DESC, then publishedAt DESC, then title ASC
+         *
+         * views is deliberately excluded from the score — it is inconsistently
+         * exposed and would swamp the signal when present for only some rows.
+         *
+         * An empty array is valid and expected until the first /content-update
+         * run: the renderer below removes the section and its nav entry outright.
+         */
+        const ARTICLES = [
+        ];
+
+        (function () {
+            var grid = document.getElementById('articlesGrid');
+            var section = document.getElementById('articles');
+            if (!grid || !section) return;
+
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.textContent = str == null ? '' : str;
+                return div.innerHTML;
+            }
+
+            function scoreOf(article) {
+                return (article.likes || 0) + 2 * (article.reposts || 0);
+            }
+
+            function compareArticles(a, b) {
+                var byScore = scoreOf(b) - scoreOf(a);
+                if (byScore !== 0) return byScore;
+
+                var dateA = String(a.publishedAt || '');
+                var dateB = String(b.publishedAt || '');
+                if (dateA !== dateB) return dateA < dateB ? 1 : -1;
+
+                return String(a.title || '').localeCompare(String(b.title || ''));
+            }
+
+            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+            // Split rather than parse: new Date('2026-07-14') is UTC midnight and
+            // renders as the previous day for anyone west of Greenwich.
+            function formatDate(iso) {
+                var parts = String(iso || '').split('-');
+                if (parts.length !== 3) return '';
+                var month = MONTHS[Number(parts[1]) - 1];
+                if (!month) return '';
+                return month + ' ' + Number(parts[2]) + ', ' + parts[0];
+            }
+
+            function formatCount(value) {
+                if (value >= 1000000) return (value / 1000000).toFixed(1).replace('.0', '') + 'M';
+                if (value >= 1000) return (value / 1000).toFixed(1).replace('.0', '') + 'K';
+                return String(value);
+            }
+
+            // null means "not visible on X"; 0 means "observed as zero". Both are
+            // honest, so zeros are shown and only nulls are omitted.
+            function labelCount(value, singular) {
+                return formatCount(value) + ' ' + (value === 1 ? singular : singular + 's');
+            }
+
+            function metricsLine(article) {
+                var parts = [];
+                if (typeof article.likes === 'number') parts.push(labelCount(article.likes, 'like'));
+                if (typeof article.reposts === 'number') parts.push(labelCount(article.reposts, 'repost'));
+                if (typeof article.views === 'number') parts.push(labelCount(article.views, 'view'));
+                return parts.join(' · ');
+            }
+
+            function renderCard(article) {
+                var date = formatDate(article.publishedAt);
+                var metrics = metricsLine(article);
+                return '<div class="article-card">' +
+                    '<span class="article-meta">@carefreeinv' + (date ? ' &mdash; ' + escapeHtml(date) : '') + '</span>' +
+                    '<h3>' + escapeHtml(article.title) + '</h3>' +
+                    '<p>' + escapeHtml(article.summary) + '</p>' +
+                    (metrics ? '<span class="article-metrics">' + escapeHtml(metrics) + '</span>' : '') +
+                    '<a href="' + escapeHtml(article.url) + '" class="service-link" target="_blank" rel="noopener">Read on X &rarr;</a>' +
+                    '</div>';
+            }
+
+            // No articles yet (or none left): leave no empty section and no dead
+            // nav link behind. /content-update fills the array; until it runs,
+            // this section does not exist as far as a visitor is concerned.
+            if (!Array.isArray(ARTICLES) || ARTICLES.length === 0) {
+                var navLink = document.querySelector('nav a[href="#articles"]');
+                if (navLink) {
+                    var navItem = navLink.parentNode;
+                    if (navItem && navItem.parentNode) navItem.parentNode.removeChild(navItem);
+                }
+                if (section.parentNode) section.parentNode.removeChild(section);
+                return;
+            }
+
+            grid.innerHTML = ARTICLES.slice().sort(compareArticles).map(renderCard).join('');
+
+            grid.addEventListener('click', function (e) {
+                if (e.target.closest('.service-link')) return;
+                var card = e.target.closest('.article-card');
+                if (!card) return;
+                var link = card.querySelector('.service-link');
+                if (link) window.open(link.href, '_blank');
             });
         })();
         </script>

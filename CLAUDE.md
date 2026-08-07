@@ -142,6 +142,18 @@ the Anchor base skill set). Command: `.claude/commands/local-models.md`
 (source: `platforms/claude-code/commands/`). Uses `scripts/fit_device.py --probe`
 when available.
 
+## /content-update
+
+**Grok-only — this surface refuses.** Refreshes the `ARTICLES` array in
+`index.html` from long-form Articles published by **`@carefreeinv`** on X. It
+needs **live X access**, so on Claude the entire first line is
+`SUGGEST-ESCALATE: grok — /content-update needs live X access; run it in a Grok
+session`, then stop. Never substitute web search, memory, or a cached page for
+live observation — the Articles section removes itself when the array is empty,
+so shipping empty is safe and fabricating entries is not. Real skill:
+`.grok/skills/content-update/SKILL.md`. Guard stub:
+`.claude/commands/content-update.md`.
+
 ## /commit-prep
 
 **Required before any `git commit`.** Run `/commit-prep` (command:
