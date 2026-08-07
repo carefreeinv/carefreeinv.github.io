@@ -15,6 +15,9 @@ All notable changes to this project will be documented in this file.
   which refreshes those cards from long-form Articles published by `@carefreeinv`
   on X. It requires live X access and therefore runs on Grok only; other surfaces
   refuse it via the guard at `.claude/commands/content-update.md`.
+- Populated the homepage `ARTICLES` array with six long-form Articles from
+  `@carefreeinv` on X (first live `/content-update` run), so the Articles section
+  and nav entry now appear with cards linking to each X Article permalink.
 - Added "Bueller" project card to the projects grid on the homepage.
 
 ### Fixed
