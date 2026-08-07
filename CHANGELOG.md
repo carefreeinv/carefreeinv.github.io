@@ -6,18 +6,25 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Added an Articles section to the homepage, rendering a card per entry in the
-  `ARTICLES` array in `index.html` — ordered by engagement
-  (`likes + 2 × reposts`) descending, then publish date descending, then title.
-  Each card links to the article on X. While the array is empty, the section and
-  its nav entry remove themselves, so the page is unchanged until articles exist.
-- Added the `/content-update` skill (`.grok/skills/content-update/SKILL.md`),
-  which refreshes those cards from long-form Articles published by `@carefreeinv`
-  on X. It requires live X access and therefore runs on Grok only; other surfaces
-  refuse it via the guard at `.claude/commands/content-update.md`.
-- Populated the homepage `ARTICLES` array with six long-form Articles from
-  `@carefreeinv` on X (first live `/content-update` run), so the Articles section
-  and nav entry now appear with cards linking to each X Article permalink.
+- Added a homepage Articles block (nested under media: below the Suno player,
+  above the donation blurb) driven by the `ARTICLES` array in `index.html`.
+  Cards show cover images, date, summary, SEO topic tags, and a link to each
+  X Article. Empty array still removes the block and its nav entry.
+- Layout: top article is always a full-width lead (image ~60%); remaining cards
+  paginate four at a time in a two-column grid with Prev/Next (scrolls to the
+  grid on page change).
+- Ranking uses effective views (full weight for 90 days, then `views × 90/age`),
+  then likes, then newest `publishedAt` — so long-lived high-view posts do not
+  lock the lead forever. Likes/reposts chips only show at counts ≥ 100.
+- Topic tags (3–5 per article) may link to related homepage services
+  (`#service-*`) or projects (`#project-*`); deep links briefly highlight the
+  target card. JSON-LD ItemList + schema.org Article markup included.
+- Populated `ARTICLES` with six live `@carefreeinv` X Articles (covers, titles,
+  metrics, tags).
+- Added the Grok-only `/content-update` skill
+  (`.grok/skills/content-update/SKILL.md`) documenting collect/merge/write,
+  90-day views decay, tags + service/project links, and display rules. Non-Grok
+  surfaces still refuse via `.claude/commands/content-update.md`.
 - Added "Bueller" project card to the projects grid on the homepage.
 
 ### Fixed

@@ -1138,32 +1138,80 @@
             color: var(--accent);
         }
 
-        /* Articles Section */
+        /* Articles (nested in media, below music player) */
         .articles {
-            padding: 6rem 0;
-            background: white;
+            margin: 2.5rem 0 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        .articles-list {
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .articles-featured {
+            width: 100%;
         }
 
         .articles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
         }
 
         .article-card {
             background: var(--light);
             border-left: 3px solid var(--accent);
-            padding: 2.5rem;
+            overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
 
         .article-card:hover {
             box-shadow: -8px 8px 24px rgba(26, 58, 74, 0.08);
             transform: translateX(4px);
+        }
+
+        .article-card.article-card-featured {
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .article-card .article-image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1280 / 512;
+            object-fit: cover;
+            background: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .article-card.article-card-featured .article-image {
+            width: 60%;
+            max-width: none;
+            flex: 0 0 60%;
+            aspect-ratio: 1280 / 512;
+            height: auto;
+            min-height: 100%;
+        }
+
+        .article-card .article-body {
+            padding: 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .article-card.article-card-featured .article-body {
+            padding: 2.5rem 3rem;
+            justify-content: center;
         }
 
         .article-card .article-meta {
@@ -1184,6 +1232,10 @@
             line-height: 1.4;
         }
 
+        .article-card.article-card-featured h3 {
+            font-size: 1.75rem;
+        }
+
         .article-card p {
             color: var(--text-light);
             line-height: 1.7;
@@ -1195,8 +1247,80 @@
             font-size: 0.8rem;
             color: var(--text-light);
             letter-spacing: 0.4px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.85rem;
             display: block;
+        }
+
+        .article-card .article-tags {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 0 0 1rem;
+            padding: 0;
+        }
+
+        .article-card .article-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: rgba(26, 58, 74, 0.07);
+            border: 1px solid rgba(26, 58, 74, 0.12);
+            padding: 0.28rem 0.55rem;
+            line-height: 1.2;
+        }
+
+        .article-card .article-tag a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .article-card .article-tag-link {
+            border-color: rgba(212, 165, 116, 0.55);
+            background: rgba(212, 165, 116, 0.12);
+            transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .article-card .article-tag-link:hover,
+        .article-card .article-tag-link:focus-within {
+            border-color: var(--accent);
+            background: rgba(212, 165, 116, 0.22);
+            color: var(--secondary);
+        }
+
+        .about .service-card,
+        .project-card {
+            scroll-margin-top: 5rem;
+        }
+
+        /* Brief pulse when a service/project is reached via article tag hash */
+        @keyframes anchor-highlight-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.7);
+                outline: 2px solid rgba(212, 165, 116, 0.95);
+                outline-offset: 3px;
+            }
+            55% {
+                box-shadow: 0 0 0 14px rgba(212, 165, 116, 0);
+                outline-color: rgba(212, 165, 116, 0.45);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 165, 116, 0);
+                outline-color: transparent;
+                outline-offset: 3px;
+            }
+        }
+
+        .about .service-card.anchor-highlight,
+        .project-card.anchor-highlight,
+        .about .service-card:target,
+        .project-card:target {
+            animation: anchor-highlight-pulse 1.5s ease-out 1;
+            z-index: 1;
+            position: relative;
         }
 
         .article-card .service-link {
@@ -1206,6 +1330,51 @@
 
         .article-card .service-link:hover {
             color: var(--accent);
+        }
+
+        .articles-pager {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .articles-pager[hidden] {
+            display: none;
+        }
+
+        .articles-pager-btn {
+            appearance: none;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--primary);
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 0.65rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .articles-pager-btn:hover:not(:disabled) {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .articles-pager-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .articles-pager-status {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            letter-spacing: 0.4px;
+            min-width: 6rem;
+            text-align: center;
         }
 
         /* Animations */
@@ -1242,6 +1411,28 @@
 
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-card.article-card-featured {
+                flex-direction: column;
+            }
+
+            .article-card.article-card-featured .article-image {
+                width: 100%;
+                max-width: none;
+                min-height: 0;
+            }
+
+            .article-card.article-card-featured .article-body {
+                padding: 2rem 2.5rem;
+            }
+
+            .article-card.article-card-featured h3 {
+                font-size: 1.4rem;
             }
 
             .contact-info {
@@ -1282,9 +1473,9 @@
                     <span class="serif">Carefree</span> INVESTMENTS
                 </div>
                 <ul>
+                    <li><a href="#articles">Articles</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#articles">Articles</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" target="_blank">Donate</a></li>
@@ -1330,12 +1521,552 @@
                     <div class="suno-status" id="sunoTracklist">Select a playlist to shuffle.</div>
                 </div>
 
+                <div id="articles" class="articles">
+                    <div class="articles-list" id="articlesList">
+                        <div class="articles-featured" id="articlesFeatured"></div>
+                        <div class="articles-grid" id="articlesGrid"></div>
+                    </div>
+                    <div class="articles-pager" id="articlesPager" hidden>
+                        <button type="button" class="articles-pager-btn" id="articlesPrev" aria-label="Previous articles page">← Prev</button>
+                        <span class="articles-pager-status" id="articlesPageStatus"></span>
+                        <button type="button" class="articles-pager-btn" id="articlesNext" aria-label="Next articles page">Next →</button>
+                    </div>
+                </div>
+
                 <div class="donation-prompt">
                     <a href="https://donate.stripe.com/28E6oHeq8fxQ5p7fmBdjO01" class="donate-button" target="_blank">Donate</a>
                     <p>Help support our creative endeavors via your generous donation. Thank you! Multi-episode comedic entertainment coming soon!</p>
                 </div>
             </div>
         </section>
+
+        <script>
+        /*
+         * Articles published by @carefreeinv on X.
+         *
+         * Maintained by the /content-update skill, which is Grok-only — it needs
+         * live X access. Do not hand-edit unless you are correcting a typo, and
+         * never invent a field: every value here is recorded as observed on X.
+         *
+         *   title        string  — as published on X
+         *   summary      string  — 2-3 sentences, drawn from the article's own text
+         *   url          string  — canonical permalink AS OBSERVED, never constructed
+         *   image        string  — cover/headline image URL as observed, or null
+         *   tags         (string|{label,href?})[] — 3–5 SEO tags; href optional
+         *                  on-page #service-* / #project-* (or project URL)
+         *   publishedAt  string  — ISO 8601 date, "YYYY-MM-DD"
+         *   likes        number  — observed count, or null if not visible
+         *   reposts      number  — observed count, or null if not visible
+         *   views        number  — optional, or null if not visible
+         *   metricsAsOf  string  — ISO 8601 date the counts above were read
+         *
+         * Ordering is computed at render time, not stored:
+         *
+         *   effectiveViews = views for age <= 90 days;
+         *                  = views * (90 / ageDays) after that
+         *   sort by effectiveViews DESC, then likes DESC, then publishedAt DESC
+         *
+         * The 90-day decay keeps an ancient high-view piece from locking the
+         * lead slot forever while still giving views some weight.
+         *
+         * Display (not a write concern): lead card always full-width and not
+         * paged; remaining cards four at a time in a 50% grid + pager; meta
+         * shows date only; likes/reposts only if >= 100; views always shown
+         * when present; tags as chips + JSON-LD keywords. Nested under #media
+         * (below Suno, above donate).
+         *
+         * An empty array is valid: the renderer removes the block and its nav
+         * entry outright.
+         */
+        const ARTICLES = [
+            {
+                title: "Orbital AI Scaling",
+                summary: "SpaceX’s first public earnings showed $7.81 billion in revenue (+92% YoY), with Starlink at $4.29 billion and the AI segment at $2.56 billion on $14.1 billion of contracted cloud sales. Management guided to first Starmind AI1 orbital data-center satellite launches next year and multi-GW compute targets through 2027, while CapEx intensity remains elevated. Blue Origin’s ~$10 billion raise and Project Prometheus are framed as the parallel competitive signal.",
+                url: "https://x.com/i/article/2085114021947330560",
+                image: "https://pbs.twimg.com/media/HO_WyBXbAAAtMc5.jpg",
+                tags: [
+                    { label: "Orbital AI", href: "#service-ai-integration" },
+                    "SpaceX earnings",
+                    "Starlink",
+                    { label: "Starmind", href: "#service-ai-integration" },
+                    "Blue Origin"
+                ],
+                publishedAt: "2026-08-05",
+                likes: 2,
+                reposts: 0,
+                views: 186,
+                metricsAsOf: "2026-08-07"
+            },
+            {
+                title: "Walled Agentic AI Gardens",
+                summary: "Agentic AI now accounts for 15% of worldwide AI patent grants (up from 7%), with Nvidia leading filings and Microsoft and Google close behind. NVIDIA’s Agent Toolkit can call physics models and solvers; MASQ-style governance patents stake agent control planes; Solidion anode patents target robot runtime; and IBM’s HRL acquisition deepens a dual-path quantum bet. The piece argues the next 12–18 months will reward reliability, security, and energy density—not parameter count alone.",
+                url: "https://x.com/i/article/2084418313686568960",
+                image: "https://pbs.twimg.com/media/HO1Y9OmbEAAbQNS.jpg",
+                tags: [
+                    { label: "Agentic AI", href: "#service-ai-integration" },
+                    { label: "AI patents", href: "#service-ai-integration" },
+                    "NVIDIA",
+                    { label: "AI governance", href: "#service-ai-integration" },
+                    { label: "Quantum computing", href: "#service-hardware-prototyping" }
+                ],
+                publishedAt: "2026-08-03",
+                likes: 5,
+                reposts: 0,
+                views: 231,
+                metricsAsOf: "2026-08-07"
+            },
+            {
+                title: "The AI Energy Wall Is About to Crack",
+                summary: "Alphabet’s purchase commitments and contractual obligations reached $811 billion as of Q2 2026, underscoring sovereign-scale AI power demand that conventional transistor scaling does not fix. The article maps near-term hardware signals from oscillator-based Unconventional AI (Un-0), Microsoft’s Analog Optical Computer, and a Peking University memristor neural-dynamical chip, plus supporting deals (TDK/Fabric8Labs, Qualcomm/Modular, IBM/HRL). It asks capital allocators which physics bet—oscillators, photonics, or memristors—to size first.",
+                url: "https://x.com/i/article/2082582111106793473",
+                image: "https://pbs.twimg.com/media/HObSCyAbAAAyVCu.jpg",
+                tags: [
+                    { label: "AI energy", href: "#service-ai-integration" },
+                    { label: "Photonic computing", href: "#service-hardware-prototyping" },
+                    { label: "Memristors", href: "#service-hardware-prototyping" },
+                    { label: "Data center power", href: "#service-devops" },
+                    { label: "Analog optical computer", href: "#service-hardware-prototyping" }
+                ],
+                publishedAt: "2026-07-29",
+                likes: 0,
+                reposts: 0,
+                views: 26,
+                metricsAsOf: "2026-08-07"
+            },
+            {
+                title: "The Orbital Compute Race Just Got Real Capital",
+                summary: "SpaceX’s Starmind path (FCC authority sought for up to one million orbital data-center satellites) is set against Blue Origin’s Project Sunrise (up to 51,600 compute satellites) and the Terafab silicon vertical. SpaceX IPO dry powder and Blue Origin’s ~$10 billion external raise fund the race, while environmental groups press for programmatic review of large constellations. Earth-based limits on power, cooling water, land, and permitting are the stated reason space AI is next.",
+                url: "https://x.com/i/article/2081687159489318912",
+                image: "https://pbs.twimg.com/media/HOOlSG4a0AAS4SN.jpg",
+                tags: [
+                    { label: "Orbital compute", href: "#service-ai-integration" },
+                    { label: "Space AI", href: "#service-ai-integration" },
+                    { label: "Starmind", href: "#service-ai-integration" },
+                    "Project Sunrise",
+                    "Terafab"
+                ],
+                publishedAt: "2026-07-27",
+                likes: 0,
+                reposts: 0,
+                views: 25,
+                metricsAsOf: "2026-08-07"
+            },
+            {
+                title: "BREAKING: Starship Goes Boating!",
+                summary: "Ship 40 deployed 20 Starlink V3 satellites, completed an in-space Raptor relight, reentered cleanly, and soft-splashed in the Indian Ocean before tipping and “going boating.” Booster 20 ascent was nominal, but the landing burn lit only a partial engine set and the booster impacted the Gulf hard. Flight 14 is estimated for late August to mid-September 2026 as the next public checkpoint on booster recovery.",
+                url: "https://x.com/i/article/2080810713887694848",
+                image: "https://pbs.twimg.com/media/HOCJB_Wa8AAHuWR.jpg",
+                tags: [
+                    "Starship",
+                    "SpaceX",
+                    "Starlink V3",
+                    "Flight 13",
+                    "Raptor engines"
+                ],
+                publishedAt: "2026-07-25",
+                likes: 1,
+                reposts: 1,
+                views: 10226,
+                metricsAsOf: "2026-08-07"
+            },
+            {
+                title: "Grok Just Absorbed SpaceX’s Engineering Brain",
+                summary: "Elon confirmed SpaceX engineering data will be added during supplemental training of Grok’s 2T-parameter run (excluding ITAR-restricted material) to improve engineering capability. Tesla’s Q2 materials show Cybercab production underway at GFTX, Optimus lines installing at Fremont, Robotaxi live in seven metros, and Starlink V5 roof integration on Cybercab. The article ties these to SpaceXAI consolidation, Terafab, and a Tesla/SpaceX/X data-loop for physical AI.",
+                url: "https://x.com/i/article/2080145846088433664",
+                image: "https://pbs.twimg.com/media/HN4s9PIb0AAw5DR.jpg",
+                tags: [
+                    { label: "Grok", href: "#project-artificial-intelligence" },
+                    { label: "SpaceXAI", href: "#service-ai-integration" },
+                    { label: "Physical AI", href: "#service-ai-integration" },
+                    "Optimus",
+                    "Cybercab"
+                ],
+                publishedAt: "2026-07-24",
+                likes: 0,
+                reposts: 0,
+                views: 91,
+                metricsAsOf: "2026-08-07"
+            }
+        ];
+
+        (function () {
+            var list = document.getElementById('articlesList');
+            var featuredEl = document.getElementById('articlesFeatured');
+            var grid = document.getElementById('articlesGrid');
+            var section = document.getElementById('articles');
+            var pager = document.getElementById('articlesPager');
+            var prevBtn = document.getElementById('articlesPrev');
+            var nextBtn = document.getElementById('articlesNext');
+            var pageStatus = document.getElementById('articlesPageStatus');
+            if (!list || !featuredEl || !grid || !section) return;
+
+            // Grid only — the prime (top-sorted) article is never paged.
+            var PAGE_SIZE = 4;
+            var pageIndex = 0;
+            var sorted = [];
+            var restArticles = [];
+
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.textContent = str == null ? '' : str;
+                return div.innerHTML;
+            }
+
+            function numOrNeg(value) {
+                return typeof value === 'number' ? value : -1;
+            }
+
+            // Age in whole UTC days from publishedAt to "today" (local calendar
+            // date expressed as UTC midnight components — enough for ranking).
+            var VIEWS_FULL_DAYS = 90;
+
+            function ageDays(article) {
+                var parts = String(article.publishedAt || '').split('-');
+                if (parts.length !== 3) return 0;
+                var y = Number(parts[0]);
+                var m = Number(parts[1]);
+                var d = Number(parts[2]);
+                if (!y || !m || !d) return 0;
+                var published = Date.UTC(y, m - 1, d);
+                var now = new Date();
+                var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+                var days = Math.floor((today - published) / 86400000);
+                return days > 0 ? days : 0;
+            }
+
+            // Full views weight for 90 days; after that scale by 90/age so older
+            // high-view pieces gradually cede the lead without a hard cliff.
+            function effectiveViews(article) {
+                if (typeof article.views !== 'number') return -1;
+                var age = ageDays(article);
+                if (age <= VIEWS_FULL_DAYS) return article.views;
+                return article.views * (VIEWS_FULL_DAYS / age);
+            }
+
+            // effectiveViews DESC → likes DESC → publishedAt DESC (newest first)
+            function compareArticles(a, b) {
+                var byViews = effectiveViews(b) - effectiveViews(a);
+                if (byViews !== 0) return byViews;
+
+                var byLikes = numOrNeg(b.likes) - numOrNeg(a.likes);
+                if (byLikes !== 0) return byLikes;
+
+                var dateA = String(a.publishedAt || '');
+                var dateB = String(b.publishedAt || '');
+                if (dateA !== dateB) return dateA < dateB ? 1 : -1;
+
+                return String(a.title || '').localeCompare(String(b.title || ''));
+            }
+
+            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+            // Split rather than parse: new Date('2026-07-14') is UTC midnight and
+            // renders as the previous day for anyone west of Greenwich.
+            function formatDate(iso) {
+                var parts = String(iso || '').split('-');
+                if (parts.length !== 3) return '';
+                var month = MONTHS[Number(parts[1]) - 1];
+                if (!month) return '';
+                return month + ' ' + Number(parts[2]) + ', ' + parts[0];
+            }
+
+            function formatCount(value) {
+                if (value >= 1000000) return (value / 1000000).toFixed(1).replace('.0', '') + 'M';
+                if (value >= 1000) return (value / 1000).toFixed(1).replace('.0', '') + 'K';
+                return String(value);
+            }
+
+            // null means "not visible on X"; 0 means "observed as zero". Both are
+            // honest, so zeros are shown and only nulls are omitted.
+            function labelCount(value, singular) {
+                return formatCount(value) + ' ' + (value === 1 ? singular : singular + 's');
+            }
+
+            function metricsLine(article) {
+                var parts = [];
+                if (typeof article.views === 'number') parts.push(labelCount(article.views, 'view'));
+                // Hide low-engagement noise: only surface likes/reposts at 100+.
+                if (typeof article.likes === 'number' && article.likes >= 100) {
+                    parts.push(labelCount(article.likes, 'like'));
+                }
+                if (typeof article.reposts === 'number' && article.reposts >= 100) {
+                    parts.push(labelCount(article.reposts, 'repost'));
+                }
+                return parts.join(' · ');
+            }
+
+            // tags[] items may be a string or { label, href? }. href is an
+            // on-page #service-* / #project-* anchor (or a project URL) when a
+            // homepage service/project is clearly related.
+            function normalizeTags(article) {
+                if (!article || !Array.isArray(article.tags)) return [];
+                var seen = {};
+                var out = [];
+                for (var i = 0; i < article.tags.length; i++) {
+                    var raw = article.tags[i];
+                    var label = '';
+                    var href = '';
+                    if (raw && typeof raw === 'object') {
+                        label = String(raw.label == null ? raw.name || '' : raw.label);
+                        href = String(raw.href == null ? '' : raw.href).trim();
+                    } else {
+                        label = String(raw == null ? '' : raw);
+                    }
+                    label = label.replace(/\s+/g, ' ').trim();
+                    if (!label) continue;
+                    var key = label.toLowerCase();
+                    if (seen[key]) continue;
+                    seen[key] = true;
+                    // Only allow same-page hashes or absolute http(s) URLs.
+                    if (href && href.charAt(0) !== '#' && !/^https?:\/\//i.test(href)) {
+                        href = '';
+                    }
+                    out.push({ label: label, href: href || null });
+                    if (out.length >= 5) break;
+                }
+                return out;
+            }
+
+            function tagLabels(article) {
+                return normalizeTags(article).map(function (t) { return t.label; });
+            }
+
+            function renderTags(article) {
+                var tags = normalizeTags(article);
+                if (!tags.length) return '';
+                return '<ul class="article-tags" aria-label="Topics">' +
+                    tags.map(function (tag) {
+                        var body = escapeHtml(tag.label);
+                        if (tag.href) {
+                            var external = /^https?:\/\//i.test(tag.href);
+                            body = '<a href="' + escapeHtml(tag.href) + '"' +
+                                (external ? ' target="_blank" rel="noopener"' : '') +
+                                '>' + body + '</a>';
+                        }
+                        return '<li class="article-tag' + (tag.href ? ' article-tag-link' : '') + '">' +
+                            body + '</li>';
+                    }).join('') +
+                    '</ul>';
+            }
+
+            function renderCard(article, featured) {
+                var date = formatDate(article.publishedAt);
+                var metrics = metricsLine(article);
+                var tagsHtml = renderTags(article);
+                var alt = article.title ? escapeHtml(article.title) : '';
+                var img = article.image
+                    ? '<img class="article-image" src="' + escapeHtml(article.image) + '" alt="' + alt + '" loading="lazy" decoding="async">'
+                    : '';
+                return '<article class="article-card' + (featured ? ' article-card-featured' : '') + '" itemscope itemtype="https://schema.org/Article">' +
+                    img +
+                    '<div class="article-body">' +
+                    (date ? '<span class="article-meta"><time itemprop="datePublished" datetime="' + escapeHtml(article.publishedAt || '') + '">' + escapeHtml(date) + '</time></span>' : '') +
+                    '<h3 itemprop="headline">' + escapeHtml(article.title) + '</h3>' +
+                    '<p itemprop="description">' + escapeHtml(article.summary) + '</p>' +
+                    tagsHtml +
+                    (metrics ? '<span class="article-metrics">' + escapeHtml(metrics) + '</span>' : '') +
+                    '<a href="' + escapeHtml(article.url) + '" class="service-link" target="_blank" rel="noopener" itemprop="url">Read on X &rarr;</a>' +
+                    (tagLabels(article).length
+                        ? '<meta itemprop="keywords" content="' + escapeHtml(tagLabels(article).join(', ')) + '">'
+                        : '') +
+                    '<meta itemprop="author" content="Carefree Innovation">' +
+                    '</div></article>';
+            }
+
+            function syncArticlesJsonLd() {
+                var id = 'articles-jsonld';
+                var existing = document.getElementById(id);
+                if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+                if (!sorted.length) return;
+
+                var items = sorted.map(function (article, index) {
+                    var tags = tagLabels(article);
+                    var entry = {
+                        '@type': 'ListItem',
+                        position: index + 1,
+                        item: {
+                            '@type': 'Article',
+                            headline: article.title || '',
+                            description: article.summary || '',
+                            url: article.url || '',
+                            datePublished: article.publishedAt || undefined,
+                            author: {
+                                '@type': 'Organization',
+                                name: 'Carefree Innovation',
+                                url: 'https://x.com/carefreeinv'
+                            },
+                            publisher: {
+                                '@type': 'Organization',
+                                name: 'Carefree Investments',
+                                url: 'https://carefreeinv.com/'
+                            }
+                        }
+                    };
+                    if (article.image) entry.item.image = article.image;
+                    if (tags.length) entry.item.keywords = tags.join(', ');
+                    return entry;
+                });
+
+                var payload = {
+                    '@context': 'https://schema.org',
+                    '@type': 'ItemList',
+                    name: 'Carefree Innovation Articles on X',
+                    description: 'Long-form analysis from Carefree Innovation (@carefreeinv) on AI, space, and physical systems.',
+                    numberOfItems: items.length,
+                    itemListElement: items
+                };
+
+                var script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.id = id;
+                script.text = JSON.stringify(payload);
+                document.head.appendChild(script);
+            }
+
+            function pageCount() {
+                return Math.max(1, Math.ceil(restArticles.length / PAGE_SIZE));
+            }
+
+            function renderPage() {
+                var featured = sorted[0];
+                var start = pageIndex * PAGE_SIZE;
+                var rest = restArticles.slice(start, start + PAGE_SIZE);
+
+                featuredEl.innerHTML = featured ? renderCard(featured, true) : '';
+                grid.innerHTML = rest.map(function (article) {
+                    return renderCard(article, false);
+                }).join('');
+                grid.hidden = rest.length === 0;
+
+                var pages = pageCount();
+                if (pager) {
+                    if (restArticles.length > PAGE_SIZE) {
+                        pager.hidden = false;
+                        if (prevBtn) prevBtn.disabled = pageIndex <= 0;
+                        if (nextBtn) nextBtn.disabled = pageIndex >= pages - 1;
+                        if (pageStatus) pageStatus.textContent = (pageIndex + 1) + ' / ' + pages;
+                    } else {
+                        pager.hidden = true;
+                    }
+                }
+            }
+
+            // No articles yet (or none left): leave no empty section and no dead
+            // nav link behind. /content-update fills the array; until it runs,
+            // this section does not exist as far as a visitor is concerned.
+            if (!Array.isArray(ARTICLES) || ARTICLES.length === 0) {
+                var navLink = document.querySelector('nav a[href="#articles"]');
+                if (navLink) {
+                    var navItem = navLink.parentNode;
+                    if (navItem && navItem.parentNode) navItem.parentNode.removeChild(navItem);
+                }
+                if (section.parentNode) section.parentNode.removeChild(section);
+                return;
+            }
+
+            sorted = ARTICLES.slice().sort(compareArticles);
+            restArticles = sorted.slice(1);
+            renderPage();
+            syncArticlesJsonLd();
+
+            function scrollGridIntoView() {
+                // Keep the lead card above the fold context; land on the paged
+                // tile grid so the swap is obvious after Prev/Next.
+                if (!grid || grid.hidden) return;
+                if (typeof grid.scrollIntoView === 'function') {
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function () {
+                    if (pageIndex <= 0) return;
+                    pageIndex -= 1;
+                    renderPage();
+                    scrollGridIntoView();
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function () {
+                    if (pageIndex >= pageCount() - 1) return;
+                    pageIndex += 1;
+                    renderPage();
+                    scrollGridIntoView();
+                });
+            }
+
+            list.addEventListener('click', function (e) {
+                var tagLink = e.target.closest('.article-tag a');
+                if (tagLink) {
+                    var href = tagLink.getAttribute('href') || '';
+                    if (href.charAt(0) === '#') {
+                        // Same-hash re-clicks do not fire hashchange; still flash.
+                        if (href === location.hash) {
+                            e.preventDefault();
+                            if (typeof window.flashAnchorFromHash === 'function') {
+                                window.flashAnchorFromHash();
+                            }
+                        }
+                    }
+                    return;
+                }
+                // Let other in-card links (Read on X) work.
+                if (e.target.closest('a')) return;
+                var card = e.target.closest('.article-card');
+                if (!card) return;
+                var link = card.querySelector('.service-link');
+                if (link) window.open(link.href, '_blank');
+            });
+        })();
+        </script>
+
+        <script>
+        // Shared highlight for #service-* / #project-* deep links from article tags.
+        (function () {
+            var timers = {};
+
+            function flashAnchorTarget(el) {
+                if (!el || !el.classList) return;
+                el.classList.remove('anchor-highlight');
+                // Restart CSS animation if the class was already present.
+                void el.offsetWidth;
+                el.classList.add('anchor-highlight');
+                var id = el.id || String(Math.random());
+                if (timers[id]) clearTimeout(timers[id]);
+                timers[id] = setTimeout(function () {
+                    el.classList.remove('anchor-highlight');
+                    delete timers[id];
+                }, 1600);
+            }
+
+            function flashAnchorFromHash() {
+                var hash = String(location.hash || '');
+                var match = hash.match(/^#(service|project)-([a-z0-9-]+)$/i);
+                if (!match) return;
+                var el = document.getElementById(match[1].toLowerCase() + '-' + match[2].toLowerCase());
+                if (!el) return;
+                flashAnchorTarget(el);
+                if (typeof el.scrollIntoView === 'function') {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            window.flashAnchorTarget = flashAnchorTarget;
+            window.flashAnchorFromHash = flashAnchorFromHash;
+
+            window.addEventListener('hashchange', function () {
+                // Project handler may re-render cards first; wait a frame.
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(flashAnchorFromHash);
+                });
+            });
+
+            if (/^#(service|project)-/i.test(location.hash || '')) {
+                requestAnimationFrame(flashAnchorFromHash);
+            }
+        })();
+        </script>
 
         <section id="about" class="about">
             <div class="container">
@@ -1345,55 +2076,55 @@
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card ai-integration">
+                    <div class="service-card ai-integration" id="service-ai-integration">
                         <h3>AI Systems Administration</h3>
                         <p>Configuration, optimization, and security for AI platforms including Azure, NemoClaw, OpenClaw, ChatGPT, and xAI. Linux infrastructure, integration architecture, and ongoing administration.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
 
-                    <div class="service-card software-dev">
+                    <div class="service-card software-dev" id="service-software-dev">
                         <h3>Software Development</h3>
                         <p>Full-stack development across platforms: Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal (Acquia certified), Symfony, WordPress, C++, C#. Custom solutions backed by automated testing with Playwright, Behat, and PHPUnit.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Get a Quote →</a>
                     </div>
 
-                    <div class="service-card web-dev">
+                    <div class="service-card web-dev" id="service-web-dev">
                         <h3>Website Development</h3>
                         <p>Drupal, static sites, and AI-powered website builds. From federal agencies and national media platforms to small-town storefronts.</p>
                         <a href="#projects" class="service-link">View Projects →</a>
                     </div>
 
-                    <div class="service-card iot-integration">
+                    <div class="service-card iot-integration" id="service-iot-integration">
                         <h3>IoT Integration</h3>
                         <p>MQTT bridges, solar charge controller integration, sensor networks, and home/business automation built on Home Assistant and similar platforms.</p>
                         <a href="#projects" class="service-link">View Projects →</a>
                     </div>
 
-                    <div class="service-card hardware-prototyping">
+                    <div class="service-card hardware-prototyping" id="service-hardware-prototyping">
                         <h3>Hardware Prototyping</h3>
                         <p>Custom electronics, modular hardware design, and embedded firmware. Raspberry Pi, Arduino, and CircuitPython development from breadboard to production board.</p>
                         <a href="#projects" class="service-link">View Projects →</a>
                     </div>
 
-                    <div class="service-card devops">
+                    <div class="service-card devops" id="service-devops">
                         <h3>DevOps & Infrastructure</h3>
                         <p>Server provisioning and configuration management with Ansible, CI/CD pipelines, and Linux infrastructure for applications that need to scale and stay online.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
 
-                    <div class="service-card qa-testing">
+                    <div class="service-card qa-testing" id="service-qa-testing">
                         <h3>QA & Testing</h3>
                         <p>Automated test suites built with Playwright, Behat, and PHPUnit. End-to-end coverage that catches regressions before they reach production.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Book a Session →</a>
                     </div>
 
-                    <div class="service-card media-production">
+                    <div class="service-card media-production" id="service-media-production">
                         <h3>Media Production</h3>
                         <p>Video editing, AI music composition, Part 107 certified aerial cinematography, animation, FOH audio mixing, and Q-Sys commercial AV system configuration.</p>
                         <a href="https://calendly.com/carefreeinv/50ms" class="service-link" target="_blank">Discuss Your Project →</a>
                     </div>
 
-                    <div class="service-card real-estate">
+                    <div class="service-card real-estate" id="service-real-estate">
                         <h3>Real Estate Holdings</h3>
                         <p>Strategic property investments and management. Explore our portfolio of carefully selected properties designed for modern living.</p>
                         <a href="https://www.cozycarefreecastle.com/" class="service-link" target="_blank">View Properties →</a>
@@ -1851,6 +2582,13 @@
                 filterBar.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:' + maxW + ';display:block;margin:0 auto;overflow:visible">' + svgParts.join('') + '</svg>';
             }
 
+            function projectSlug(title) {
+                return String(title || '')
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+
             function renderCards() {
                 var filtered = activeTags.length
                     ? PROJECTS.filter(function (p) {
@@ -1862,13 +2600,39 @@
                     var tagsHtml = (p.tags || []).map(function (t) {
                         return '<span class="project-tag">' + escapeHtml(t) + '</span>';
                     }).join('');
-                    return '<div class="project-card">' +
+                    var slug = projectSlug(p.title);
+                    var idAttr = slug ? ' id="project-' + escapeHtml(slug) + '"' : '';
+                    var link = p.url
+                        ? '<a href="' + escapeHtml(p.url) + '" class="service-link" target="_blank">' + escapeHtml(p.linkText || 'Learn more') + ' →</a>'
+                        : '';
+                    return '<div class="project-card"' + idAttr + '>' +
                         '<h3>' + escapeHtml(p.title) + '</h3>' +
                         '<p>' + escapeHtml(p.description) + '</p>' +
-                        '<a href="' + escapeHtml(p.url) + '" class="service-link" target="_blank">' + escapeHtml(p.linkText) + ' →</a>' +
+                        link +
                         '<div class="project-tags">' + tagsHtml + '</div>' +
                         '</div>';
                 }).join('');
+            }
+
+            // Article tags may deep-link to #project-<slug>. Clear filters so the
+            // card is in the DOM, then scroll + flash it.
+            function revealProjectFromHash() {
+                var hash = String(location.hash || '');
+                var match = hash.match(/^#project-([a-z0-9-]+)$/i);
+                if (!match) return;
+                if (activeTags.length) {
+                    activeTags = [];
+                    renderFilterBar();
+                    renderCards();
+                }
+                var el = document.getElementById('project-' + match[1]);
+                if (!el) return;
+                if (typeof el.scrollIntoView === 'function') {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                if (typeof window.flashAnchorTarget === 'function') {
+                    window.flashAnchorTarget(el);
+                }
             }
 
             filterBar.addEventListener('click', function (e) {
@@ -1898,210 +2662,13 @@
 
             renderFilterBar();
             renderCards();
+            revealProjectFromHash();
+            window.addEventListener('hashchange', revealProjectFromHash);
 
             var resizeTimer;
             window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(renderFilterBar, 150);
-            });
-        })();
-        </script>
-
-        <section id="articles" class="articles">
-            <div class="container">
-                <div class="section-title">
-                    <h2 class="serif">Articles</h2>
-                    <p>Long-form writing from @carefreeinv on X</p>
-                </div>
-
-                <div class="articles-grid" id="articlesGrid"></div>
-            </div>
-        </section>
-
-        <script>
-        /*
-         * Articles published by @carefreeinv on X.
-         *
-         * Maintained by the /content-update skill, which is Grok-only — it needs
-         * live X access. Do not hand-edit unless you are correcting a typo, and
-         * never invent a field: every value here is recorded as observed on X.
-         *
-         *   title        string  — as published on X
-         *   summary      string  — 2-3 sentences, drawn from the article's own text
-         *   url          string  — canonical permalink AS OBSERVED, never constructed
-         *   publishedAt  string  — ISO 8601 date, "YYYY-MM-DD"
-         *   likes        number  — observed count, or null if not visible
-         *   reposts      number  — observed count, or null if not visible
-         *   views        number  — optional, display only, or null
-         *   metricsAsOf  string  — ISO 8601 date the counts above were read
-         *
-         * Ordering is computed at render time, not stored, so the data stays
-         * purely factual and re-sorts correctly as engagement changes:
-         *
-         *   score = (likes || 0) + 2 * (reposts || 0)
-         *   sort by score DESC, then publishedAt DESC, then title ASC
-         *
-         * views is deliberately excluded from the score — it is inconsistently
-         * exposed and would swamp the signal when present for only some rows.
-         *
-         * An empty array is valid and expected until the first /content-update
-         * run: the renderer below removes the section and its nav entry outright.
-         */
-        const ARTICLES = [
-            {
-                title: "The only place left for AI scale is orbit — and SpaceX just put hard numbers (and a 2027 launch window) on it.",
-                summary: "SpaceX’s first public earnings showed $7.81 billion in revenue (+92% YoY), with Starlink at $4.29 billion and the AI segment at $2.56 billion on $14.1 billion of contracted cloud sales. Management guided to first Starmind AI1 orbital data-center satellite launches next year and multi-GW compute targets through 2027, while CapEx intensity remains elevated. Blue Origin’s ~$10 billion raise and Project Prometheus are framed as the parallel competitive signal.",
-                url: "https://x.com/i/article/2085114021947330560",
-                publishedAt: "2026-08-05",
-                likes: 2,
-                reposts: 0,
-                views: 186,
-                metricsAsOf: "2026-08-07"
-            },
-            {
-                title: "The models are loud. The real money is moving quietly.",
-                summary: "Agentic AI now accounts for 15% of worldwide AI patent grants (up from 7%), with Nvidia leading filings and Microsoft and Google close behind. NVIDIA’s Agent Toolkit can call physics models and solvers; MASQ-style governance patents stake agent control planes; Solidion anode patents target robot runtime; and IBM’s HRL acquisition deepens a dual-path quantum bet. The piece argues the next 12–18 months will reward reliability, security, and energy density—not parameter count alone.",
-                url: "https://x.com/i/article/2084418313686568960",
-                publishedAt: "2026-08-03",
-                likes: 5,
-                reposts: 0,
-                views: 231,
-                metricsAsOf: "2026-08-07"
-            },
-            {
-                title: "Watch These Non-Silicon Moves in the Next 3 Weeks",
-                summary: "Alphabet’s purchase commitments and contractual obligations reached $811 billion as of Q2 2026, underscoring sovereign-scale AI power demand that conventional transistor scaling does not fix. The article maps near-term hardware signals from oscillator-based Unconventional AI (Un-0), Microsoft’s Analog Optical Computer, and a Peking University memristor neural-dynamical chip, plus supporting deals (TDK/Fabric8Labs, Qualcomm/Modular, IBM/HRL). It asks capital allocators which physics bet—oscillators, photonics, or memristors—to size first.",
-                url: "https://x.com/i/article/2082582111106793473",
-                publishedAt: "2026-07-29",
-                likes: 0,
-                reposts: 0,
-                views: 26,
-                metricsAsOf: "2026-08-07"
-            },
-            {
-                title: "The Orbital Compute Race Just Got Real Capital",
-                summary: "SpaceX’s Starmind path (FCC authority sought for up to one million orbital data-center satellites) is set against Blue Origin’s Project Sunrise (up to 51,600 compute satellites) and the Terafab silicon vertical. SpaceX IPO dry powder and Blue Origin’s ~$10 billion external raise fund the race, while environmental groups press for programmatic review of large constellations. Earth-based limits on power, cooling water, land, and permitting are the stated reason space AI is next.",
-                url: "https://x.com/i/article/2081687159489318912",
-                publishedAt: "2026-07-27",
-                likes: 0,
-                reposts: 0,
-                views: 25,
-                metricsAsOf: "2026-08-07"
-            },
-            {
-                title: "SpaceX completed its 13th flight test of Starship on July 24 from Starbase, Texas.",
-                summary: "Ship 40 deployed 20 Starlink V3 satellites, completed an in-space Raptor relight, reentered cleanly, and soft-splashed in the Indian Ocean before tipping and “going boating.” Booster 20 ascent was nominal, but the landing burn lit only a partial engine set and the booster impacted the Gulf hard. Flight 14 is estimated for late August to mid-September 2026 as the next public checkpoint on booster recovery.",
-                url: "https://x.com/i/article/2080810713887694848",
-                publishedAt: "2026-07-25",
-                likes: 1,
-                reposts: 1,
-                views: 10226,
-                metricsAsOf: "2026-08-07"
-            },
-            {
-                title: "Grok just received something no other frontier model can easily access: SpaceX’s massive corpus of world-class engineering data.",
-                summary: "Elon confirmed SpaceX engineering data will be added during supplemental training of Grok’s 2T-parameter run (excluding ITAR-restricted material) to improve engineering capability. Tesla’s Q2 materials show Cybercab production underway at GFTX, Optimus lines installing at Fremont, Robotaxi live in seven metros, and Starlink V5 roof integration on Cybercab. The article ties these to SpaceXAI consolidation, Terafab, and a Tesla/SpaceX/X data-loop for physical AI.",
-                url: "https://x.com/i/article/2080145846088433664",
-                publishedAt: "2026-07-24",
-                likes: 0,
-                reposts: 0,
-                views: 91,
-                metricsAsOf: "2026-08-07"
-            }
-        ];
-
-        (function () {
-            var grid = document.getElementById('articlesGrid');
-            var section = document.getElementById('articles');
-            if (!grid || !section) return;
-
-            function escapeHtml(str) {
-                var div = document.createElement('div');
-                div.textContent = str == null ? '' : str;
-                return div.innerHTML;
-            }
-
-            function scoreOf(article) {
-                return (article.likes || 0) + 2 * (article.reposts || 0);
-            }
-
-            function compareArticles(a, b) {
-                var byScore = scoreOf(b) - scoreOf(a);
-                if (byScore !== 0) return byScore;
-
-                var dateA = String(a.publishedAt || '');
-                var dateB = String(b.publishedAt || '');
-                if (dateA !== dateB) return dateA < dateB ? 1 : -1;
-
-                return String(a.title || '').localeCompare(String(b.title || ''));
-            }
-
-            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'];
-
-            // Split rather than parse: new Date('2026-07-14') is UTC midnight and
-            // renders as the previous day for anyone west of Greenwich.
-            function formatDate(iso) {
-                var parts = String(iso || '').split('-');
-                if (parts.length !== 3) return '';
-                var month = MONTHS[Number(parts[1]) - 1];
-                if (!month) return '';
-                return month + ' ' + Number(parts[2]) + ', ' + parts[0];
-            }
-
-            function formatCount(value) {
-                if (value >= 1000000) return (value / 1000000).toFixed(1).replace('.0', '') + 'M';
-                if (value >= 1000) return (value / 1000).toFixed(1).replace('.0', '') + 'K';
-                return String(value);
-            }
-
-            // null means "not visible on X"; 0 means "observed as zero". Both are
-            // honest, so zeros are shown and only nulls are omitted.
-            function labelCount(value, singular) {
-                return formatCount(value) + ' ' + (value === 1 ? singular : singular + 's');
-            }
-
-            function metricsLine(article) {
-                var parts = [];
-                if (typeof article.likes === 'number') parts.push(labelCount(article.likes, 'like'));
-                if (typeof article.reposts === 'number') parts.push(labelCount(article.reposts, 'repost'));
-                if (typeof article.views === 'number') parts.push(labelCount(article.views, 'view'));
-                return parts.join(' · ');
-            }
-
-            function renderCard(article) {
-                var date = formatDate(article.publishedAt);
-                var metrics = metricsLine(article);
-                return '<div class="article-card">' +
-                    '<span class="article-meta">@carefreeinv' + (date ? ' &mdash; ' + escapeHtml(date) : '') + '</span>' +
-                    '<h3>' + escapeHtml(article.title) + '</h3>' +
-                    '<p>' + escapeHtml(article.summary) + '</p>' +
-                    (metrics ? '<span class="article-metrics">' + escapeHtml(metrics) + '</span>' : '') +
-                    '<a href="' + escapeHtml(article.url) + '" class="service-link" target="_blank" rel="noopener">Read on X &rarr;</a>' +
-                    '</div>';
-            }
-
-            // No articles yet (or none left): leave no empty section and no dead
-            // nav link behind. /content-update fills the array; until it runs,
-            // this section does not exist as far as a visitor is concerned.
-            if (!Array.isArray(ARTICLES) || ARTICLES.length === 0) {
-                var navLink = document.querySelector('nav a[href="#articles"]');
-                if (navLink) {
-                    var navItem = navLink.parentNode;
-                    if (navItem && navItem.parentNode) navItem.parentNode.removeChild(navItem);
-                }
-                if (section.parentNode) section.parentNode.removeChild(section);
-                return;
-            }
-
-            grid.innerHTML = ARTICLES.slice().sort(compareArticles).map(renderCard).join('');
-
-            grid.addEventListener('click', function (e) {
-                if (e.target.closest('.service-link')) return;
-                var card = e.target.closest('.article-card');
-                if (!card) return;
-                var link = card.querySelector('.service-link');
-                if (link) window.open(link.href, '_blank');
             });
         })();
         </script>
