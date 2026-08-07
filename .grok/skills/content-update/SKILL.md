@@ -246,7 +246,11 @@ forever. Stored `views` stay factual; only ranking applies the factor.
   - `views` shown when a number (including 0)
   - `likes` / `reposts` shown only when the count is **≥ 100**
 - Cards are `<article itemscope itemtype="https://schema.org/Article">`.
-- Whole-card click opens the Article URL (inner "Read on X →" still works).
+- Footer actions per card (subtle follow CTA before the article link):
+  `[Follow](https://x.com/carefreeinv) | [Read on X →](<article.url>)`
+  — hard-coded Follow target is always `@carefreeinv` (not `--account`); Read
+  uses the Article `url`. Both open in a new tab. Whole-card click still opens
+  the Article URL (not Follow); in-card link clicks are left alone.
 
 ### Data contract reminder
 

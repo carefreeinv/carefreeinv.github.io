@@ -1323,6 +1323,10 @@
             position: relative;
         }
 
+        .article-card .article-actions {
+            align-self: flex-start;
+        }
+
         .article-card .service-link {
             color: var(--secondary);
             align-self: flex-start;
@@ -1330,6 +1334,17 @@
 
         .article-card .service-link:hover {
             color: var(--accent);
+        }
+
+        /* Follow stays put; only "Read on X →" keeps the global translateX nudge. */
+        .article-card .article-follow-link,
+        .article-card .article-follow-link:hover {
+            transform: none;
+        }
+
+        .article-card .article-link-sep {
+            color: var(--text-light);
+            user-select: none;
         }
 
         .articles-pager {
@@ -1866,7 +1881,11 @@
                     '<p itemprop="description">' + escapeHtml(article.summary) + '</p>' +
                     tagsHtml +
                     (metrics ? '<span class="article-metrics">' + escapeHtml(metrics) + '</span>' : '') +
-                    '<a href="' + escapeHtml(article.url) + '" class="service-link" target="_blank" rel="noopener" itemprop="url">Read on X &rarr;</a>' +
+                    '<span class="article-actions">' +
+                    '<a href="https://x.com/carefreeinv" class="service-link article-follow-link" target="_blank" rel="noopener">Follow</a>' +
+                    '<span class="article-link-sep" aria-hidden="true"> | </span>' +
+                    '<a href="' + escapeHtml(article.url) + '" class="service-link article-read-link" target="_blank" rel="noopener" itemprop="url">Read on X &rarr;</a>' +
+                    '</span>' +
                     (tagLabels(article).length
                         ? '<meta itemprop="keywords" content="' + escapeHtml(tagLabels(article).join(', ')) + '">'
                         : '') +
@@ -2011,11 +2030,13 @@
                     }
                     return;
                 }
-                // Let other in-card links (Read on X) work.
+                // Let other in-card links (Follow / Read on X) work.
                 if (e.target.closest('a')) return;
                 var card = e.target.closest('.article-card');
                 if (!card) return;
-                var link = card.querySelector('.service-link');
+                // Prefer the article permalink — not the preceding Follow link.
+                var link = card.querySelector('.article-read-link') ||
+                    card.querySelector('a[itemprop="url"]');
                 if (link) window.open(link.href, '_blank');
             });
         })();
