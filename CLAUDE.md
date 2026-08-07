@@ -37,7 +37,7 @@ Before dispatching any frontier-model run, rewrite the task on a cheap model int
 - End every task with: `## Result`, `## How to verify`, `## Deferred / concerns`.
 - SOLID by default; use the project's idiomatic composition mechanism (check `.anchor/conventions.md`) over deep inheritance; no dead code, no spaghetti control flow.
 - **Docs describe current state, not plans:** README / `docs/` / CHANGELOG / blog / release notes cover **shipped** code and public contracts only. Never document the **contents** of `.plans/` (drafts, backlog, unfinished acceptance) as product docs or roadmap. When plan work ships, document the code — not the plan file. Documenting the `.plans/` **workflow** itself is fine when that is a shipped feature.
-- **Before any `git commit`:** run **`/commit-prep`** (prep only: tests, CHANGELOG, blog-if-warranted). Do not skip prep for “small” changes. After gates are **green**, if plan work is complete (or the user asked to land the work), **stage + commit on the feature branch** (worktree preferred); optional feature-branch push; never commit on main/dev; never auto-merge.
+- **Before any `git commit`:** run **`/commit-prep`** (prep only: tests, CHANGELOG, blog-if-warranted). Do not skip prep for “small” changes. After gates are **green**, if plan work is complete (or the user asked to land the work), **stage + commit on the feature branch** (worktree preferred); optional feature-branch push; never commit on main/dev. **Never merge on your own initiative** — `/work` may land a branch on **`dev` only** via its culmination question + scoped-merge gate (operator answers in-session); `main` only via `/review`'s promotion survey.
 
 ## Hooks & automation suggestions
 
@@ -60,16 +60,18 @@ not promote from `/work`. Command: `.claude/commands/draft.md`.
 ## /work
 
 Execute the next (or named) ready plan from **`.plans/`** (dotdir). Contract:
-resume own `in-progress/` first; bugs before features; honor **Preferred models**
+bare pick is **ready lanes only** (never scans `in-progress/`; resume is an
+explicit named claim you own); bugs before features; honor **Preferred models**
 and **Depends on** (skip unmet deps); never execute `drafts/` / `completed/` /
 `ambiguous/` / `blocked/`; ignore foreign `in-progress/`; claim ready →
-`in-progress/`; park half-baked → `ambiguous/` or stuck → `blocked/`; finish
-`in-progress/` → `review-needed/` (required; human **`/review`** → `completed/`).
+`in-progress/` (atomic move + required lease); park half-baked → `ambiguous/` or
+stuck → `blocked/`; finish `in-progress/` → `review-needed/` (required; human
+**`/review`** → `completed/`).
 Do not promote drafts from `/work` (use `/draft --promote`). If Preferred orchestrator is unset, frontier/near-frontier
 may act as temporary coordinator (`TEMPORARY-COORDINATOR:`). On Git projects: **worktree per agent**
 (`scripts/worktree_for_agent.py ensure --agent-id … --slug …`); feature-branch
 from **`dev`**/`develop` (**create `dev` from main/master if missing**);
-**`/commit-prep` before commit**; `/work` never merges (human `/review` does). Command:
+**`/commit-prep` before commit**; `/work` merges only on the operator's in-session culmination answer, scoped, **`dev` only** (otherwise human `/review` does). Command:
 `.claude/commands/work.md`.
 
 ## /review
@@ -100,6 +102,17 @@ where it should deploy, then set up the framework that fits the stack
 command, never commits/merges/force-pushes, never destroys infra, and verifies
 the deploy landed. `--dry-run`, `--status`, `--rollback`. Command:
 `.claude/commands/deploy.md`.
+
+## /optimize
+
+Scan the project against **standards for its detected type** (web app: OG
+images, `robots.txt`, `llms.txt`, sitemap; CLI/library: `CODEOWNERS`,
+`SECURITY.md`, release config; any repo: dependency bot, `LICENSE`), propose
+**up to 10** ranked improvement candidates, and write only checkbox-picked
+ones as plans. Hygiene/DX, not security (`/audit`'s job) — soft `mid,
+reasoner` preference, no refuse gate. Default write lane `.plans/drafts/`;
+`--to features`/`--to bugs` opt in to a ready lane. `--dry-run`, `--write`,
+`--continue`. Command: `.claude/commands/optimize.md`.
 
 ## /fleet-watch
 
@@ -134,7 +147,7 @@ when available.
 **Required before any `git commit`.** Run `/commit-prep` (command:
 `.claude/commands/commit-prep.md`): tests → CHANGELOG → blog-if-warranted.
 **Prep only** — does not commit. After a green prep, commit policy is under
-**`/work`** / standing rules (feature branch + worktree; never merge to `dev`/`main`).
+**`/work`** / standing rules (feature branch + worktree; merge to `dev` only via `/work`'s culmination answer + scoped gate; never to `main`).
 
 ## /config
 

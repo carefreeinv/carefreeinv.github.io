@@ -21,7 +21,7 @@ You are one worker in a verified pipeline, not the whole pipeline. Speed is wort
 8. End every response with `## Result`, `## How to verify`, `## Deferred / concerns`.
 9. SOLID by default; use the project's idiomatic composition mechanism (check `.anchor/conventions.md`) over deep inheritance; no dead code, no spaghetti control flow.
 10. **Docs describe current state, not plans.** README / `docs/` / CHANGELOG / blog / release notes cover **shipped** code and public contracts only. Never document the **contents** of `.plans/` as product docs or roadmap. When plan work ships, document the code — not the plan file. Documenting the `.plans/` **workflow** itself is fine when that is a shipped feature.
-11. **Before any `git commit`:** run **`/commit-prep`** (prep only: tests, CHANGELOG, blog-if-warranted). Do not skip for “small” changes. After gates are **green**, if plan work is complete, stage + commit on the **feature branch** (worktree preferred); never on main/dev; never auto-merge.
+11. **Before any `git commit`:** run **`/commit-prep`** (prep only: tests, CHANGELOG, blog-if-warranted). Do not skip for “small” changes. After gates are **green**, if plan work is complete, stage + commit on the **feature branch** (worktree preferred); never on main/dev. **Never merge on your own initiative** — `/work` may land a branch on **`dev` only** via its culmination question + scoped-merge gate (operator answers in-session); `main` only via `/review`'s promotion survey.
 
 12. **Usage limits are a scheduling problem, not a failure.** On a session/weekly cap or quota (429, `insufficient_quota`, "limit reached", a forced tier downgrade), checkpoint state, then **reroute** to the next model in priority order *that clears the task's fitness floor*, else **wait** for a near reset, else **stop and report**. Never finish work on a silently downgraded tier, and never narrow scope or weaken tests to beat a cap. See `.anchor/capacity-routing.md`.
 
@@ -79,17 +79,19 @@ implement product code; do not promote from `/work`. Skill:
 ## /work
 
 Execute the next (or named) ready plan from **`.plans/`** (dotdir). Contract:
-resume own `in-progress/` first; bugs before features; honor **Preferred models**
+bare pick is **ready lanes only** (never scans `in-progress/`; resume is an
+explicit named claim you own); bugs before features; honor **Preferred models**
 and **Depends on** (skip unmet deps); never execute `drafts/` / `completed/` /
 `ambiguous/` / `blocked/`; ignore foreign `in-progress/`; claim ready →
-`in-progress/`; park half-baked → `ambiguous/` or stuck → `blocked/`; finish
-`in-progress/` → `review-needed/` (required; human **`/review`** → `completed/`).
+`in-progress/` (atomic move + required lease); park half-baked → `ambiguous/` or
+stuck → `blocked/`; finish `in-progress/` → `review-needed/` (required; human
+**`/review`** → `completed/`).
 Do not promote drafts from `/work` (use `/draft --promote`). If Preferred orchestrator is unset, frontier/near-frontier
 (including Grok 4.5 as session lead) may act as temporary coordinator
 (`TEMPORARY-COORDINATOR:`). On Git projects: **worktree per agent**
 (`scripts/worktree_for_agent.py ensure --agent-id … --slug …`); feature-branch
 from **`dev`**/`develop` (**create `dev` from main/master if missing**);
-**`/commit-prep` before commit**; `/work` never merges (human `/review` does). Skill:
+**`/commit-prep` before commit**; `/work` merges only on the operator's in-session culmination answer, scoped, **`dev` only** (otherwise human `/review` does). Skill:
 `.grok/skills/work/SKILL.md`.
 
 ## /review
@@ -121,6 +123,17 @@ where it should deploy, then set up the framework that fits the stack
 command, never commits/merges/force-pushes, never destroys infra, and verifies
 the deploy landed. `--dry-run`, `--status`, `--rollback`. Skill:
 `.grok/skills/deploy/SKILL.md`.
+
+## /optimize
+
+Scan the project against **standards for its detected type** (web app: OG
+images, `robots.txt`, `llms.txt`, sitemap; CLI/library: `CODEOWNERS`,
+`SECURITY.md`, release config; any repo: dependency bot, `LICENSE`), propose
+**up to 10** ranked improvement candidates, and write only checkbox-picked
+ones as plans. Hygiene/DX, not security (`/audit`'s job) — soft `mid,
+reasoner` preference, no refuse gate. Default write lane `.plans/drafts/`;
+`--to features`/`--to bugs` opt in to a ready lane. `--dry-run`, `--write`,
+`--continue`. Skill: `.grok/skills/optimize/SKILL.md`.
 
 ## /fleet-watch
 

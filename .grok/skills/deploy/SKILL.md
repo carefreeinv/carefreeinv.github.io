@@ -88,7 +88,7 @@ Flags may combine (e.g. `/deploy staging --dry-run`).
 ## Pipeline (hard order)
 
 ```text
-resolve project → tree + branch gate → detect tooling
+resolve project → tree + branch gate → unreleased-work gap check → detect tooling
   → (none detected: interview → setup → stop)
   → resolve target/env → plan the exact commands
   → confirm (or --dry-run / --yes)
@@ -103,6 +103,48 @@ CWD, then git root. Print the absolute path. Report branch, HEAD SHA, and
 Note which branch the project deploys from if the tooling declares one (an Actions
 `on: push: branches:` list, `vercel.json` git config, a `production` remote). If
 HEAD is not on that branch, say so and confirm before proceeding.
+
+**Unreleased-work gap check.** The deploy branch (usually `main`/`master`) can
+lag finished work at **two** stages of the pipeline — check both before
+shipping:
+
+1. **Integration branch not promoted.** If the project has an integration
+   branch (`dev`, else `develop` — same convention `/work` uses):
+
+   ```bash
+   git rev-list --count <deploy-branch>..dev   # or develop
+   ```
+
+2. **Finished but unreviewed features.** Work that `/work` finished to the
+   review queue but `/review` never landed — plans still in
+   `.plans/review-needed/`, and `feature/*` branches carrying commits the
+   deploy branch doesn't have:
+
+   ```bash
+   ls .plans/review-needed/ 2>/dev/null   # ignore .gitkeep
+   git for-each-ref refs/heads/feature/ --format='%(refname:short)' \
+     | while read -r b; do
+         n=$(git rev-list --count <deploy-branch>.."$b")
+         [ "$n" -gt 0 ] && echo "$b: $n commit(s) not on <deploy-branch>"
+       done
+   ```
+
+Both empty/zero → nothing to report, continue silently. Otherwise report
+exactly what this deploy will **exclude**: the `dev` gap count with a short
+`git log <deploy-branch>..dev --oneline`, plus each review-needed plan and each
+unmerged `feature/*` branch (one line apiece). Then **ask** (prefer
+`ask_user_question` when available):
+
+| Option | Meaning |
+|--------|---------|
+| **Run `/review` first** (recommended) | Stop here; the human lands the work via `/review` (feature → `dev`, then `dev` → deploy branch), then re-runs `/deploy` |
+| **Deploy `<deploy-branch>` as-is** | Proceed; the unreleased work stays unpublished (a normal, non-broken state) |
+| **Cancel** | Stop, no deploy |
+
+Under `--yes` (non-interactive), default to **Deploy as-is** — note the gap in
+the footer rather than blocking on a question nothing can answer. **`/deploy`
+never merges or promotes branches itself** (Hard rule 3 / Out of scope) — this
+check only surfaces the gap; landing work is always `/review`'s job.
 
 ## 2. Detect deployment tooling
 
