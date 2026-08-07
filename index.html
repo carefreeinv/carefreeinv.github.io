@@ -1979,8 +1979,8 @@
         videoId: null,
         // Define playlist videos manually for this static site.
         playlistVideos: [
+            { id: 'OCATIlxAhdE', title: 'First Footprint' },
             { id: 'mZ4oDx8hYp4', title: 'MARS' },
-            { id: 'MQ2SMDmv1Zc', title: 'Serpico AI Learning Center Podcast #4 Feb 16 2026 - Daniel Love + Grok' },
             { id: '_gmHzGAZ-Vg', title: 'Modular Maker - Trailer & Overland Expo 2016' },
             { id: 'fi-VxRK7X4U', title: 'Modular Maker - Wait! Weight!' }
         ],
@@ -2071,17 +2071,22 @@
                 origin: window.location.origin
             });
 
-            if (playlistIds.length > 1) {
-                params.set('playlist', playlistIds.join(','));
-            }
+            // Embed path plays `videoId` first; `playlist` is the follow-on queue.
+            // Put remaining ids next, then re-queue the current id when looping so
+            // YouTube can cycle without duplicating the opener at the front.
+            const followOn = playlistIds.filter(function (id) {
+                return id !== videoId;
+            });
 
             if (YOUTUBE_CONFIG.loop) {
                 params.set('loop', '1');
-                if (playlistIds.length > 1) {
-                    params.set('playlist', playlistIds.join(','));
+                if (followOn.length) {
+                    params.set('playlist', followOn.concat([videoId]).join(','));
                 } else {
                     params.set('playlist', videoId);
                 }
+            } else if (followOn.length) {
+                params.set('playlist', followOn.join(','));
             }
 
             const embedHost = YOUTUBE_CONFIG.useNoCookieDomain
