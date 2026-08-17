@@ -26,6 +26,8 @@ All notable changes to this project will be documented in this file.
   90-day views decay, tags + service/project links, and display rules. Non-Grok
   surfaces still refuse via `.claude/commands/content-update.md`.
 - Added "Bueller" project card to the projects grid on the homepage.
+- Added Google Analytics 4 (gtag.js, measurement ID `G-74LD7QY7FF`) to the
+  `<head>` of `index.html`, so all page views on the site are reported to GA.
 
 ### Fixed
 
