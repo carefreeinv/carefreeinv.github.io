@@ -13,9 +13,11 @@ All notable changes to this project will be documented in this file.
 - Layout: top article is always a full-width lead (image ~60%); remaining cards
   paginate four at a time in a two-column grid with Prev/Next (scrolls to the
   grid on page change).
-- Ranking uses effective views (full weight for 90 days, then `views × 90/age`),
-  then likes, then newest `publishedAt` — so long-lived high-view posts do not
-  lock the lead forever. Likes/reposts chips only show at counts ≥ 100.
+- Ranking features brand-new posts first (`publishedAt` today), then effective
+  views (full weight for 90 days, then `views × 90/age`), likes, and newest
+  `publishedAt` — so a fresh Article leads immediately and ancient high-view
+  posts do not lock the lead forever. Likes/reposts chips only show at counts
+  ≥ 100.
 - Topic tags (3–5 per article) may link to related homepage services
   (`#service-*`) or projects (`#project-*`); deep links briefly highlight the
   target card. JSON-LD ItemList + schema.org Article markup included.
@@ -36,6 +38,8 @@ All notable changes to this project will be documented in this file.
 
 - Refreshed homepage `ARTICLES` from live `@carefreeinv` X Articles (new rows,
   updated engagement metrics / `metricsAsOf`).
+- Articles ranking now features brand-new posts first (`publishedAt` today /
+  under ~24h given date-only stamps), then the existing effective-views decay.
 - Upgraded the in-repo Anchor scaffold (Claude/Grok/Nemotron agent roots,
   fleet scripts, MCP servers, and plan skills) to the current Anchor checkout.
 

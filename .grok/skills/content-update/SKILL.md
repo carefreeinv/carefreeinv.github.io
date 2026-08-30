@@ -205,10 +205,9 @@ changes so the next `/content-update` run stays predictable.
 
 ### Sort (computed at load, not stored)
 
-Primary key uses **effective views**, not raw views:
-
 ```
 ageDays        = whole days since publishedAt (clamped ≥ 0)
+brandNew       = ageDays === 0   # date-only stamp ≈ under ~24h / same day
 effectiveViews = views                          if ageDays ≤ 90
                = views × (90 / ageDays)         if ageDays > 90
                = −1                             if views is null (sorts last)
@@ -216,14 +215,18 @@ effectiveViews = views                          if ageDays ≤ 90
 
 Then:
 
-1. `effectiveViews` **DESC**
-2. `likes` **DESC** (`null` → −1, sorts last)
-3. `publishedAt` **DESC** (newest first)
-4. `title` **ASC** (stable tiebreak)
+1. **brand-new first** (`brandNew` true before false) — a same-day Article
+   always outranks older rows for the lead slot and list order
+2. `effectiveViews` **DESC**
+3. `likes` **DESC** (`null` → −1, sorts last)
+4. `publishedAt` **DESC** (newest first)
+5. `title` **ASC** (stable tiebreak)
 
-**Intent:** a well-performing Article keeps full view weight for 90 days, then
-views decay as `90/age` so an ancient viral piece cannot lock the lead slot
-forever. Stored `views` stay factual; only ranking applies the factor.
+**Intent:** a just-published Article is featured immediately even against an
+older viral piece. Among non-new rows, a well-performing Article keeps full
+view weight for 90 days, then views decay as `90/age` so an ancient high-view
+post cannot lock the lead forever. Stored `views` stay factual; only ranking
+applies the factor.
 
 ### Layout
 
