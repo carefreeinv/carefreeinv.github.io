@@ -47,6 +47,7 @@ from plan_lease import (
     renew,
     return_to_ready,
 )
+from plan_parse import TriageAction, triage_plan
 from plan_select import (
     REGISTRY_TIER_TO_FIT,
     Fit,
@@ -111,6 +112,9 @@ def _parse_endpoints_crude(text: str) -> list[dict]:
 
 
 def resolve_worker(args: argparse.Namespace) -> Worker:
+    from plan_select import worker_with_effort
+
+    effort = getattr(args, "effort", None)
     if args.endpoint:
         model, tier = _load_endpoint(
             Path(args.registry) if args.registry else None, args.endpoint
@@ -118,10 +122,12 @@ def resolve_worker(args: argparse.Namespace) -> Worker:
         name = args.model or model
         if args.tier:
             tier = normalize_fit_tier(args.tier)
-        return Worker(name=name, tier=tier)
-    name = args.model or args.agent_id or "work-once"
+        return worker_with_effort(name, tier, effort)
+    # Lease / worktree ids are not product names — never feed --agent-id into
+    # effective_fit_tier (``grok-effort-*`` would look like the Grok family).
+    name = args.model or "work-once"
     tier = normalize_fit_tier(args.tier or "mid")
-    return Worker(name=name, tier=tier)
+    return worker_with_effort(name, tier, effort)
 
 
 def run_orchestrate(plan_path: Path, extra: list[str]) -> int:
@@ -177,6 +183,33 @@ def cmd_list(plans_root: Path, worker: Worker, agent_id: str) -> int:
             who = lease.agent_id if lease else "?"
             print(f"#   {rel}  agent={who}", file=sys.stderr)
     return 0
+
+
+def cmd_triage(
+    plans_root: Path,
+    worker: Worker,
+    agent_id: str,
+    *,
+    ignore_deps: bool = False,
+) -> int:
+    """Mechanical accept/skip/reject over ready + own in-progress plans.
+
+    No LLM, no network, no claim/move/dispatch — purely a read of already-parsed
+    ``PlanRecord``s through :func:`plan_parse.triage_plan`. Safe to run on every
+    daemon/fleet-worker poll before anything that would cost tokens. Exit ``0``
+    when at least one plan is a **take**, ``1`` otherwise (mirrors ``plan_fit.py``).
+    """
+    records = inventory(plans_root, worker, agent_id=agent_id)
+    if not records:
+        print("(no ready or own in-progress plans)")
+        return 1
+    any_take = False
+    for rec in records:
+        verdict = triage_plan(rec, worker, ignore_deps=ignore_deps, agent_id=agent_id)
+        print(f"{verdict.action.value}: {rec.rel} — {verdict.reason}")
+        if verdict.action is TriageAction.TAKE:
+            any_take = True
+    return 0 if any_take else 1
 
 
 def pick_claim_one(
@@ -318,6 +351,12 @@ def main(argv: list[str] | None = None) -> int:
         help="list ready plans with fit; do not claim or execute",
     )
     ap.add_argument(
+        "--triage",
+        action="store_true",
+        help="mechanical take/skip/reject over ready + own in-progress plans "
+             "(no LLM, no network, no claim); exit 0 if anything is a take",
+    )
+    ap.add_argument(
         "--once",
         action="store_true",
         help="pick and claim exactly one plan (default if no --list/--max-plans)",
@@ -348,6 +387,11 @@ def main(argv: list[str] | None = None) -> int:
         help="worker fit tier: small|mid|reasoner|frontier (or registry tier name)",
     )
     ap.add_argument("--model", help="worker model name for Preferred-models name match")
+    ap.add_argument(
+        "--effort",
+        help="reasoning effort; for Grok family sets effective fit tier "
+             "(low→mid, medium/high→reasoner, xhigh→frontier; omit→mid)",
+    )
     ap.add_argument(
         "--endpoint",
         help="resolve model+tier from endpoints.yaml by endpoint name",
@@ -567,6 +611,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.list:
         return cmd_list(plans_root, worker, args.agent_id)
+
+    if args.triage:
+        return cmd_triage(
+            plans_root, worker, args.agent_id, ignore_deps=args.no_dep_check
+        )
 
     max_n = args.max_plans
     if max_n is None:

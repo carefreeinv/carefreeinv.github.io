@@ -14,3 +14,4 @@ var/
 *.pem
 *.key
 *.crt
+*.bak-anchor-*

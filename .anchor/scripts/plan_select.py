@@ -44,9 +44,7 @@ from dataclasses import dataclass, replace
 from enum import Enum
 from pathlib import Path
 
-GOAL_RE = re.compile(
-    r"^##\s+Goal\s*$([\s\S]*?)(?=^##\s|\Z)", re.MULTILINE | re.IGNORECASE
-)
+from plan_parse import GOAL_RE, has_goal_section, safe_read_text, strip_code_fences
 
 READY_LANES = ("bugs", "features")
 IN_PROGRESS_LANE = "in-progress"
@@ -180,6 +178,8 @@ class PlanRecord:
     deps_notes: tuple[str, ...] = ()  # human-readable check notes
     assignee: str | None = None  # raw Assignee value; None == unset (agent-eligible)
     agent_assignable: bool = True  # False when assigned to a named person
+    parse_error: str | None = None  # set when the file could not be read at all
+    has_goal: bool = True  # False when ## Goal is missing/empty (daemon triage: reject)
 
     @property
     def ready(self) -> bool:
@@ -194,6 +194,7 @@ def normalize_fit_tier(tier: str) -> str:
     if mapped:
         return mapped
     return "mid"
+
 
 
 def plans_root_for(project_root: Path) -> Path:
@@ -440,9 +441,6 @@ def inventory_all_plan_summaries(plans_root: Path) -> list[dict[str, str]]:
     """
     if not plans_root.is_dir():
         return []
-    goal_re = re.compile(
-        r"^##\s+Goal\s*$([\s\S]*?)(?=^##\s|\Z)", re.MULTILINE | re.IGNORECASE
-    )
     out: list[dict[str, str]] = []
     for lane_dir in sorted(p for p in plans_root.iterdir() if p.is_dir()):
         if lane_dir.name.startswith("."):
@@ -450,11 +448,11 @@ def inventory_all_plan_summaries(plans_root: Path) -> list[dict[str, str]]:
         for path in sorted(lane_dir.glob("*.md")):
             if path.name == "README.md":
                 continue
-            try:
-                text = path.read_text(encoding="utf-8")
-            except OSError:
+            raw_text, parse_error = safe_read_text(path)
+            if parse_error is not None:
                 continue
-            gm = goal_re.search(text)
+            text = strip_code_fences(raw_text)
+            gm = GOAL_RE.search(text)
             goal = " ".join((gm.group(1) if gm else "").split())[:240]
             out.append(
                 {
@@ -469,20 +467,48 @@ def inventory_all_plan_summaries(plans_root: Path) -> list[dict[str, str]]:
     return out
 
 
+# Closed specialty profile tags (mythos-core dual-axis fit). Appear in Preferred
+# models freeform lists; mechanical tier fit ignores them (unknown tokens already
+# drop out of tier/name buckets). Used for optional specialty_hint reporting.
+SPECIALTY_PROFILES = frozenset({
+    "coding-agent",
+    "terminal-agent",
+    "critic",
+    "planner",
+    "general-chat",
+    "multimodal",
+    "swarm-local",
+})
+
+
+def parse_specialty_profiles(preferred: str | None) -> list[str]:
+    """Return known specialty profile tags listed in a Preferred models field."""
+    if not preferred:
+        return []
+    out: list[str] = []
+    for part in preferred.split(","):
+        tok = part.strip().strip("`").lower()
+        if tok in SPECIALTY_PROFILES and tok not in out:
+            out.append(tok)
+    return out
+
+
 def _parse_preferred_tokens(preferred: str | None) -> tuple[list[str], list[str]]:
     if not preferred:
         return [], []
     tiers: list[str] = []
     names: list[str] = []
     for part in preferred.split(","):
-        tok = part.strip()
+        tok = part.strip().strip("`")
         if not tok:
             continue
         low = tok.lower()
+        if low in SPECIALTY_PROFILES:
+            continue  # specialty tags are not tier/name power-fit tokens
         if low in FIT_RANK:
             tiers.append(low)
         else:
-            names.append(low)
+            names.append(low)  # lowercased; matches historical Preferred name fit
     return tiers, names
 
 
@@ -535,10 +561,11 @@ class Effort(str, Enum):
 class EffortAdvice:
     """What to do with the reasoning dial for one plan.
 
-    ``verdict`` never affects eligibility. Effort is a **cost dial, not a tier
-    promotion** (mythos-core rule 11 / `/work` Model fit): cranking a mid model
-    to ``high`` does not qualify it for ``reasoner`` plans, and running a
-    reasoner at ``low`` does not disqualify it from ones it already fits.
+    ``verdict`` never gates eligibility by itself. For **non-Grok** products,
+    effort is a cost dial only. For the **Grok family**, reported effort also
+    sets effective Preferred tier via ``effective_fit_tier`` (separate from
+    this advice); this struct still recommends raising/lowering the dial to
+    match the plan's Preferred band.
     """
 
     verdict: Effort
@@ -580,6 +607,104 @@ def normalize_effort(effort: str | None) -> str | None:
     e = aliases.get(e, e)
     return e if e in EFFORT_RANK else None
 
+def _model_tokens(name: str) -> list[str]:
+    """Split a product / endpoint id on common separators (incl. OpenRouter ``/``)."""
+    n = name.lower().replace("_", " ").replace("-", " ").replace("/", " ").replace(".", " ")
+    return n.split()
+
+
+def is_grok_family(name: str | None) -> bool:
+    """True when the worker product is Grok (4.5, 4.6, or generic "grok").
+
+    Accepts ``Grok``, ``Grok 4.6``, ``grok-4.5``, and slash-prefixed fleet ids
+    such as ``x-ai/grok-4.6`` / ``xai/grok-4.5``.
+
+    Lease / worktree ids that merely *contain* the token (``grok-effort-tier-46``)
+    are **not** Grok products — otherwise ``work_once --agent-id grok-* --effort
+    high`` would silently promote a non-Grok worker.
+    """
+    if not name:
+        return False
+    tokens = _model_tokens(name)
+    try:
+        i = tokens.index("grok")
+    except ValueError:
+        return False
+    rest = tokens[i + 1 :]
+    if not rest:
+        return True  # bare "grok"
+    # Product-shaped: grok + version 4 / 4.5 / 4.6 (optional trailing junk)
+    return rest[0] == "4" and (len(rest) == 1 or rest[1] in ("5", "6"))
+
+
+def is_grok_45(name: str | None) -> bool:
+    """True for Grok 4.5 (API coerces ``xhigh`` → ``high``)."""
+    if not name or not is_grok_family(name):
+        return False
+    tokens = _model_tokens(name)
+    return any(
+        tokens[i] == "4" and tokens[i + 1] == "5" for i in range(len(tokens) - 1)
+    )
+
+
+# Grok-family effort → effective Preferred fit tier (Grok 4.6-era map).
+# Unknown / unreported effort does **not** inherit API default high → frontier.
+GROK_EFFORT_TIER: dict[str, str] = {
+    "none": "mid",
+    "minimal": "mid",
+    "low": "mid",
+    "medium": "reasoner",
+    "high": "reasoner",  # API default on 4.6/4.5 — reasoner-class, not frontier
+    "xhigh": "frontier",  # 4.6-only explicit max; opt-in cost/depth
+}
+
+
+def grok_effort_to_tier(effort: str | None) -> str:
+    """Map a normalized effort word to mid|reasoner|frontier; unknown → mid."""
+    e = normalize_effort(effort)
+    if e is None:
+        return "mid"
+    return GROK_EFFORT_TIER.get(e, "mid")
+
+
+def effective_fit_tier(
+    name: str,
+    base_tier: str,
+    effort: str | None = None,
+) -> str:
+    """Session tier used for Preferred matching.
+
+    **Grok family:** when *effort* is a recognized dial setting, the
+    operator-confirmed map promotes/demotes eligibility (low→mid,
+    medium/high→reasoner, xhigh→frontier). Unrecognized or omitted effort
+    keeps **mid** (never silent frontier from API default).
+
+    **Other products:** catalog *base_tier* only; effort is cost advice
+    elsewhere (``classify_effort``), not a tier promotion.
+    """
+    base = normalize_fit_tier(base_tier)
+    if not is_grok_family(name):
+        return base
+    if effort is None or (isinstance(effort, str) and not effort.strip()):
+        return "mid"  # unknown dial → conservative mid
+    e = normalize_effort(effort)
+    if e is None:
+        return "mid"
+    # xAI treats 4.5 xhigh as high → landed map reasoner, not frontier.
+    if e == "xhigh" and is_grok_45(name):
+        e = "high"
+    return GROK_EFFORT_TIER.get(e, "mid")
+
+
+def worker_with_effort(
+    name: str,
+    base_tier: str,
+    effort: str | None = None,
+) -> Worker:
+    """Build a Worker whose ``tier`` is already the effective fit tier."""
+    return Worker(name=name, tier=effective_fit_tier(name, base_tier, effort))
+
+
 
 def plan_effort_tier(preferred: str | None) -> str:
     """The tier that sets a plan's effort band: the **highest** tier it lists.
@@ -618,7 +743,29 @@ def _record_from_path(
     plans_root: Path | None = None,
     git_check: bool = True,
 ) -> PlanRecord:
-    text = path.read_text(encoding="utf-8")
+    raw_text, parse_error = safe_read_text(path)
+    if parse_error is not None:
+        # Corrupt/unreadable file: never crash the daemon loop over one bad plan.
+        # Every field below falls back to a safe default; triage_plan's
+        # parse_error check rejects this record before any other field matters.
+        return PlanRecord(
+            path=path.resolve(),
+            rel=f"{lane}/{path.name}",
+            lane=lane,
+            slug=plan_slug(path),
+            value="medium",
+            priority=DEFAULT_PRIORITY,
+            preferred=None,
+            title=path.name,
+            fit=Fit.UNKNOWN,
+            owner=owner,
+            parse_error=parse_error,
+            has_goal=False,
+        )
+    # Fence-stripped once, reused by every field parser below — a plan that
+    # quotes an example header inside a code fence (anchor/templates/plan.md
+    # does exactly that) must never have the example read as its own field.
+    text = strip_code_fences(raw_text)
     preferred = parse_preferred(text)
     deps = tuple(parse_depends_on(text))
     root = plans_root if plans_root is not None else path.parent.parent
@@ -640,6 +787,7 @@ def _record_from_path(
         deps_notes=notes,
         assignee=parse_assignee(text),
         agent_assignable=is_agent_assignable(text),
+        has_goal=has_goal_section(text),
     )
 
 
@@ -964,11 +1112,10 @@ def format_list_table(records: list[PlanRecord]) -> str:
 
 
 def _goal_snippet(path: Path, limit: int = 200) -> str:
-    try:
-        text = path.read_text(encoding="utf-8")
-    except OSError:
+    text, parse_error = safe_read_text(path)
+    if parse_error is not None:
         return ""
-    m = GOAL_RE.search(text)
+    m = GOAL_RE.search(strip_code_fences(text))
     return " ".join((m.group(1) if m else "").split())[:limit]
 
 
@@ -995,8 +1142,13 @@ def _next_main(argv: list[str] | None = None) -> int:
         help="also move the plan to in-progress/ and write your lease (atomic)",
     )
     ap.add_argument("--json", action="store_true", help="emit a JSON object")
-    ap.add_argument("--tier", default="mid", help="worker fit tier (default mid)")
+    ap.add_argument("--tier", default="mid", help="worker catalog/base fit tier (default mid)")
     ap.add_argument("--model", help="worker model name for Preferred-models match")
+    ap.add_argument(
+        "--effort",
+        help="reasoning effort (Grok family: sets effective fit tier; "
+             "low→mid, medium/high→reasoner, xhigh→frontier; omit→mid for Grok)",
+    )
     ap.add_argument(
         "--no-fit-check", action="store_true", help="ignore Preferred-models filter"
     )
@@ -1013,7 +1165,9 @@ def _next_main(argv: list[str] | None = None) -> int:
               file=sys.stderr)
         return 2
 
-    worker = Worker(name=args.model or args.tier, tier=args.tier)
+    worker = worker_with_effort(
+        args.model or args.tier, args.tier, getattr(args, "effort", None)
+    )
     rec = select_one(
         plans_root,
         worker,

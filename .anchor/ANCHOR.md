@@ -23,7 +23,7 @@ Small models drift: they forget constraints mid-task, conflate planning with doi
 - **Planned continuation instead of context rot** — a task that outgrows its window does not have to fail. Approaching its declared ceiling, the executor emits a **structured handoff** (`templates/handoff.md`: what is done and how it was checked, what remains as ready-to-dispatch sub-specs, decisions made, files touched, open concerns) and the orchestrator respawns a **fresh** context seeded with that handoff — not a longer conversation, which is the thing that rots in the first place. Mythos-core rule 15 makes the handoff mandatory near budget; `scripts/orchestrate.py` decides when one is needed from its own token accounting rather than trusting the model's sense of how much room it has left, rejects remaining work that carries no verify command, and refuses a continuation whose scope grew. The cap is **2 continuations per task** — a task that still does not fit goes back to the planner, because needing a fourth window is a decomposition error, not a large task.
 - **External verification** — tooling (not the model) runs tests, linters, and diffs. The model's claim of success is an input to verification, never a substitute. Fleet runs record that pairing in `var/fleet-metrics/outcomes.jsonl` (`scripts/fleet_metrics.py`); aggregate with `python scripts/fitness_report.py` and prefer those rates over vendor claims when updating `model-fitness.md`.
 - **Role separation** — the same small model performs better as three sequential roles (planner → executor → critic) than as one conversational blob, because each role gets a clean context and a narrow job. In the orchestrated path the split is harness-enforced, not just prompted: `scripts/roles.py` is the single role→capability map (planner writes only `.plans/**`; executor never writes `.plans/**` or its own spec; critic writes nothing), applied per phase by `scripts/orchestrate.py` and by the project-orchestrator MCP server's role-scoped toolsets (a `--role planner` session never even sees lifecycle tools). Role transitions are explicit, logged orchestrator events — no self-promotion. Single-model sessions with no orchestrator keep the discipline by prompt alone.
-- **Escalation paths** — define upfront what gets escalated to a bigger model: ambiguous requirements, architectural decisions, twice-failed tasks, final review.
+- **Escalation paths** — define upfront what gets escalated to a bigger model: ambiguous requirements, architectural decisions, twice-failed tasks, final review. The twice-failed-task path is harness-enforced, not only prompted: `scripts/fleet_metrics.py`'s `should_stop` reads the outcome ledger (not an in-memory attempt count) and refuses a third dispatch to the same model for the same task, so this no longer depends on a flailing model counting its own failures. `scripts/orchestrate.py` consults it before every (re)dispatch — two recorded failures escalate one tier with both failures' evidence attached to the escalated spec; two failures at the top available tier produce a structured human report (rule 6's shape) that the orchestrator writes even if the model never did.
 
 ## The orchestrator pattern
 
@@ -37,6 +37,8 @@ BIG model (or human):   review the merged result against the plan
 ```
 
 The expensive model touches the project twice. Everything between runs on cheap/local models. `scripts/orchestrate.py` implements this loop; the `model-fleet` MCP server exposes it to any MCP-capable agent.
+
+**The coordinator's context is the scarce resource this loop protects, and only the structured footer crosses back into it.** An executor's full reply — reasoning, false starts, quoted templates — never reaches the orchestrator's own context or the next task's prompt; `scripts/fleet_metrics.py`'s `extract_footer` pulls mythos-core rule 8's `## Result` / `## How to verify` / `## Deferred / concerns` out tolerantly (case/spacing drift, last-occurrence-wins when a model quotes the template while reasoning) and caps the result so a smuggled transcript can't ride along inside `## Result`. A reply missing any of the three required sections — not just a reply with no footer at all — is rejected back to the executor once with the expected shape quoted, then escalated per rule 6 — never silently accepted as unstructured output; `scripts/orchestrate.py` archives the full raw reply to `var/task-transcripts/<task-hash>.log` for post-mortem either way, discarded from the coordinator's context but not from disk. That archive grows unbounded and is rotated the same way as the fleet metrics ledger: manually, by the operator; nothing here does it automatically.
 
 ## Prompt tuning (always, before expensive or weak runs)
 
@@ -55,7 +57,21 @@ A sloppy prompt costs a frontier model money and costs a small model *correctnes
 
 ### Right-size before you start
 
-The escalation path above (stop after two failures, hand up a tier) has an inverse that's just as important and easier to forget: before spending an expensive tier's tokens, ask whether the task actually needs them. If it looks like boilerplate, formatting, a rename, or a single well-specified function, the model should say so and ask whether to proceed at the current tier or hand off to a smaller model or a model already registered in `scripts/endpoints.yaml` — rather than silently burning frontier capacity on work a cheap/local model would do just as correctly. `scripts/router.py` implements this lookup; a model without fleet access should still flag the mismatch in words.
+Before spending an expensive tier's tokens — **and on every user prompt that sets
+or redirects work** — judge fit both ways (detail: `model-fitness.md`):
+
+| Direction | First line | When |
+|-----------|------------|------|
+| Too hard | `SUGGEST-ESCALATE: <target> — <reason>` | Weak column, orchestration-class, under-tier |
+| Too easy | `SUGGEST-DOWNGRADE: <cheaper target> — <reason>` | Clear over-tier (boilerplate, rename, format-only) |
+| Good fit | *(silence)* | Proceed — no model pitch |
+
+Stop after a suggest line unless the operator insists. Prefer project model-priority
+/ Preferred orchestrator for targets. `scripts/router.py` helps fleet role pick;
+interactive agents use the first-line protocol, not silent model swap.
+
+
+Routing awareness itself follows the same right-size rule its own registry gets: a coordinator or planner role never receives the raw `scripts/endpoints.yaml` in context — `scripts/router.py`'s `summarize_endpoints()` generates a one-line-per-endpoint summary (name, tier, context size, one capability phrase; no `base_url`, model name, or quirk values) that the orchestrator injects wherever a routing decision is actually being made. An executor's task spec gets that summary only when the task itself is routing-related (picking a tier, an endpoint, an escalation target); ordinary implementation work never sees it. Full endpoint detail is a deliberate, on-demand lookup — the model-fleet MCP's `lookup_endpoint(name)` tool, or `router.endpoint_detail()` directly — never a default include. Secrets never leave tooling either way: `ANCHOR_API_KEY` is read from the environment at request time, not stored in or returned from the registry.
 
 ### When the tier you want is rationed
 

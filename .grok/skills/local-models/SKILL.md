@@ -15,17 +15,49 @@ metadata:
 
 # /local-models — machine fit + local executor install guidance
 
-**Scaffolded skill:** scaffolded into projects via `anchor … --platform claude|grok`.
-It is **not** part of the Anchor’s base skill set (unlike `/work`,
-`/draft`, `/anchor`). Source of truth lives under `platforms/` in the Anchor
-repo and is copied to `.grok/skills/local-models/` (or Claude commands) on scaffold.
+**Dual-use skill:** lives in the **Anchor checkout** base skills and is
+scaffolded into projects via `anchor … --platform claude|grok` (same pattern as
+`/work`, `/draft`, `/install-anchor`). Source of truth:
+`.grok/skills/local-models/SKILL.md` (Claude: `.claude/commands/local-models.md`).
 
 Answer: **what lean, popular local models can this machine run**, and **how do
 I install/run a model executor here** — with **markdown links** the user can
-click (official docs, HF weights, WSL/CUDA/macOS install paths).
+click (official docs, HF weights, WSL/CUDA/macOS install paths). From the
+Anchor tree, also guide **operator defaults** and fleet registration for
+**this host**.
 
 Prefer tooling over guesswork: run Anchor’s probe/fit helper, then present a
 clear recommendation report in chat.
+
+## Hard rule — multi-machine clones
+
+A project is often **cloned onto several machines** (laptop, desktop, WSL guest,
+CUDA box) with **different** RAM/GPU/backends. Therefore:
+
+1. **Probe is always this host.** Never treat a prior probe, a teammate’s setup,
+   or a committed “we use Qwen3-32B locally” note as true on this machine.
+2. **Host fit is not project law.** Do **not** commit this host’s model size,
+   quant, or `localhost` URL as if every clone has that capacity.
+3. **Prefer machine-local writes** for host-only endpoints:
+   - Operator defaults: `~/.config/anchor/defaults` (`config.sh` / `/config`) —
+     already per machine.
+   - Localhost / host-only registry stanzas: prefer a **gitignored** overlay
+     (e.g. `endpoints.local.yaml` next to the registry, or document “local only
+     on this host”) rather than forcing a shared `endpoints.yaml` edit that
+     breaks other clones.
+   - Draft plans that wire **this** host: default **`.local.md`** (gitignored).
+4. **Shared project config stays portable.** Conventions / tracked docs may say
+   “use a local executor **when reachable**” and name tier ceilings — not
+   “everyone runs 70B on `http://127.0.0.1:11434`”.
+5. **Fleet/LAN endpoints are different.** Shared `endpoints.yaml` entries that
+   point at a **stable LAN/API host** (e.g. lab H100 at `10.x`) may be committed;
+   pure **this-laptop** endpoints must not pretend to be fleet-wide.
+6. **Stale other-host config:** if the project already lists local endpoints that
+   look host-bound (`127.0.0.1`, `localhost`, hostnames that don’t resolve here)
+   or a prior host note that doesn’t match this probe, **warn** and re-derive
+   for this machine — never silently trust or clobber without confirmation.
+7. **Declared ≠ available.** A recommendation or draft is not a promise the
+   endpoint answers on every clone or after reboot.
 
 ## Usage
 
@@ -38,6 +70,17 @@ clear recommendation report in chat.
 | `/local-models --memory 16 --backend cuda` | Override probe memory/backend |
 
 `$ARGUMENTS` is everything after `/local-models`.
+
+## Where you are (Anchor vs project)
+
+Detect early (used for closing offers and write targets):
+
+| Context | How to detect | Primary follow-ups |
+|---------|---------------|--------------------|
+| **Anchor checkout** | Tree has both `bin/anchor` and `scripts/anchor.py` **and** `scripts/fit_device.py` at repo root (source tree, not only a fleet-scaffolded `.anchor/scripts/`) | Operator defaults (`/config` / `config.sh`); optional machine-local or LAN fleet stanza in **this** repo’s `scripts/endpoints.yaml` (LAN only if shared); install on this host |
+| **Scaffolded project** | CWD/git root is not the Anchor source tree (may have `.anchor/`, `.anchor-manifest.json`) | Install on this host; **portable** project notes + **machine-local** endpoint wiring; `.local.md` draft |
+
+Same probe either way. Different write surfaces; same multi-machine rules.
 
 ## Steps
 
@@ -75,14 +118,15 @@ docs) so the client can render clickable links.
 #### Required sections
 
 1. **Machine** — guest OS + WSL?; when WSL, **bare-metal Windows** facts from
-   `powershell.exe` (host RAM, CPU, GPUs) vs WSL cgroup RAM
+   `powershell.exe` (host RAM, CPU, GPUs) vs WSL cgroup RAM. State clearly:
+   **this host only** (other clones need their own `/local-models`).
 2. **Compatibility** — honest: good / limited (CPU/iGPU) / excellent (CUDA/Metal)
 3. **Executor placement** — if WSL: **prefer Windows bare-metal** model server;
-   Anchor stays in WSL and points `endpoints.yaml` at the host API
+   Anchor stays in WSL and points the **machine-local** registry at the host API
 4. **Recommended models** (lean + popular from the fit list, sized to **host**
    usable budget when known) — for each:
    - name, size, Anchor tier
-   - why it fits
+   - why it fits **here**
    - links: official quick start + GGUF/HF weights (from probe output)
 5. **Install on this system** — short procedure for the **detected** profile:
    - **WSL2:** lead with [Ollama for Windows](https://ollama.com/download) or
@@ -92,9 +136,12 @@ docs) so the client can render clickable links.
    - **Apple Silicon:** brew llama.cpp / MLX → serve script
    - **Linux CUDA:** driver + vLLM or llama.cpp CUDA → serve-cuda.sh
    - **Linux CPU:** small GGUF only
-6. **Next Anchor steps** — register endpoint; optional `/install-anchor` if CLI missing;
+6. **Config scope** — what is safe **on this machine** vs what must stay
+   **portable** for multi-clone projects (see hard rule)
+7. **Next Anchor steps** — register endpoint (machine-local vs LAN); optional
+   `/install-anchor` if CLI missing; optional `/config` when in Anchor checkout;
    point at personal-devices hardware docs
-7. **Offer a follow-up draft plan** (required close) — see step 6 below
+8. **Offer follow-up** (required close) — see step 6 below
 
 #### Link bank (always prefer these when relevant)
 
@@ -120,6 +167,8 @@ Also link concrete HF repos printed by `fit_device.py` for the recommended model
 - **Never** `pip install vllm` / download multi‑GB weights without user confirmation.
 - **May** run read-only probes (`nvidia-smi`, `free`, `fit_device.py --probe`).
 - If the user asks to install, show the exact commands and confirm first (sudo risk).
+- Name the **target machine** when install is not on the agent’s guest
+  (e.g. WSL → Windows host via documented host installers).
 
 ### 5. Catalog philosophy (what “lean popular” means)
 
@@ -127,10 +176,11 @@ Prefer models in `fit_device.py`’s catalog (Qwen3, Gemma 3, Mistral Small, R1
 distills, Llama 3.3) at **Q4**, short context (8k default), official chat
 templates — not giant FP16 frontier weights on a laptop.
 
-### 5b. Routing policy (reconfigure drafts + recommendations)
+### 5b. Routing policy (recommendations + any wiring)
 
-Wire local models into the project **without** promoting small locals into
-heavy work — and **without** ignoring the operator’s model-priority list.
+Wire local models **without** promoting small locals into heavy work — and
+**without** ignoring the operator’s model-priority list — and **without**
+assuming every clone can run the same local.
 
 1. **User model order is primary.** Read (when present):
    - `~/.config/anchor/defaults` → `MODEL_PRIORITY=…` (via `config.sh` / saved defaults)
@@ -153,80 +203,71 @@ heavy work — and **without** ignoring the operator’s model-priority list.
 3. **Heavy inference when the host can.** If the probe shows real heavy-local
    capacity (e.g. large unified memory, discrete NVIDIA VRAM, fits
    `executor-heavy` / large catalog entries), then for **heavy inference** work:
-   - Prefer a **local** endpoint that is **fit** for that weight
+   - Prefer a **local** endpoint that is **fit** for that weight **on this host**
    - **Among** options that are fit, walk the user’s **model-priority** order and
      pick the first that can do the job (local or remote)
    - If the user’s priority already puts a capable local early, keep that order
    - If priority has no local token yet, **propose** inserting the local endpoint
-     name at a position consistent with their preferences (e.g. after cheaper
-     remotes they listed first, or at the front if they asked for local-first) —
-     do not silently reorder their whole list
+     name at a position consistent with their preferences — do not silently
+     reorder their whole list
 
 4. **Lightweight stays lightweight.** Small locals stay on `swarm`/`executor`
-   tiers in `endpoints.yaml`. Do not map them to `frontier` / orchestrator roles.
-   Escalation to Preferred orchestrator / cloud frontier remains for work beyond
-   local tier.
+   tiers. Do not map them to `frontier` / orchestrator roles.
 
-5. State this policy in the report and in any reconfigure draft
-   (`## Routing policy` or under conventions step).
+5. **Reachability over assumption.** Prefer remote/fleet endpoints that answer
+   when this host has no fit local; never hard-fail a multi-clone project because
+   one laptop cannot run the largest catalog entry.
 
-### 6. Offer draft plan: reconfigure project for detected local models (required)
+6. State this policy in the report and in any draft (`## Routing policy` /
+   multi-machine note).
 
-After the report (and **before** ending the turn), **ask the user** whether to
-create a **draft plan** they can execute later (once install deps are done):
+### 6. Offer follow-up (required close)
 
-> Create a draft under `.plans/drafts/` that reconfigures **this project** to use
-> the detected local model(s) as an Anchor fleet endpoint? (Install stays in
-> **Prerequisites** — the plan assumes you may run `/work` after install.)
+After the report (and **before** ending the turn), offer the right follow-up for
+**where you are**. Skip for `--list` / pure catalog mode.
 
-- **Skip** this offer for `--list` / pure catalog mode.
-- **Do not** create the draft until the user says yes (or equivalent) to *creating*
-  a reconfigure draft — that is the only confirmation required.
+#### A. In the Anchor checkout — operator defaults + this host’s fleet
+
+Ask (yes/no; may combine):
+
+1. **Operator defaults** — update `~/.config/anchor/defaults` via `./config.sh`
+   (or `/config`) so model-priority includes a fit **local** token for **this
+   machine** (still subject to tier ceilings). This is the right place for
+   “default install / default local preference” that follows the operator across
+   scaffolds **on this host**.
+2. **Optional draft** under `./.plans/drafts/` (`.local.md`) to register a
+   **verified** endpoint for **this host** in `scripts/endpoints.yaml` only when
+   it is a **LAN/shared** URL, or to document a **machine-local** overlay path
+   for localhost. Install stays in **Prerequisites**.
+
+Do **not** write shared doctrine that claims every developer machine has this
+host’s VRAM.
+
+#### B. In a scaffolded project — portable intent + machine-local wire-up
+
+Ask whether to create a **draft** under **`./.plans/drafts/`** that:
+
+- Installs/serves the model on **this** host (Prerequisites)
+- Registers a **machine-local** endpoint (gitignored overlay preferred for
+  `localhost`; shared registry only for multi-host-reachable URLs)
+- Updates conventions with **portable** language (“local when reachable”; tier
+  ceilings) rather than hard-coding this host’s best model as universal
+
+Slug auto: `local-executor-<best-model>` (+ `-2`, …). Default **`.local.md`**.
+Do not ask for path or slug. Create the draft only if the user agrees.
+
+#### Shared draft rules (both contexts)
+
 - **Do not** install runners or download weights as part of creating the draft.
-- **Do not** ask where to store the draft or what the slug should be:
-  - **Path (fixed):** current project **`./.plans/drafts/`** (git root of CWD if
-    that is the project; otherwise CWD’s `.plans/drafts/`). Create the tree if needed.
-  - **Slug (auto):** `local-executor-<best-model>` from the probe (e.g.
-    `local-executor-qwen3-8b`). If that file already exists, append `-2`, `-3`, …
-    Do not prompt to confirm the slug.
-  - Default privacy: **`<slug>.local.md`**.
-
-#### If the user accepts — write the draft
-
-1. Ensure **`./.plans/drafts/`** exists on the **current project** (create dirs if
-   missing). Do not ask for another project path.
-2. Choose slug automatically: `local-executor-<best-model>` (+ numeric suffix if
-   taken). No customer-specific names; no slug confirmation prompt.
-3. Use `.anchor/templates/plan.md` shape (or `anchor/templates/plan.md` in the
-   Anchor source tree). **No** `Lane:` / `Status:`.
-4. **Required section — `## Prerequisites` (install-first, special attention):**
-   - Host/guest facts from this probe (profile, host RAM, GPU class, placement)
-   - Ordered install checklist for the **chosen** runner (host Ollama/llama.cpp
-     when WSL bare-metal recommended; else platform-specific)
-   - Links (HTTPS) for each install step
-   - How to verify the server is up (`curl` health / `ollama list` / open port)
-   - Explicit: **Do not start Steps until Prerequisites are checked off**
-5. **Goal / Steps** of the plan itself should be **project reconfiguration**, e.g.:
-   - Add/update `endpoints.yaml` (project fleet path or
-     `.anchor/scripts/endpoints.yaml` if fleet-scaffolded)
-   - Set quirks + **tier** from `fit_device` (never over-tier a small local)
-   - Update `.anchor/conventions.md` **model priority** using step **5b**:
-     user order primary; insert fit local token(s); heavy-local only if probe allows
-   - Document routing: lightweight work → small locals only; heavy work → first
-     **fit** model in user priority (prefer capable local when it appears / when
-     host can run heavy and user accepts local in that band)
-   - Smoke: `work_once --list` or a tiny chat against the local endpoint
-   - **Not** “install Ollama” as a Step row — that belongs in Prerequisites
-6. Preferred models for the **plan execution** (wiring the project): `small` /
-   `mid` (mechanical). Separately, the **fleet** Preferred models / priority
-   updated by the plan must encode 5b for day-to-day routing.
-7. Report the draft path only (no “is this slug OK?”); mention `/draft --load` /
-   `/draft --promote` when ready (basename sticky if `.local.md`).
+- **Do not** treat Prerequisites install as silent `/work` steps.
+- Use plan template shape (`.anchor/templates/plan.md` or Anchor
+  `anchor/templates/plan.md`). **No** `Lane:` / `Status:`.
+- Preferred models for executing the **wiring** plan: `small`, `mid`.
 
 #### Draft skeleton (fill from this probe)
 
 ```markdown
-# Plan: Wire local fleet endpoint (<best-model>)
+# Plan: Wire local fleet endpoint (<best-model>) on this host
 
 - **Value:** medium
 - **Priority:** P2
@@ -235,14 +276,14 @@ create a **draft plan** they can execute later (once install deps are done):
 - **Depends on:** none
 
 ## Goal
-Configure this Anchor project to use probe-selected local model(s) as fleet
-endpoint(s), with routing limited by fit tier and ordered primarily by the
-operator’s model-priority list (heavy work prefers capable local when the host
-and priority allow).
+On **this machine only**, install/serve probe-selected local model(s) and register
+them for Anchor use without claiming every clone of this repo has the same
+capacity. Portable project notes may say “local when reachable”; host-only URLs
+stay machine-local.
 
 ## Prerequisites
 <!-- INSTALL — do not execute Steps until these hold -->
-- [ ] Probe profile: …
+- [ ] Probe profile (this host): …
 - [ ] Executor placement: windows-host | macos | linux-cuda | …
 - [ ] Host can/cannot run heavy local (VRAM/RAM class from probe)
 - [ ] Install runner on bare metal / host (commands + links from /local-models)
@@ -250,30 +291,33 @@ and priority allow).
 - [ ] Server listening (URL + verify command)
 - [ ] From this environment, `curl`/client can reach that URL
 
+## Multi-machine
+- This draft is for host profile: … (re-run `/local-models` on other clones)
+- Shared registry vs machine-local overlay: …
+- Do not commit localhost-only stanzas as fleet-wide truth
+
 ## Routing policy (from /local-models)
 - User model-priority (from config/conventions): `…`  <!-- or “unset — propose” -->
 - Lightweight locals (tier swarm/mid only): …
-- Heavy-capable local on this host? yes/no — if yes, prefer fit local for heavy
-  inference in priority order; if no, never assign heavy roles to these locals
+- Heavy-capable local on this host? yes/no
 
 ## Context read
 - Output of `fit_device.py --probe` from session date …
-- Existing MODEL_PRIORITY / `.anchor/conventions.md` …
-- Project endpoints path …
+- Existing MODEL_PRIORITY / conventions / endpoints (note other-host staleness) …
 
 ## Steps
 | # | Task | Touches | Verify by | Route to |
 |---|------|---------|-----------|----------|
-| 1 | Add endpoint stanza(s); tier matches catalog fit only | endpoints.yaml | YAML + tier correct | small |
-| 2 | Align quirks with catalog | endpoints.yaml | stanza matches probe | small |
-| 3 | Merge model-priority / routing notes (user order primary; no over-tier) | .anchor/conventions.md | priority list reviewed | mid |
+| 1 | Register endpoint: machine-local overlay for localhost, or shared registry only if LAN-reachable | endpoints path | YAML + tier correct; other clones not broken | small |
+| 2 | Align quirks with catalog | same | stanza matches probe | small |
+| 3 | Portable conventions/priority notes (user order primary; no over-tier; “when reachable”) | conventions / ~/.config/anchor | priority reviewed | mid |
 | 4 | Smoke local OpenAI-compatible call (lightweight prompt only) | — | short completion OK | small |
 
 ## Done when
-- [ ] Local endpoint(s) registered with correct tier (no small-as-frontier)
-- [ ] Conventions/priority reflect user order + fit-based heavy/light rules
+- [ ] This host has a correct-tier local endpoint (or explicit “no local fit”)
+- [ ] Shared project config does not require other clones to have this host’s VRAM
 - [ ] Prerequisites install checklist was satisfied before smoke
-- [ ] Documented how to re-run the server after reboot
+- [ ] Documented how to re-run the server after reboot **and** re-probe on a new machine
 ```
 
 ## Output footer
@@ -285,17 +329,23 @@ and priority allow).
 ```
 
 Include: profile, best model, top install path (with links), whether a runner is
-already on PATH, and whether a **draft was offered / created** (path if created).
+already on PATH, context (Anchor vs project), multi-machine notes, and whether a
+**follow-up was offered / created** (path if draft created; whether `/config` was
+suggested).
 
-**Closing prompt (mandatory unless `--list`):** ask only whether to **create** the
-reconfigure draft (yes/no). Do **not** ask for project path or slug — those are
-fixed/auto (step 6).
+**Closing prompt (mandatory unless `--list`):** ask the yes/no follow-up for the
+detected context (Anchor: defaults and/or draft; project: draft). Do **not** ask
+for project path or slug when offering a draft.
 
 ## Out of scope
 
 - Fine-tuning / training
 - Cloud GPU provisioning (unless user asks)
-- Replacing `/install-anchor` (CLI registration only)
+- Replacing `/install-anchor` (CLI registration only) or `/config` (operator
+  survey — **offer** it from Anchor; do not replace it)
 - Guaranteeing VRAM fit without `benchmark.py` confirmation
-- Creating the reconfigure draft without user consent
+- Creating drafts or writing defaults without user consent
 - Treating Prerequisites install as silent `/work` steps
+- Committing one machine’s localhost fit as project-wide required capacity
+- Implementing full desired-state declaration / ensure pipelines (future
+  `/local-models-config` + `/local-models-ensure` if present in backlog)

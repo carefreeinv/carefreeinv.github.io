@@ -3,7 +3,7 @@
 local planner) delegate work to the hardware fleet (swarm tier, H100 tier, Space-1)
 instead of burning frontier credits on keystrokes.
 
-Run: python server.py    (needs: pip install "mcp[cli]" requests pyyaml)
+Run: python server.py    (needs: pip install "mcp[cli]>=1.2.0,<3" requests pyyaml)
 Claude Code: claude mcp add model-fleet -- python /path/to/mcp/model-fleet/server.py
 """
 from __future__ import annotations
@@ -11,10 +11,21 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from mcp.server.fastmcp import FastMCP
+# MCP SDK 2.0 renamed FastMCP to MCPServer and moved it out of
+# `mcp.server.fastmcp`, which no longer exists. The decorator surface this server
+# uses (tool/prompt/resource) and `run()` are identical across both majors, so a
+# two-name shim keeps one implementation working on either — rather than pinning
+# operators to a line that is already end-of-life, or breaking everyone still on v1.
+try:  # SDK 2.x
+    from mcp.server import MCPServer
+except ImportError:  # SDK 1.x
+    from mcp.server.fastmcp import FastMCP as MCPServer
 
 
-def _project_root() -> Path:
+def _bootstrap_root() -> Path:
+    """Minimal root guess used only to locate ``scripts/`` before anchor_client
+    is importable. Mirrors anchor_client.project_root_from's mcp/ case; REPO is
+    reassigned to the real resolver's output right after the import below."""
     here = Path(__file__).resolve().parent
     if here.parent.name == "mcp" and here.parent.parent.name == ".anchor":
         return here.parent.parent.parent
@@ -23,15 +34,18 @@ def _project_root() -> Path:
     return here.parents[2]
 
 
-REPO = _project_root()
+REPO = _bootstrap_root()
 for _scripts in (REPO / ".anchor" / "scripts", REPO / "scripts"):
     if _scripts.is_dir():
         sys.path.insert(0, str(_scripts))
         break
 
-from anchor_client import Fleet, has_required_footer, load_prompt  # noqa: E402
+from anchor_client import Fleet, has_required_footer, load_prompt, project_root_from  # noqa: E402
+from router import endpoint_detail, summarize_endpoints  # noqa: E402
 
-mcp = FastMCP("model-fleet")
+REPO = project_root_from(Path(__file__))
+
+mcp = MCPServer("model-fleet")
 _fleet: Fleet | None = None
 
 
@@ -44,11 +58,23 @@ def fleet() -> Fleet:
 
 @mcp.tool()
 def list_fleet() -> str:
-    """List available fleet endpoints (name, tier, model) and role→tier routing."""
+    """One capped summary line per fleet endpoint (name, tier, context size, capability
+    phrase) plus role→tier routing. Deliberately no base_url/model/quirk detail — call
+    lookup_endpoint(name) for full non-secret detail on one endpoint you actually need."""
     f = fleet()
-    lines = [f"- {e.name} [{e.tier}] {e.model} @ {e.base_url}" for e in f.endpoints]
+    lines = summarize_endpoints(f)
     lines.append("\nroles: " + ", ".join(f"{r}→{t}" for r, t in f.roles.items()))
     return "\n".join(lines)
+
+
+@mcp.tool()
+def lookup_endpoint(name: str) -> str:
+    """Full non-secret detail (base_url, model, quirks) for one fleet endpoint by name.
+    Use this after list_fleet's summary names the endpoint you need more detail on —
+    full detail is resolved on demand, never pasted into context by default. Never
+    returns an API key: those come from ANCHOR_API_KEY at request time, not the
+    registry."""
+    return endpoint_detail(fleet(), name)
 
 
 @mcp.tool()

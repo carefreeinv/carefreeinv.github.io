@@ -1,6 +1,6 @@
 {
-  "anchor_commit": "2897b080ce3a64d1fbc0d8ed862370a358d5fceb",
-  "generated_at": "2026-08-07T01:01:59Z",
+  "anchor_commit": "a653cc5d7b52b0ae1c21921c5e5ea89cb256fa1b",
+  "generated_at": "2026-08-29T23:30:52Z",
   "platforms": [
     "nemotron",
     "grok",
@@ -19,23 +19,23 @@
   "files": {
     ".anchor/ANCHOR.md": {
       "src": "anchor/ANCHOR.md",
-      "hash": "054d1eba078321e593e9cb1d0e1ef128759a0fe4528d65c268b7d4f987c5ecb9"
+      "hash": "ba81482d37dd0fe4ba973d09923621b153e63b053b65c909c589b239efeddae2"
     },
     ".anchor/model-fitness.md": {
       "src": "anchor/model-fitness.md",
-      "hash": "85da00e352ee06739752d2c46440488f3aeb2e4e6ca96325fda2e442e2fff653"
+      "hash": "3069979e9fb4f9e8a487a9881cda2c3cec1417509d0eb6a4f62e89d6987de021"
     },
     ".anchor/capacity-routing.md": {
       "src": "anchor/capacity-routing.md",
-      "hash": "bbb79c8e9db69aae7cf4549794fde9bb080d69f9e260be8284878c381e945971"
+      "hash": "13b010e7e1337e1ba241c9e22713a023518e52fa778e799a76318034574e38f1"
     },
     ".anchor/system-prompts/mythos-core.md": {
       "src": "anchor/system-prompts/mythos-core.md",
-      "hash": "9ff91d46631d2e1f64d2355eebac7488158985c5da2deba1ca434cdb0a221c06"
+      "hash": "2f7958dc1dce25be2680bee0cb0ef9c60f0ce0f566ea143ce4ec3d64a6ae0808"
     },
     ".anchor/templates/plan.md": {
       "src": "anchor/templates/plan.md",
-      "hash": "d5a2b17d891e5f63514aea90743696e4580abed1ef18803cafa1621bbce93aa4"
+      "hash": "6e22042a7c557be77369c01d94a35409e845a6fafa728285128ff529f8da251f"
     },
     ".anchor/templates/task-spec.md": {
       "src": "anchor/templates/task-spec.md",
@@ -51,7 +51,7 @@
     },
     ".plans/README.md": {
       "src": "anchor/scaffold/plans/README.md",
-      "hash": "f9fbbe497f222da3593a9ce7f77a378c185c20297afa902646004b47f6c19e1d"
+      "hash": "f7e1778a00c2893df6472185be0b34199c55e4795d2b99b0a941b88fcf846ee0"
     },
     ".plans/.gitignore": {
       "src": "anchor/scaffold/plans/.gitignore",
@@ -91,27 +91,27 @@
     },
     "NEMOTRON.md": {
       "src": "platforms/nvidia-nim/NEMOTRON.md",
-      "hash": "96fa4ede6e127949b6a985f2ca960cf476ab648cd1edd55d4acf8648f10978c1"
+      "hash": "673655314826402899a3a91a3b722196d231ac7a4caa95630e1b8837f48f50a3"
     },
     "GROK.md": {
       "src": "platforms/grok-build/GROK.md",
-      "hash": "01b88452ff7f3672e61b33a324cbb8eb302a19b07a4774d76341ec6f0c4277b1"
+      "hash": "45538309f0683295e9aa43859a31c0e2c11a8a62d714abaf0815af0b3a907446"
     },
     ".grok/skills/work/SKILL.md": {
       "src": ".grok/skills/work/SKILL.md",
-      "hash": "b50ac00b905dfe295d2b4e9dfb464b624a90495ebd9207d67c430b89fa3e9e45"
+      "hash": "f3adb36f2a1b9214e204bb936450e754b787975902946f78dcfd4ed112ed7b04"
     },
     ".grok/skills/draft/SKILL.md": {
       "src": ".grok/skills/draft/SKILL.md",
-      "hash": "6f84b888907337790da4f848e3e766576c4755281815eef5cfd5e112b765a9e7"
+      "hash": "e71b43203cdd4f9a864d3da12719dbc230854a0e643760f237c11567332142f5"
     },
     ".grok/skills/review/SKILL.md": {
       "src": ".grok/skills/review/SKILL.md",
-      "hash": "4d073ab6313b9c030a8257d80fb279a5b7061767bc2b01661d7877b638e2b63b"
+      "hash": "9de2705dc4e630ddde4683179bc8ad2ff1d32dac3100c2b33eb5cf776310880d"
     },
     ".grok/skills/audit/SKILL.md": {
       "src": ".grok/skills/audit/SKILL.md",
-      "hash": "95655114605980d2a6f4772301f574f146f70199ec903afee5372030fb7c5c64"
+      "hash": "f4cae63e8117e68f6ef42d8199688e398d98c26d7134957605c047c8ffa97760"
     },
     ".grok/skills/deploy/SKILL.md": {
       "src": ".grok/skills/deploy/SKILL.md",
@@ -123,39 +123,39 @@
     },
     ".grok/skills/fleet-watch/SKILL.md": {
       "src": ".grok/skills/fleet-watch/SKILL.md",
-      "hash": "69214df9e59798057ec01fd56d623b97e3906f515885ca85bf7651b1f71ad79c"
+      "hash": "8475b14c5d684a46cb074a0f9c70bab528823d9270d8fa7c70773c73c257d6bf"
     },
     ".grok/skills/install-anchor/SKILL.md": {
       "src": ".grok/skills/install-anchor/SKILL.md",
       "hash": "aacf292949e4bb85e35c9483cbc9913307962b2286fa0e77bb2608d1c5879786"
     },
     ".grok/skills/local-models/SKILL.md": {
-      "src": "platforms/grok-build/skills/local-models/SKILL.md",
-      "hash": "bab3c9a4671cd3cbf60253cd13159bc22f880461ca39d9357cb868b4075674cc"
+      "src": ".grok/skills/local-models/SKILL.md",
+      "hash": "5c43fa7d6b933b7d46e8a900848b13ae0d47d426b0a110f32cf2f176666d930c"
     },
     ".grok/skills/anchor/SKILL.md": {
       "src": "platforms/grok-build/skills/anchor/SKILL.md",
-      "hash": "4f84dfeddd41c59389f7e4d8495788fd45948f9d3b526cdccf1c929cf740575c"
+      "hash": "738ec97df1ab931265b6673a97564fd48a67846a826d7fdcd3ceb56a052d307f"
     },
     "CLAUDE.md": {
       "src": "platforms/claude-code/CLAUDE.md",
-      "hash": "c12ebd333be806f116be27b8e2b3123e5a03cb6c6361676507a1ab8f345d384d"
+      "hash": "e1d7c15ffc090c169a81c5a23f7667a257b39f0046fc571e4d75a3835b001cc3"
     },
     ".claude/commands/work.md": {
       "src": ".claude/commands/work.md",
-      "hash": "9f8364cb18bacc7e28184888b8cee9a9a2a9a51aa059b1c23c7ee9a31130bd9f"
+      "hash": "fcb781e06a53734ab2993a4982f4ee450fe9f4b1cfc28e77ba02854b1b4701b0"
     },
     ".claude/commands/draft.md": {
       "src": ".claude/commands/draft.md",
-      "hash": "9fffc094029a5456f3fe6fab00fbc1dd4c4a2519bcfc264fc82271c761edc021"
+      "hash": "0092e27c23ca4d05a483bb90d8805f8b991d18eb8509af7b4288a58d1f7fc420"
     },
     ".claude/commands/review.md": {
       "src": ".claude/commands/review.md",
-      "hash": "8f3c0186252067bf0efbd2ece2c27e1a25fc33877507ddcad442fc058ea8c825"
+      "hash": "b7c7edb07e3bee17626789f8d818500b9d81e91a9cfb0bec8197a386753fa5c3"
     },
     ".claude/commands/audit.md": {
       "src": ".claude/commands/audit.md",
-      "hash": "ace43dc6d01981d82b72df8947f651aa002f1b719229883391b705036ae6c059"
+      "hash": "29f6b26f77be50084b1b518652519b2fbb55b20dd1a1cd3ea3927171596a5b74"
     },
     ".claude/commands/deploy.md": {
       "src": ".claude/commands/deploy.md",
@@ -167,35 +167,35 @@
     },
     ".claude/commands/fleet-watch.md": {
       "src": ".claude/commands/fleet-watch.md",
-      "hash": "13cd42c05a46118179d661f395a35921ab7215ffeb6376e8360e899134c77094"
+      "hash": "9fae14f32ec6f4924185df11d03ba53442056c52e4a3bde517e59e804267222c"
     },
     ".claude/commands/install-anchor.md": {
       "src": ".claude/commands/install-anchor.md",
       "hash": "22f7715cfd540a0b774e1781916180028be87dc3428df85a72c42237bc38488e"
     },
     ".claude/commands/local-models.md": {
-      "src": "platforms/claude-code/commands/local-models.md",
-      "hash": "cdbe2dd783ac8e115a8a328a0690e6cf742581b02171a739b5a52062ec76499c"
+      "src": ".claude/commands/local-models.md",
+      "hash": "94610375c411eda51b4082088716e912b0fa3cb3425fddc81dd80370219e43b4"
     },
     ".claude/commands/anchor.md": {
       "src": "platforms/claude-code/commands/anchor.md",
-      "hash": "15360fee33fc1fd43eeb34f48c0552e653e53269793a13a66b32a9236740c564"
+      "hash": "c446df600a8cbf9762a5b881b4b2b00722acb79fb6d2f72ef002dd63821b6479"
     },
     ".anchor/scripts/anchor_client.py": {
       "src": "scripts/anchor_client.py",
-      "hash": "91ab60a82d0deafbf508316f6a6f8a5bc6a4d1073d1d576110526b6a6d1b0540"
+      "hash": "a8b0caf354617fe0505a7e0b9c273c87c214536175ee5a7f4b54a5925c19df37"
     },
     ".anchor/scripts/orchestrate.py": {
       "src": "scripts/orchestrate.py",
-      "hash": "4653e6c1db379b7d4e36e34a9b88a8a61dcc08ac45d1f823dcebe4075315c57b"
+      "hash": "98c05cbb1221cb5e2822f60573aa83477d861904f4599b464dd0416a72c2dfe9"
     },
     ".anchor/scripts/work_once.py": {
       "src": "scripts/work_once.py",
-      "hash": "4a1e9bcd1bf0faa78835223924eaf5bdc3adaa8d177bdb98b2ff86ab2b2fb9cb"
+      "hash": "69012b51a53dbfab304de38223aa815756ac4641b1214002881f4319a2c7e24a"
     },
     ".anchor/scripts/plan_select.py": {
       "src": "scripts/plan_select.py",
-      "hash": "ced940412f90778695e780eb968bda74dc4ab34a87ba33872415b5f679cb9b2d"
+      "hash": "9fb0541b9163e308349108b6f5e0eb546404524a0abb58efe22dd46c0462c425"
     },
     ".anchor/scripts/plan_lease.py": {
       "src": "scripts/plan_lease.py",
@@ -203,7 +203,7 @@
     },
     ".anchor/scripts/plan_board.py": {
       "src": "scripts/plan_board.py",
-      "hash": "611491dafbbe7f46c84442f2e9acb0fac980ff7a392db8b74b5b8033e9b6bb23"
+      "hash": "d7c402e46c4ebc33b345fb7edbb455c7cd9078c6241f47897400a29d01f787fb"
     },
     ".anchor/scripts/worktree_for_agent.py": {
       "src": "scripts/worktree_for_agent.py",
@@ -211,15 +211,15 @@
     },
     ".anchor/scripts/fleet_watch.py": {
       "src": "scripts/fleet_watch.py",
-      "hash": "305ab4fdc24a17841ec02e472ecfed64e596f4b61a411f1eae27aa111ff96906"
+      "hash": "bbb947dfcab4945d2081cc96b92894246a19f7184e8a9af610bd9adffe245d13"
     },
     ".anchor/scripts/prompt_tuner.py": {
       "src": "scripts/prompt_tuner.py",
-      "hash": "e34549ba829740d2259430a9d85c18e7e43304d8bb7fc5808a996a1e8500bfab"
+      "hash": "e6f754df442025ac2a4bbd8634fd786cbe6f3ef9dc342890ac17c9db13d6322f"
     },
     ".anchor/scripts/router.py": {
       "src": "scripts/router.py",
-      "hash": "f55e167ec90ac8059603d0a819fbe54ec03bf7d541a4eee757dcf2343192a0d9"
+      "hash": "a0c66be7b798b664c28824e84029541aa7131e678ac5b3e4362a7f78fb63e00f"
     },
     ".anchor/scripts/benchmark.py": {
       "src": "scripts/benchmark.py",
@@ -231,7 +231,7 @@
     },
     ".anchor/scripts/endpoints.yaml": {
       "src": "scripts/endpoints.yaml",
-      "hash": "52311b6b680c9a792d7342afe4a7ff658efafff73be30a2c38c96883cab50353"
+      "hash": "ea584903fcd66da4463c6f70436faba7214dac2712370bee82d6188a4f9c5a9d"
     },
     ".anchor/scripts/requirements.txt": {
       "src": "scripts/requirements.txt",
@@ -239,31 +239,31 @@
     },
     ".anchor/mcp/anchor-prompts/server.py": {
       "src": "mcp/anchor-prompts/server.py",
-      "hash": "d5a86d80c6417fd20af19c1d1805ee414b8c52e3e03fee64650c7eceefba5a57"
+      "hash": "feebdc71ca3a0f690952adfbb473aa130562bb6d220346fbdb1098882fd57e8d"
     },
     ".anchor/mcp/anchor-prompts/pyproject.toml": {
       "src": "mcp/anchor-prompts/pyproject.toml",
-      "hash": "4ad2a5e1548316c1f8640e3e5716191d8be596a3bf3ddfc686e0bef1e193cde4"
+      "hash": "9b460c515e24913dfd7cd3cbec5496870f4d3406a50b1dd978f7375773ad0cfa"
     },
     ".anchor/mcp/anchor-prompts/README.md": {
       "src": "mcp/anchor-prompts/README.md",
-      "hash": "b778bf7affb9a8d575897fb5b82032db66c8d115ea084f75fcd1afa63f32338e"
+      "hash": "83d02bc339436b244c5078a9f5b75a3aaca583c1e011d9d904c59bec5bb9aea3"
     },
     ".anchor/mcp/model-fleet/server.py": {
       "src": "mcp/model-fleet/server.py",
-      "hash": "299f6651cf296312bf95c646c666d1fb3131c466f5c9fb64602cdde6e0987d6b"
+      "hash": "66c1a5688ce6e7f77db44b9bc97ccc77c3f34f254d99c5d4c3cc1a0ec849db74"
     },
     ".anchor/mcp/model-fleet/pyproject.toml": {
       "src": "mcp/model-fleet/pyproject.toml",
-      "hash": "26190154114aad3e01070dee7735efc5b009226414e6deafb98c4b59b7e6dfd5"
+      "hash": "ddd7107f42e83944c0c7c71afdb800cad4acb592188a280089c3a2fe83f7a3a4"
     },
     ".anchor/mcp/model-fleet/README.md": {
       "src": "mcp/model-fleet/README.md",
-      "hash": "8c7363adc6714fe06ba5369554c86ecffbf80d9d53abe5f298b93ecd9b552d55"
+      "hash": "a7cbea69724e569c8db3fc9b8aea0fa8623955e4f2ec8508f762a3e3e18e40be"
     },
     ".anchor/mcp/project-orchestrator/server.py": {
       "src": "mcp/project-orchestrator/server.py",
-      "hash": "be81ac7432846085f33d56758f9e6649a56a05ffc98407504dcb462231864283"
+      "hash": "c158eca18589f33db3477d0bd44c300da4fc65582922c6d7882c7f2898b89f27"
     },
     ".anchor/mcp/project-orchestrator/coordinator.py": {
       "src": "mcp/project-orchestrator/coordinator.py",
@@ -271,15 +271,15 @@
     },
     ".anchor/mcp/project-orchestrator/pyproject.toml": {
       "src": "mcp/project-orchestrator/pyproject.toml",
-      "hash": "a9448f4899f44472012b18900f173e024d77c2d5875aa1b4c7946fb9c5a0ab3c"
+      "hash": "8a69dc6e20444f78e4708bbf6bf8f5767af37080cfe1c8e05a87c37f961ca265"
     },
     ".anchor/mcp/project-orchestrator/README.md": {
       "src": "mcp/project-orchestrator/README.md",
-      "hash": "f416268223ec9932f41ba24ff831d9360c4a18419dfdb670cc33f8ba9d515afc"
+      "hash": "d75ad897164b5a246bb50f4335dbae43d1f9b4f88cbe96436a2fdf76f4795577"
     },
     ".anchor/conventions.md": {
       "src": null,
-      "hash": "4981513059e20d6fcb53e291df334a72fd560542c98c0618332be4b0602ab492"
+      "hash": "7f2fd9a913620df57e67a6ea1d01674072e6c783dea9f3a7d48b0f50ee7faed9"
     },
     ".anchor/templates/handoff.md": {
       "src": "anchor/templates/handoff.md",
@@ -287,7 +287,7 @@
     },
     ".grok/skills/optimize/SKILL.md": {
       "src": ".grok/skills/optimize/SKILL.md",
-      "hash": "703bd5ab697dd034d020be9fd8f82948da68d1fd81fedfcd2858d609759a6df8"
+      "hash": "4c6072103527cc54408de66150117c74d7672e3b132f60031e7e4e2947e2516b"
     },
     ".claude/commands/optimize.md": {
       "src": ".claude/commands/optimize.md",
@@ -299,15 +299,15 @@
     },
     ".anchor/scripts/plan_fit.py": {
       "src": "scripts/plan_fit.py",
-      "hash": "95cba3d0098bf0d7dfdec1c7c395b6dfcacd712e0af8ee32af0e6424b3d76b06"
+      "hash": "e1cda9b223466e0b5e02e184873e9e3611ff550330a2dcd499ff78331368b12c"
     },
     ".anchor/scripts/pending_merges.py": {
       "src": "scripts/pending_merges.py",
-      "hash": "0c7e3c3162a7eb32cd36a6de0108a3c19b907f5c29d9bb84297ec2ebbc203619"
+      "hash": "ac5e6d67dba1d6c8d4872df4f04c8b24f276d8b8cfeb27051a5af1d9fc33a57e"
     },
     ".anchor/scripts/merge_feature.py": {
       "src": "scripts/merge_feature.py",
-      "hash": "71e0ba9d608199890b44fd91e7399908835326096b973b905393a9efde1a95c8"
+      "hash": "67d03a245499bffe77ef0c76975fa05bcfc30d351b25bcdbc622d7fd2f4f8319"
     },
     ".anchor/scripts/scope_gate.py": {
       "src": "scripts/scope_gate.py",
@@ -316,6 +316,34 @@
     ".anchor/scripts/roles.py": {
       "src": "scripts/roles.py",
       "hash": "25846e15bf123a162cb49011462e22fd75094fdc9ec5ce561053479df85800c1"
+    },
+    ".grok/skills/tag/SKILL.md": {
+      "src": ".grok/skills/tag/SKILL.md",
+      "hash": "b9b46cd70631e83340712b25c672e54464ce49078fa3b204e079c0d9f2bae977"
+    },
+    ".grok/skills/push/SKILL.md": {
+      "src": ".grok/skills/push/SKILL.md",
+      "hash": "8161697f344e367010365c759dbf8d8c57dbeaa6b10348cc76ab7014e0f6a59d"
+    },
+    ".grok/skills/release/SKILL.md": {
+      "src": ".grok/skills/release/SKILL.md",
+      "hash": "cb9595323cb0b91861d29a1d9f0661ed254a52b4fc0b975f4df8e98a9c3ddfd0"
+    },
+    ".claude/commands/tag.md": {
+      "src": ".claude/commands/tag.md",
+      "hash": "418cd77f00b6d8097cb8474df86036a52dcc27c5264049120602bd5677531b63"
+    },
+    ".claude/commands/push.md": {
+      "src": ".claude/commands/push.md",
+      "hash": "04f6e481e04a2f57498741994c201fc4526c4aee392d98e6fa545179bccd1f3a"
+    },
+    ".claude/commands/release.md": {
+      "src": ".claude/commands/release.md",
+      "hash": "7cdd57373ac63de157297b932a31889aaa0b7d245031bc9101a83e8b341ce746"
+    },
+    ".anchor/scripts/plan_parse.py": {
+      "src": "scripts/plan_parse.py",
+      "hash": "7c8afd4b21e129f246e8ea95bc5abcdbc64b51b41da0c22d145f85ca177962ae"
     }
   }
 }
