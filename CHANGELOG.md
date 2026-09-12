@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added `smky` (YAML-based Playwright smoke-test tool) to the homepage
+  Projects list, linking to `https://carefreeinv.com/smky/`.
 - Added a homepage Articles block (nested under media: below the Suno player,
   above the donation blurb) driven by the `ARTICLES` array in `index.html`.
   Cards show cover images, date, summary, SEO topic tags, and a link to each
