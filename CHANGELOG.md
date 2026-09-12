@@ -38,6 +38,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Hero now leads with the company's primary offering — business optimization,
+  efficiency, and marketing services — and adds a visible "Book a Session"
+  CTA button linking to Calendly. `<title>` and a new meta description match
+  the same positioning; the About intro's opening sentence reinforces it.
 - Refreshed homepage `ARTICLES` from live `@carefreeinv` X Articles (new rows,
   updated engagement metrics / `metricsAsOf`).
 - Articles ranking now features brand-new posts first (`publishedAt` today /
