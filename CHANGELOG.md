@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added `Orbit` (Starship mission ground tracks and landing projections, beta)
+  to the homepage Projects list, linking to
+  `https://orbit.carefreeinv.workers.dev/`.
 - Added `smky` (YAML-based Playwright smoke-test tool) to the homepage
   Projects list, linking to `https://carefreeinv.com/smky/`.
 - Added a homepage Articles block (nested under media: below the Suno player,
