@@ -41,6 +41,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Collapsed the header menu behind a toggle button on phones (≤ 768 px): the
+  logo and a menu button show by default, and the section links open in a
+  full-width panel of 44 px tap rows. Escape, a link tap, or resizing to desktop
+  closes it. Without JavaScript the links stay visible, and the desktop nav is
+  unchanged.
 - Hero now leads with the company's primary offering — business optimization,
   efficiency, and marketing services — and adds a visible "Book a Session"
   CTA button linking to Calendly. `<title>` and a new meta description match

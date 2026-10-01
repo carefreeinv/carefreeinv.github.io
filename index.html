@@ -130,6 +130,10 @@
             width: 100%;
         }
 
+        .nav-toggle {
+            display: none;
+        }
+
         /* Hero */
         .hero {
             padding: 4rem 0 6rem;
@@ -1415,10 +1419,6 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
-                gap: 1.5rem;
-            }
-
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1464,14 +1464,86 @@
             }
 
             nav {
-                flex-direction: column;
-                gap: 2rem;
-                margin-bottom: 3rem;
+                flex-wrap: wrap;
+                gap: 0;
+                margin-bottom: 2rem;
             }
 
             nav ul {
-                flex-wrap: wrap;
+                flex-basis: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 1rem;
+            }
+
+            nav li + li {
+                border-top: 1px solid rgba(255, 255, 255, 0.12);
+            }
+
+            nav li a {
+                display: block;
+                padding: 0.8rem 0;
+                min-height: 44px;
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            .js nav ul {
+                display: none;
+            }
+
+            .js nav.open ul {
+                display: flex;
+            }
+
+            .js .nav-toggle {
+                display: inline-flex;
+                align-items: center;
                 justify-content: center;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                background: none;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                border-radius: 4px;
+                color: rgba(255, 255, 255, 0.9);
+                cursor: pointer;
+            }
+
+            .nav-toggle:hover,
+            .nav-toggle:focus-visible {
+                color: var(--accent);
+                border-color: var(--accent);
+            }
+
+            .nav-toggle-bars,
+            .nav-toggle-bars::before,
+            .nav-toggle-bars::after {
+                display: block;
+                width: 20px;
+                height: 2px;
+                background: currentColor;
+            }
+
+            .nav-toggle-bars {
+                position: relative;
+            }
+
+            .nav-toggle-bars::before,
+            .nav-toggle-bars::after {
+                content: '';
+                position: absolute;
+                left: 0;
+            }
+
+            .nav-toggle-bars::before {
+                top: -6px;
+            }
+
+            .nav-toggle-bars::after {
+                top: 6px;
             }
         }
 
@@ -1480,13 +1552,16 @@
                 font-size: 2rem;
             }
 
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+            .logo {
+                font-size: 1.05rem;
+            }
+
+            .logo .serif {
+                font-size: 1.35rem;
             }
         }
     </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
     <header>
@@ -1496,7 +1571,10 @@
                 <div class="logo">
                     <span class="serif">Carefree</span> INVESTMENTS
                 </div>
-                <ul>
+                <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+                    <span class="nav-toggle-bars" aria-hidden="true"></span>
+                </button>
+                <ul id="site-menu">
                     <li><a href="#articles">Articles</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
@@ -1513,6 +1591,36 @@
             </div>
         </div>
     </header>
+
+    <script>
+        (function () {
+            var nav = document.querySelector('nav');
+            var toggle = nav && nav.querySelector('.nav-toggle');
+            if (!toggle) return;
+            var desktop = window.matchMedia('(min-width: 769px)');
+
+            function setOpen(open) {
+                nav.classList.toggle('open', open);
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            }
+
+            toggle.addEventListener('click', function () {
+                setOpen(!nav.classList.contains('open'));
+            });
+            nav.addEventListener('click', function (event) {
+                if (event.target.closest('a')) setOpen(false);
+            });
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && nav.classList.contains('open')) {
+                    setOpen(false);
+                    toggle.focus();
+                }
+            });
+            desktop.addEventListener('change', function (event) {
+                if (event.matches) setOpen(false);
+            });
+        })();
+    </script>
 
     <main>
         <section id="media" class="services">
