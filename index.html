@@ -183,6 +183,121 @@
             transform: translateY(-2px);
         }
 
+        /* Hero service slider */
+        .hero-slider {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .hero .hero-slide-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-slides {
+            display: grid;
+        }
+
+        .hero-slide {
+            grid-area: 1 / 1;
+        }
+
+        .hero-slide:not(.is-active) {
+            display: none;
+        }
+
+        .hero-slider-controls {
+            display: none;
+        }
+
+        .js .hero-slide:not(.is-active) {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .js .hero-slide {
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        .js .hero-slider-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-top: 2rem;
+        }
+
+        .hero-slider-btn {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .hero-slider-btn:hover,
+        .hero-slider-btn:focus-visible {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .hero-slider-pause {
+            margin-left: 0.75rem;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-slider-dots {
+            display: flex;
+        }
+
+        .hero-slider-dot {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background: none;
+            border: 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hero-slider-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            margin: -5px 0 0 -5px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
+            transition: background 0.3s ease;
+        }
+
+        .hero-slider-dot[aria-current="true"]::before {
+            background: var(--accent);
+        }
+
+        .hero-slider-dot:focus-visible::before {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .js .hero-slide {
+                transition: none;
+            }
+        }
+
         /* Main Content */
         main {
             background: var(--light);
@@ -1427,6 +1542,10 @@
                 font-size: 1.1rem;
             }
 
+            .hero .hero-slide-title {
+                font-size: 1.6rem;
+            }
+
             .section-title h2,
             .about h2,
             .contact h2 {
@@ -1576,7 +1695,7 @@
                 </button>
                 <ul id="site-menu">
                     <li><a href="#articles">Articles</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -1586,8 +1705,41 @@
             
             <div class="hero">
                 <h1 class="serif">Business Optimization, <strong>Efficiency & Marketing</strong></h1>
-                <p>We help companies streamline operations, cut inefficiency, and grow through strategic marketing — backed by software development and strategic real estate investments.</p>
-                <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank">Book a Session</a>
+                <div class="hero-slider" role="region" aria-roledescription="carousel" aria-label="Featured services">
+                    <div class="hero-slides" id="heroSlides" aria-live="off">
+                        <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5">
+                            <p class="hero-slide-title serif">Business Optimization &amp; Efficiency</p>
+                            <p>We help businesses run leaner by streamlining operations and cutting inefficiency, with efficiency systems built around how you actually work.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                        </div>
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
+                            <p class="hero-slide-title serif">Marketing</p>
+                            <p>Strategic marketing services that help your business grow faster.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                        </div>
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 5">
+                            <p class="hero-slide-title serif">AI Systems Administration</p>
+                            <p>Configuration, optimization, and security for AI platforms including Azure, NemoClaw, OpenClaw, ChatGPT, and xAI. Linux infrastructure and ongoing administration.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                        </div>
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="4 of 5">
+                            <p class="hero-slide-title serif">Software Development</p>
+                            <p>Full-stack development across Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal, and more, backed by automated testing with Playwright, Behat, and PHPUnit.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                        </div>
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="5 of 5">
+                            <p class="hero-slide-title serif">Website Development</p>
+                            <p>Drupal, static sites, and AI-powered website builds. From federal agencies and national media platforms to small-town storefronts.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="hero-slider-controls">
+                        <button type="button" class="hero-slider-btn" data-hero-prev aria-label="Previous service">&#8249;</button>
+                        <div class="hero-slider-dots" data-hero-dots></div>
+                        <button type="button" class="hero-slider-btn" data-hero-next aria-label="Next service">&#8250;</button>
+                        <button type="button" class="hero-slider-btn hero-slider-pause" data-hero-pause aria-pressed="false" aria-label="Pause automatic rotation">&#10074;&#10074;</button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -1619,6 +1771,120 @@
             desktop.addEventListener('change', function (event) {
                 if (event.matches) setOpen(false);
             });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            var slider = document.querySelector('.hero-slider');
+            if (!slider) return;
+            var slidesBox = slider.querySelector('.hero-slides');
+            var slides = Array.prototype.slice.call(slider.querySelectorAll('.hero-slide'));
+            var dotsBox = slider.querySelector('[data-hero-dots]');
+            var prev = slider.querySelector('[data-hero-prev]');
+            var next = slider.querySelector('[data-hero-next]');
+            var pauseBtn = slider.querySelector('[data-hero-pause]');
+            if (slides.length < 2) return;
+
+            var INTERVAL = 7000;
+            var index = 0;
+            var timer = null;
+            var userPaused = false;
+            var hovering = false;
+            var inView = false;
+            var tabVisible = document.visibilityState !== 'hidden';
+            var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var dots = slides.map(function (slide, i) {
+                var dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'hero-slider-dot';
+                dot.setAttribute('aria-label', 'Go to service ' + (i + 1));
+                dot.addEventListener('click', function () { goTo(i); });
+                dotsBox.appendChild(dot);
+                return dot;
+            });
+
+            function show(i) {
+                index = (i + slides.length) % slides.length;
+                slides.forEach(function (slide, n) {
+                    slide.classList.toggle('is-active', n === index);
+                });
+                dots.forEach(function (dot, n) {
+                    if (n === index) dot.setAttribute('aria-current', 'true');
+                    else dot.removeAttribute('aria-current');
+                });
+            }
+
+            function shouldRun() {
+                return !userPaused && !hovering && inView && tabVisible && !reducedMotion.matches;
+            }
+
+            function schedule() {
+                if (timer) { clearInterval(timer); timer = null; }
+                if (shouldRun()) {
+                    timer = setInterval(function () { show(index + 1); }, INTERVAL);
+                }
+                slidesBox.setAttribute('aria-live', timer ? 'off' : 'polite');
+            }
+
+            function goTo(i) {
+                show(i);
+                schedule();
+            }
+
+            function setPaused(paused) {
+                userPaused = paused;
+                pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+                pauseBtn.setAttribute('aria-label', paused ? 'Resume automatic rotation' : 'Pause automatic rotation');
+                pauseBtn.innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+                schedule();
+            }
+
+            function syncMotion() {
+                pauseBtn.hidden = reducedMotion.matches;
+                schedule();
+            }
+
+            prev.addEventListener('click', function () { goTo(index - 1); });
+            next.addEventListener('click', function () { goTo(index + 1); });
+            pauseBtn.addEventListener('click', function () { setPaused(!userPaused); });
+            slider.addEventListener('mouseenter', function () { hovering = true; schedule(); });
+            slider.addEventListener('mouseleave', function () { hovering = false; schedule(); });
+            slider.addEventListener('focusin', function () { hovering = true; schedule(); });
+            slider.addEventListener('focusout', function () { hovering = false; schedule(); });
+            slider.addEventListener('keydown', function (event) {
+                if (event.key === 'ArrowLeft') { goTo(index - 1); event.preventDefault(); }
+                else if (event.key === 'ArrowRight') { goTo(index + 1); event.preventDefault(); }
+            });
+
+            var startX = null;
+            slider.addEventListener('touchstart', function (event) {
+                startX = event.touches[0].clientX;
+            }, { passive: true });
+            slider.addEventListener('touchend', function (event) {
+                if (startX === null) return;
+                var dx = event.changedTouches[0].clientX - startX;
+                startX = null;
+                if (Math.abs(dx) > 40) goTo(index + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+
+            document.addEventListener('visibilitychange', function () {
+                tabVisible = document.visibilityState !== 'hidden';
+                schedule();
+            });
+            if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncMotion);
+
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    inView = entries[entries.length - 1].isIntersecting;
+                    schedule();
+                }, { threshold: 0.5 }).observe(slider);
+            } else {
+                inView = true;
+            }
+
+            show(0);
+            syncMotion();
         })();
     </script>
 
@@ -2256,11 +2522,11 @@
         })();
         </script>
 
-        <section id="about" class="about">
+        <section id="services" class="about">
             <div class="container">
                 <div class="about-content">
-                    <h2 class="serif">About Carefree Investments</h2>
-                    <p>Carefree Investments LLC primarily helps businesses run leaner and grow faster through business optimization, efficiency systems, and marketing services. Founded in 2022, the company was born from a simple idea: combine the stability of real estate with the innovation of technology. We build, innovate, and act. Acquisitions are quickly enhanced with software development, AI integration, media production, and related consulting. We operate with startup energy and agility, moving fast while staying grounded in sound investment principles, driven by the mission to build things that matter.</p>
+                    <h2 class="serif">Services</h2>
+                    <p>We primarily help businesses run leaner and grow faster through business optimization, efficiency systems, and marketing services. Founded in 2022, the company was born from a simple idea: combine the stability of real estate with the innovation of technology. We build, innovate, and act. Acquisitions are quickly enhanced with software development, AI integration, media production, and related consulting. We operate with startup energy and agility, moving fast while staying grounded in sound investment principles, driven by the mission to build things that matter.</p>
                 </div>
 
                 <div class="services-grid">

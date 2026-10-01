@@ -41,6 +41,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Renamed the "About" nav link and section to "Services" (anchor `#services`).
+- Replaced the hero paragraph and single button with a featured-services slider
+  (Business Optimization & Efficiency, Marketing, AI Systems Administration,
+  Software Development, Website Development). Each slide has a "Learn More"
+  button to the Calendly booking page. The slider autoplays whenever it is
+  visible (pausing off-screen, in a hidden tab, and on hover or focus), has
+  previous/next, dot, arrow-key, swipe and pause controls, and shows the first
+  slide without JavaScript. Visitors who prefer reduced motion get no
+  auto-advance.
 - Collapsed the header menu behind a toggle button on phones (≤ 768 px): the
   logo and a menu button show by default, and the section links open in a
   full-width panel of 44 px tap rows. Escape, a link tap, or resizing to desktop
