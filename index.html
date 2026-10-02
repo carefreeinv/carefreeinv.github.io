@@ -136,21 +136,20 @@
 
         /* Hero */
         .hero {
-            padding: 4rem 0 6rem;
+            padding: 2rem 0 6rem;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero h1 strong {
-            font-weight: 600;
-            color: var(--accent);
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         .hero p {
@@ -190,7 +189,7 @@
         }
 
         .hero .hero-slide-title {
-            font-size: 2rem;
+            font-size: 2.6rem;
             font-weight: 600;
             color: var(--accent);
             margin-bottom: 1rem;
@@ -1538,16 +1537,12 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
             .hero p {
                 font-size: 1.1rem;
             }
 
             .hero .hero-slide-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
 
             .section-title h2,
@@ -1671,10 +1666,6 @@
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
             .logo {
                 font-size: 1.05rem;
             }
@@ -1712,7 +1703,7 @@
             </nav>
             
             <div class="hero">
-                <h1 class="serif">Business Optimization, <strong>Efficiency & Marketing</strong></h1>
+                <h1 class="visually-hidden">Business Optimization, Efficiency & Marketing</h1>
                 <div class="hero-slider" role="region" aria-roledescription="carousel" aria-label="Featured services">
                     <div class="hero-slides" id="heroSlides" aria-live="off">
                         <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5">

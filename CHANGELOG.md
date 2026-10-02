@@ -41,6 +41,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Removed the large heading above the hero slider so it no longer competes with
+  the slide titles. The page keeps its single `<h1>` ("Business Optimization,
+  Efficiency & Marketing") as visually hidden text for screen readers and
+  search, the slide titles are larger, and the hero sits closer to the nav, so
+  the "Learn More" button and slider controls land higher on phones.
 - Renamed the "About" nav link and section to "Services" (anchor `#services`).
 - Replaced the hero paragraph and single button with a featured-services slider
   (Business Optimization & Efficiency, Marketing, AI Systems Administration,
