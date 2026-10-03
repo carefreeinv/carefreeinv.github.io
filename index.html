@@ -3097,6 +3097,7 @@
                     activeTags = [];
                     renderFilterBar();
                     renderCards();
+                    syncFilterUrl(true);
                 }
                 var el = document.getElementById('project-' + match[1]);
                 if (!el) return;
@@ -3109,7 +3110,8 @@
             }
 
             // Filter links: ?filter=A,B (or filters=), #filter=A,B, #projects:A,B.
-            // Returns the canonical tags that match, or [] when not a filter link.
+            // Returns the canonical tags that match, [] for an explicit "no filters"
+            // link (?filter=all), or null when the URL is not a filter link.
             // The query string is only honoured on initial load (it never leaves
             // the URL, so reading it on hashchange would hijack later navigation).
             function parseFilterLink(useQuery) {
@@ -3118,15 +3120,38 @@
                 var hash = String(location.hash || '').match(/^#(?:filter=|projects:)(.*)$/i);
                 if (query) raw = query[1];
                 else if (hash) raw = hash[1];
-                if (!raw) return [];
-                try { raw = decodeURIComponent(raw.replace(/\+/g, ' ')); } catch (err) { return []; }
+                if (!raw) return null;
+                try { raw = decodeURIComponent(raw.replace(/\+/g, ' ')); } catch (err) { return null; }
                 var found = [];
+                var wantsAll = false;
                 raw.split(',').forEach(function (name) {
                     var wanted = name.trim().toLowerCase();
                     var tag = allTags.filter(function (t) { return t.toLowerCase() === wanted; })[0];
                     if (tag && found.indexOf(tag) === -1) found.push(tag);
+                    else if (!tag && wanted === 'all') wantsAll = true;
                 });
-                return found;
+                if (found.length) return found;
+                return wantsAll ? [] : null;
+            }
+
+            // Mirror activeTags into the address bar (no reload, no history entry,
+            // no hashchange). The default ['Active'] gets a clean URL; no filters
+            // is ?filter=all so a reload or shared link restores it.
+            function syncFilterUrl(keepProjectHash) {
+                if (!window.history || typeof history.replaceState !== 'function') return;
+                try {
+                    var params = String(location.search || '').replace(/^\?/, '').split('&').filter(function (part) {
+                        return part && !/^filters?=/i.test(part);
+                    });
+                    var isDefault = activeTags.length === 1 && activeTags[0] === 'Active';
+                    if (!isDefault) {
+                        params.push('filter=' + (activeTags.length ? activeTags.map(encodeURIComponent).join(',') : 'all'));
+                    }
+                    var hash = String(location.hash || '');
+                    var stale = /^#(?:filter=|projects:)/i.test(hash) || (!keepProjectHash && /^#project-/i.test(hash));
+                    if (stale) hash = '';
+                    history.replaceState(history.state, '', location.pathname + (params.length ? '?' + params.join('&') : '') + hash);
+                } catch (err) { /* replaceState can throw on sandboxed origins; the URL just stays as is */ }
             }
 
             function scrollToProjects() {
@@ -3139,10 +3164,11 @@
             // Returns true when the URL was a filter link and was applied.
             function applyFilterLink(useQuery) {
                 var tags = parseFilterLink(useQuery);
-                if (!tags.length) return false;
+                if (!tags) return false;
                 activeTags = tags;
                 renderFilterBar();
                 renderCards();
+                syncFilterUrl();
                 scrollToProjects();
                 return true;
             }
@@ -3162,6 +3188,7 @@
                 }
                 renderFilterBar();
                 renderCards();
+                syncFilterUrl();
             });
 
             grid.addEventListener('click', function (e) {

@@ -77,4 +77,10 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fixed the address bar not following the Projects filters: selecting or
+  deselecting a filter now updates the URL in place (no reload, no new history
+  entry) to `?filter=A,B`. The default `Active` filter gives a clean URL and
+  "no filters" is `?filter=all`, so a reload or shared link restores the same
+  view. Other query params are kept; a stale `#filter=` / `#projects:` hash is
+  dropped.
 - Restore the homepage YouTube playlist embed by removing a private/deleted video ID that made the whole playlist report as unavailable; open on First Footprint and rebuild the embed follow-on queue.
