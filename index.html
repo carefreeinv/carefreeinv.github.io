@@ -3108,6 +3108,43 @@
                 }
             }
 
+            // Filter links: ?filter=A,B (or filters=), #filter=A,B, #projects:A,B.
+            // Returns the canonical tags that match, or [] when not a filter link.
+            function parseFilterLink() {
+                var raw = '';
+                var query = String(location.search || '').match(/[?&]filters?=([^&#]*)/i);
+                var hash = String(location.hash || '').match(/^#(?:filter=|projects:)(.*)$/i);
+                if (query) raw = query[1];
+                else if (hash) raw = hash[1];
+                if (!raw) return [];
+                try { raw = decodeURIComponent(raw.replace(/\+/g, ' ')); } catch (err) { return []; }
+                var found = [];
+                raw.split(',').forEach(function (name) {
+                    var wanted = name.trim().toLowerCase();
+                    var tag = allTags.filter(function (t) { return t.toLowerCase() === wanted; })[0];
+                    if (tag && found.indexOf(tag) === -1) found.push(tag);
+                });
+                return found;
+            }
+
+            function scrollToProjects() {
+                var section = document.getElementById('projects');
+                if (!section || typeof section.scrollIntoView !== 'function') return;
+                var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                section.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+            }
+
+            // Returns true when the URL was a filter link and was applied.
+            function applyFilterLink() {
+                var tags = parseFilterLink();
+                if (!tags.length) return false;
+                activeTags = tags;
+                renderFilterBar();
+                renderCards();
+                scrollToProjects();
+                return true;
+            }
+
             filterBar.addEventListener('click', function (e) {
                 var node = e.target.closest('.web-node');
                 if (!node) return;
@@ -3135,8 +3172,15 @@
 
             renderFilterBar();
             renderCards();
-            revealProjectFromHash();
-            window.addEventListener('hashchange', revealProjectFromHash);
+            if (/^#project-/i.test(location.hash)) {
+                revealProjectFromHash();
+            } else if (applyFilterLink()) {
+                // Layout can shift while images load; land on Projects again.
+                window.addEventListener('load', scrollToProjects);
+            }
+            window.addEventListener('hashchange', function () {
+                if (!applyFilterLink()) revealProjectFromHash();
+            });
 
             var resizeTimer;
             window.addEventListener('resize', function () {

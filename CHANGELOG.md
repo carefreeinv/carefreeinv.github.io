@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added project filter deep links: `/?filter=Drupal,Software` (also `filters=`),
+  `/#filter=Drupal,Software`, and `/#projects:Drupal,Software` pre-select those
+  project filter(s) (case-insensitive, unknown names ignored) and scroll to the
+  Projects section. Existing `#project-<slug>` links are unchanged.
 - Added `Orbit` (Starship mission ground tracks and landing projections, beta)
   to the homepage Projects list, linking to
   `https://orbit.carefreeinv.workers.dev/`.
