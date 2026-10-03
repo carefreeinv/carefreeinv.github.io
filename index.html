@@ -3110,9 +3110,11 @@
 
             // Filter links: ?filter=A,B (or filters=), #filter=A,B, #projects:A,B.
             // Returns the canonical tags that match, or [] when not a filter link.
-            function parseFilterLink() {
+            // The query string is only honoured on initial load (it never leaves
+            // the URL, so reading it on hashchange would hijack later navigation).
+            function parseFilterLink(useQuery) {
                 var raw = '';
-                var query = String(location.search || '').match(/[?&]filters?=([^&#]*)/i);
+                var query = useQuery && String(location.search || '').match(/[?&]filters?=([^&#]*)/i);
                 var hash = String(location.hash || '').match(/^#(?:filter=|projects:)(.*)$/i);
                 if (query) raw = query[1];
                 else if (hash) raw = hash[1];
@@ -3135,8 +3137,8 @@
             }
 
             // Returns true when the URL was a filter link and was applied.
-            function applyFilterLink() {
-                var tags = parseFilterLink();
+            function applyFilterLink(useQuery) {
+                var tags = parseFilterLink(useQuery);
                 if (!tags.length) return false;
                 activeTags = tags;
                 renderFilterBar();
@@ -3174,12 +3176,20 @@
             renderCards();
             if (/^#project-/i.test(location.hash)) {
                 revealProjectFromHash();
-            } else if (applyFilterLink()) {
-                // Layout can shift while images load; land on Projects again.
-                window.addEventListener('load', scrollToProjects);
+            } else if (applyFilterLink(true)) {
+                // Layout can shift while images load; land on Projects again,
+                // unless the visitor has already started scrolling themselves.
+                var interacted = false;
+                ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (evt) {
+                    window.addEventListener(evt, function () { interacted = true; }, { once: true, passive: true });
+                });
+                window.addEventListener('load', function () {
+                    if (!interacted) scrollToProjects();
+                }, { once: true });
             }
             window.addEventListener('hashchange', function () {
-                if (!applyFilterLink()) revealProjectFromHash();
+                if (/^#project-/i.test(location.hash)) revealProjectFromHash();
+                else applyFilterLink(false);
             });
 
             var resizeTimer;
