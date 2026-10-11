@@ -484,6 +484,12 @@
                 url('images/consulting.jpg');
         }
 
+        .about .service-card.voice-websites::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/littletown.jpg');
+        }
+
         .about .service-card.real-estate::after {
             background-image: 
                 linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
@@ -536,6 +542,17 @@
             position: relative;
             z-index: 1;
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .about .service-card p a {
+            color: #b8d4f5;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .about .service-card p a:hover,
+        .about .service-card p a:focus-visible {
+            color: #ffffff;
         }
 
         .about-content {
@@ -1712,27 +1729,32 @@
                 <h1 class="visually-hidden">Business Rocket Boost, Efficiency & Marketing</h1>
                 <div class="hero-slider" role="region" aria-roledescription="carousel" aria-label="Featured services">
                     <div class="hero-slides" id="heroSlides" aria-live="off">
-                        <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5">
+                        <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 6">
                             <p class="hero-slide-title serif">Business Rocket Boost</p>
                             <p>Supercharge any business, from day one to dominant.</p>
                             <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Book Your Ignition</a>
                         </div>
-                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 6">
+                            <p class="hero-slide-title serif">Voice-Updated Websites</p>
+                            <p>Have your bot update your site while you're tanning on the beach.</p>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Book a Session</a>
+                        </div>
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 6">
                             <p class="hero-slide-title serif">Marketing</p>
                             <p>Strategic marketing services that help your business grow faster.</p>
                             <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
                         </div>
-                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 5">
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="4 of 6">
                             <p class="hero-slide-title serif">AI Systems Administration</p>
                             <p>Configuration, optimization, and security for AI platforms including Azure, NemoClaw, OpenClaw, ChatGPT, and xAI. Linux infrastructure and ongoing administration.</p>
                             <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
                         </div>
-                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="4 of 5">
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="5 of 6">
                             <p class="hero-slide-title serif">Software Development</p>
                             <p>Full-stack development across Android, iOS, Java, JavaScript, TypeScript, Python, PHP, Drupal, and more, backed by automated testing with Playwright, Behat, and PHPUnit.</p>
                             <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
                         </div>
-                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="5 of 5">
+                        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="6 of 6">
                             <p class="hero-slide-title serif">Website Development</p>
                             <p>Drupal, static sites, and AI-powered website builds. From federal agencies and national media platforms to small-town storefronts.</p>
                             <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
@@ -2543,7 +2565,15 @@
                         <h3>Business Rocket Boost</h3>
                         <p>Supercharge any business, from day one to dominant.</p>
                         <p>A business accelerator built around AI assistant configuration and setup meetings. Four launch stages: Ignition (the Opening Session), Liftoff, Course Correction, and Orbit.</p>
+                        <p><a href="#service-voice-websites">Includes Voice-Updated Websites →</a></p>
                         <a href="https://calendly.com/carefreeinv/10m" class="service-link" target="_blank">Book Your Ignition →</a>
+                    </div>
+
+                    <div class="service-card voice-websites" id="service-voice-websites">
+                        <h3>Voice-Updated Websites</h3>
+                        <p>Have your bot update your site while you're tanning on the beach.</p>
+                        <p>Low- or zero-maintenance websites: you speak to your bot or agent, and the agent makes the website changes, whether you're on the beach or waiting for your coffee. This site is updated the same way. Grows out of our <a href="#service-rocket-boost">Business Rocket Boost</a> accelerator.</p>
+                        <a href="https://calendly.com/carefreeinv/10m" class="service-link" target="_blank">Book a Session →</a>
                     </div>
 
                     <div class="service-card ai-integration" id="service-ai-integration">
