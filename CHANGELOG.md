@@ -9,7 +9,8 @@ All notable changes to this project will be documented in this file.
 - Added a Voice-Updated Websites service card (`#service-voice-websites`)
   right after Business Rocket Boost in the homepage Services section,
   cross-linked with Business Rocket Boost both ways, plus a matching hero
-  slide (now slide 2 of 6) linking to booking.
+  slide (now slide 2 of 6) linking to booking. Links inside service-card
+  text are styled light blue and underlined for contrast on the dark cards.
 - Added a Business Rocket Boost service card (`#service-rocket-boost`) as the
   first card in the homepage Services section, with its tagline, accelerator
   description, and four launch stages (Ignition, Liftoff, Course Correction,

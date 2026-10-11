@@ -15,7 +15,7 @@
 - [x] Step 5: Add the cross-link between the Rocket Boost and Voice-Updated cards
 - [x] Step 6: Add the hero slide (approved) and update the aria-label totals
 - [x] Step 7: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
-- [ ] Step 8: Local preview at 1280px and 390px
+- [x] Step 8: Local preview at 1280px and 390px
 - [ ] Step 9: Commit on the feature branch
 - [ ] Step 10: Move this plan to review-needed/
 - [ ] Done when holds
@@ -115,6 +115,7 @@ Static HTML/CSS edited in place in `index.html`. Reuse the `service-card` + modi
 /review 2026-10-10 — Needs Work (owner Daniel via chat, 7:26 PM CT): the new in-paragraph cross-links ("Includes Voice-Updated Websites →" in #service-rocket-boost, "Business Rocket Boost" in #service-voice-websites) render in the browser default link blue rgb(0,0,238) on the dark card (~1.3:1, fails WCAG 1.4.3). Fix: style `.about .service-card p a` in a light accent, underlined, at ≥ 4.5:1 on the dark card; verify computed contrast; re-preview at 1280/390; amend CHANGELOG if needed.
 
 Re-claimed by Grok Bot /work 2026-10-10 for the Needs Work contrast fix.
+Fix: `.about .service-card p a { color:#b8d4f5; underline }` (hover/focus #fff), added after the existing card text rule. Computed color rgb(184,212,245), underline. Contrast vs sampled rendered card background behind each link: worst pixel 6.29:1 (390px), 6.49-6.70:1 (1280px); theoretical worst (white image under the 85% overlay) 4.96:1. Links remain clickable (elementFromPoint = A). Re-preview at 1280/390 (v2-*.png): 6 slides/6 dots, Rocket Boost first, autoplay 1->2->3, wrap 6->1, CTAs correct, cross-links scroll, scrollWidth 1280/390. CHANGELOG bullet amended.
 
 ## Handoff
 moved to review-needed 2026-10-10 — work commit 9d25f4a; /review Needs Work 2026-10-10 → features/ (link contrast)
