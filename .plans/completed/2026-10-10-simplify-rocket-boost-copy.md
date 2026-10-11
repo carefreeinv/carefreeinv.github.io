@@ -106,7 +106,7 @@ Static HTML edited in place in `index.html`; keep existing elements/classes (`p`
 - No `PROPOSAL` text or `{…}` placeholders in index.html
 - CHANGELOG.md has the new [Unreleased] → Changed bullet
 - Local screenshots at 1280px and 390px show the new copy with no horizontal overflow at 390px
-- Live-site check: pending owner /review Approve and Promote
+- [x] Live-site check: verified 2026-10-10 ~8:24 PM CT after promotion (main 2a67802): carefreeinv.com byte-identical to promoted index.html; 0 stage names (Ignition/Liftoff/Course Correction/Opening Session) in source and rendered text; Orbit project link and "Try Orbit" present; "Book Your Boost" on hero slide 1 and "Book Your Boost →" on the card
 
 Approved 2026-10-10 by owner (Daniel) via chat (8:20 PM CT), contingent on review PASS; /review PASS (no blocking findings). Landed on dev as 29b4758.
 
