@@ -93,7 +93,7 @@ Static HTML/CSS edited in place in `index.html`. Reuse the `service-card` + modi
 - Exactly one hero slide is titled Business Rocket Boost; it is the first `.hero-slide` with `is-active`, and its CTA reads "Book Your Ignition" and links to `https://calendly.com/carefreeinv/10m` (the same as the card)
 - Slide count stays at 5 (`grep -c 'class="hero-slide' index.html` matches before/after; aria-labels "N of 5")
 - The card is visible, and the Rocket Boost hero shows first on load, in local screenshots at 1280px and 390px, with no horizontal overflow on mobile
-- Live-site check: pending owner /review Approve and Promote (not an agent step)
+- [x] Live-site check: verified 2026-10-10 ~7:21 PM CT after promotion (main 0b28b6e): carefreeinv.com byte-identical to the promoted index.html; #service-rocket-boost present, slide 1 button "Book Your Ignition", 5 slides ("N of 5")
 
 ## Handoff
 moved to review-needed 2026-10-10 (culmination answer: 1, review)
