@@ -10,17 +10,19 @@
 ## Progress
 - [x] Step 1: Headline and tagline decided: "Voice-Updated Websites" / "Have your bot update your site while you're tanning on the beach."
 - [x] Step 2: Hero slide decided: YES, as slide 2 after Rocket Boost (owner, Oct 10 2026)
-- [ ] Step 3: Add the Voice-Updated Websites card to `services-grid`
-- [ ] Step 4: Add the card's `::after` background CSS rule
-- [ ] Step 5: Add the cross-link between the Rocket Boost and Voice-Updated cards
-- [ ] Step 6: Add the hero slide (approved) and update the aria-label totals
-- [ ] Step 7: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
-- [ ] Step 8: Local preview at 1280px and 390px
+- [x] Step 3: Add the Voice-Updated Websites card to `services-grid`
+- [x] Step 4: Add the card's `::after` background CSS rule
+- [x] Step 5: Add the cross-link between the Rocket Boost and Voice-Updated cards
+- [x] Step 6: Add the hero slide (approved) and update the aria-label totals
+- [x] Step 7: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
+- [x] Step 8: Local preview at 1280px and 390px
 - [ ] Step 9: Commit on the feature branch
 - [ ] Step 10: Move this plan to review-needed/
 - [ ] Done when holds
 
 Claimed by Grok Bot /work on 2026-10-10 after syncing dev (f637c12) into this branch as 7e434d8; dependency business-rocket-boost-service-card is in completed/ (lease not recorded: no local checkout or Anchor scripts; worked via the GitHub connector).
+Step verifies: h3 x1, id x1 (directly after #service-rocket-boost), href="#service-rocket-boost" x1, href="#service-voice-websites" x1, tagline x2 (card + hero), ::after rule x1 (images/littletown.jpg exists), no {PRICING/{TESTIMONIAL, no new prices; 6 slides labelled "N of 6", Rocket Boost slide 1 is-active, Voice slide 2. CHANGELOG [Unreleased] Added bullet. Gate 1 skipped (no tests/CI for this static page); Gate 3 no blog (default per plan). Preview 1280/390: 6 dots, autoplay 1->2->3 (7s), next wraps 6->1, slide-2 CTA calendly.com/carefreeinv/10m target=_blank rel=noopener, card CTA same link target=_blank, both cross-links scroll to their card, 3 cols at 1280 / 1 col at 390, scrollWidth 1280/390.
+Hero slide 2 CTA text "Book a Session" (plan gave no text; matches the card).
 
 Progress note: Owner decided the headline "Voice-Updated Websites" and the tagline "Have your bot update your site while you're tanning on the beach." on Oct 10 2026. On Oct 10 2026 the owner decided YES to a hero slide, placed as slide 2 after Rocket Boost.
 
