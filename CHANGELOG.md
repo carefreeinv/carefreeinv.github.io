@@ -54,6 +54,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Reworded Business Rocket Boost copy on the homepage (Services intro,
+  service card, and both booking buttons, now "Book Your Boost") around
+  faster velocity and better efficiency; the internal stage names are no
+  longer shown.
 - Changed the first homepage hero slide (Business Rocket Boost) button from
   "Learn More" to "Book Your Ignition"; it still opens the same booking link.
 - Removed the large heading above the hero slider so it no longer competes with
