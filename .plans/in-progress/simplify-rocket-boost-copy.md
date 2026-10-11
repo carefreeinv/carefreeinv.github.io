@@ -9,12 +9,12 @@
 
 ## Progress
 - [x] Step 1: Owner picks copy for each spot (S1–S4) and the CTA label (S5)
-- [ ] Step 2: Services intro sentence: replace the stage list
-- [ ] Step 3: Rocket Boost card description: replace the stage list
-- [ ] Step 4: Booking CTAs (hero slide 1 + card): apply the chosen label
-- [ ] Step 5: Confirm the hero tagline and the voice card carry no stage jargon
-- [ ] Step 6: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
-- [ ] Step 7: Local preview at 1280px and 390px
+- [x] Step 2: Services intro sentence: replace the stage list
+- [x] Step 3: Rocket Boost card description: replace the stage list
+- [x] Step 4: Booking CTAs (hero slide 1 + card): apply the chosen label
+- [x] Step 5: Confirm the hero tagline and the voice card carry no stage jargon
+- [x] Step 6: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
+- [x] Step 7: Local preview at 1280px and 390px
 - [ ] Step 8: Commit on the feature branch
 - [ ] Step 9: Move this plan to review-needed/
 - [ ] Done when holds
@@ -22,6 +22,7 @@
 Progress note: drafted 2026-10-10 from the owner's chat request (8:09 PM CT): "replace the too-technical 'four launch stages' jargon on Business Rocket Boost promos. The client cares about faster velocity & better efficiency, not the specifics." Owner picks recorded 2026-10-10 8:18 PM CT (chat): intro A, card A (incl. "automations already running", accepted), button "Book Your Boost" on both CTAs; S3/S4 no change. See ## Copy decisions.
 Promoted drafts → features 2026-10-10 8:20 PM CT on owner approval (chat: "Public facing. Go ahead promote/work/review & merge if approved.").
 Claimed by Grok Bot /work 2026-10-10 (lease not recorded: no local checkout or Anchor scripts; worked via the GitHub connector).
+Step verifies (on dev 4d32956 + edits): 'runs in four stages' 0; 'Four launch stages' 0; 'Book Your Ignition' 0; 'Book Your Boost' 2 (hero '>Book Your Boost</a>' 1, card '>Book Your Boost →</a>' 1), both hrefs calendly.com/carefreeinv/10m; stage terms (Ignition|Liftoff|Course Correction|Opening Session) 0; Orbit project link 1 and 'Try Orbit' 1; rest of the intro paragraph unchanged (diff = 4 lines changed). CHANGELOG [Unreleased] → Changed bullet added; Gate 1 skipped (no tests/CI for this static page); Gate 3 no blog. Preview 1280/390 (/workspace/ci/sc-preview): 6 slides/6 dots, Rocket Boost first and active, hero CTA 'Book Your Boost' target=_blank rel=noopener, card CTA 'Book Your Boost →'; first-row card heights 678/678/678 at 1280; 1 column at 390; scrollWidth 1280/390; no stage terms in page text.
 
 ## Goal
 carefreeinv.com sells Business Rocket Boost on outcomes (faster velocity, better efficiency), with no internal stage names (Ignition / Opening Session, Liftoff, Course Correction, Orbit) on the public page.
