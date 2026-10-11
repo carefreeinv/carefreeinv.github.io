@@ -9,12 +9,14 @@
 
 ## Progress
 - [x] Step 1: Confirm final wording with owner — Owner approved wording and subheading by voice, Oct 10 2026.
-- [ ] Step 2: Update page title and hidden H1
-- [ ] Step 3: Update hero slide title
-- [ ] Step 4: Update Services section intro paragraph
-- [ ] Step 5: Add short service description with the four launch stages
-- [ ] Step 6: Verify locally and on live site
-- [ ] Done when holds
+- [x] Step 2: Update page title and hidden H1
+- [x] Step 3: Update hero slide title
+- [x] Step 4: Update Services section intro paragraph
+- [x] Step 5: Add short service description with the four launch stages
+- [x] Step 6: Verify locally and on live site
+- [x] Done when holds
+
+**Exception (recorded 2026-10-10):** these edits were pushed straight to `main` as commit `3cc7b7a`, skipping the feature branch -> dev -> /review flow. The owner chose not to revert. Verified live: carefreeinv.com matches `3cc7b7a` byte-for-byte; "Business Rocket Boost" x4, "business optimization" x0. Cleanup tracked by plan business-rocket-boost-service-card (Step 8); owner to route this file to completed/ via /review.
 
 ## Goal
 carefreeinv.com presents the business optimization service under its new name, "Business Rocket Boost", with the same description and four launch stages: Ignition (Opening Session), Liftoff, Course Correction, Orbit.
