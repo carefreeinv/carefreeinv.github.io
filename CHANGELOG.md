@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added a Business Rocket Boost service card (`#service-rocket-boost`) as the
+  first card in the homepage Services section, with its tagline, accelerator
+  description, and four launch stages (Ignition, Liftoff, Course Correction,
+  Orbit), linking to booking.
 - Added project filter deep links: `/?filter=Drupal,Software` (also `filters=`),
   `/#filter=Drupal,Software`, and `/#projects:Drupal,Software` pre-select those
   project filter(s) (case-insensitive, unknown names ignored) and scroll to the
@@ -45,6 +49,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Changed the first homepage hero slide (Business Rocket Boost) button from
+  "Learn More" to "Book Your Ignition"; it still opens the same booking link.
 - Removed the large heading above the hero slider so it no longer competes with
   the slide titles. The page keeps its single `<h1>` ("Business Optimization,
   Efficiency & Marketing") as visually hidden text for screen readers and

@@ -478,6 +478,12 @@
             z-index: 0;
         }
 
+        .about .service-card.rocket-boost::after {
+            background-image: 
+                linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
+                url('images/consulting.jpg');
+        }
+
         .about .service-card.real-estate::after {
             background-image: 
                 linear-gradient(to bottom, var(--primary), rgba(26, 58, 74, 0.85)),
@@ -1709,7 +1715,7 @@
                         <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5">
                             <p class="hero-slide-title serif">Business Rocket Boost</p>
                             <p>Supercharge any business, from day one to dominant.</p>
-                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Learn More</a>
+                            <a href="https://calendly.com/carefreeinv/10m" class="cta-button" target="_blank" rel="noopener">Book Your Ignition</a>
                         </div>
                         <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
                             <p class="hero-slide-title serif">Marketing</p>
@@ -2533,6 +2539,13 @@
                 </div>
 
                 <div class="services-grid">
+                    <div class="service-card rocket-boost" id="service-rocket-boost">
+                        <h3>Business Rocket Boost</h3>
+                        <p>Supercharge any business, from day one to dominant.</p>
+                        <p>A business accelerator built around AI assistant configuration and setup meetings. Four launch stages: Ignition (the Opening Session), Liftoff, Course Correction, and Orbit.</p>
+                        <a href="https://calendly.com/carefreeinv/10m" class="service-link" target="_blank">Book Your Ignition →</a>
+                    </div>
+
                     <div class="service-card ai-integration" id="service-ai-integration">
                         <h3>AI Systems Administration</h3>
                         <p>Configuration, optimization, and security for AI platforms including Azure, NemoClaw, OpenClaw, ChatGPT, and xAI. Linux infrastructure, integration architecture, and ongoing administration.</p>

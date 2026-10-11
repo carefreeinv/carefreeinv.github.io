@@ -8,17 +8,18 @@
 - **Depends on:** none
 
 ## Progress
-- [ ] Step 1: Add the Business Rocket Boost card to `services-grid`
-- [ ] Step 2: Add the card's `::after` background CSS rule
-- [ ] Step 3: Hero slide 1 (Business Rocket Boost): booking CTA, confirm it stays first
-- [ ] Step 4: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
-- [ ] Step 5: Local preview at 1280px and 390px (hero first slide, carousel, Services grid)
+- [x] Step 1: Add the Business Rocket Boost card to `services-grid`
+- [x] Step 2: Add the card's `::after` background CSS rule
+- [x] Step 3: Hero slide 1 (Business Rocket Boost): booking CTA, confirm it stays first
+- [x] Step 4: Add CHANGELOG.md entry under [Unreleased] (/commit-prep)
+- [x] Step 5: Local preview at 1280px and 390px (hero first slide, carousel, Services grid)
 - [ ] Step 6: Commit on the feature branch
 - [ ] Step 7: Move this plan to review-needed/
 - [ ] Step 8: Clean up the old rename plan (via /review)
 - [ ] Done when holds
 
 Claimed by Grok Bot /work on 2026-10-10 (lease not recorded: no local checkout or Anchor scripts; worked via the GitHub connector).
+Step verifies: grep counts all as specified; CHANGELOG Added + Changed bullets; Gate 1 skipped (no tests/CI for this static page); Gate 3 no blog (single card). Preview: hero slide 1 Business Rocket Boost active on load at 1280/390, 5 dots, CTA href calendly.com/carefreeinv/10m target=_blank, autoplay 1->2 (7s), next-wraps 5->1; card first in grid, 3 columns at 1280 (same height as neighbour), 1 column at 390, scrollWidth 390.
 
 ## Goal
 carefreeinv.com opens on a Business Rocket Boost hero slide that links to booking, and the Services section shows a dedicated "Business Rocket Boost" service card with its tagline, description, and four launch stages.
