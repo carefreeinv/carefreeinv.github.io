@@ -63,6 +63,10 @@ All notable changes to this project will be documented in this file.
 - Refreshed homepage `ARTICLES` engagement counts from the `@carefreeinv`
   promoting posts observed on 2026-10-24. Titles, summaries, tags, and permalinks
   are unchanged. `metricsAsOf` on all eight rows is that date.
+- Refreshed homepage `ARTICLES` like counts from syndication of the
+  `@carefreeinv` promoting posts (2026-10-25). View counts stay at the
+  2026-08-29 figures already on `dev`, because that payload has no view field.
+  Titles, summaries, tags, and permalinks are unchanged.
 - Removed the large heading above the hero slider so it no longer competes with
   the slide titles. The page keeps its single `<h1>` ("Business Optimization,
   Efficiency & Marketing") as visually hidden text for screen readers and
