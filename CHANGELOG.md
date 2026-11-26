@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+<<<<<<< HEAD
 - Added a Voice-Updated Websites service card (`#service-voice-websites`)
   right after Business Rocket Boost in the homepage Services section,
   cross-linked with Business Rocket Boost both ways, plus a matching hero
@@ -15,6 +16,10 @@ All notable changes to this project will be documented in this file.
   first card in the homepage Services section, with its tagline, accelerator
   description, and four launch stages (Ignition, Liftoff, Course Correction,
   Orbit), linking to booking.
+=======
+- Added “Save with Grok Bot + Jev” to the homepage Articles block
+  (`ARTICLES` in `index.html`), linking to the live `@carefreeinv` X Article.
+>>>>>>> b7a6560 (adding new article)
 - Added project filter deep links: `/?filter=Drupal,Software` (also `filters=`),
   `/#filter=Drupal,Software`, and `/#projects:Drupal,Software` pre-select those
   project filter(s) (case-insensitive, unknown names ignored) and scroll to the
@@ -40,7 +45,7 @@ All notable changes to this project will be documented in this file.
   (`#service-*`) or projects (`#project-*`); deep links briefly highlight the
   target card. JSON-LD ItemList + schema.org Article markup included.
 - Populated `ARTICLES` with live `@carefreeinv` X Articles (covers, titles,
-  metrics, tags); currently eight entries including “Three New Hardware Feats”
+  metrics, tags); currently nine entries including “Save with Grok Bot + Jev”
   and “AMD’s Advancing AI Conference”.
 - Added the Grok-only `/content-update` skill
   (`.grok/skills/content-update/SKILL.md`) documenting collect/merge/write,
@@ -63,6 +68,8 @@ All notable changes to this project will be documented in this file.
 - Refreshed homepage `ARTICLES` engagement counts from the `@carefreeinv`
   promoting posts observed on 2026-10-24. Titles, summaries, tags, and permalinks
   are unchanged. `metricsAsOf` on all eight rows is that date.
+- Refreshed homepage `ARTICLES` engagement metrics (`likes` / `reposts` /
+  `views` / `metricsAsOf` 2026-11-25) from live `@carefreeinv` promoting posts.
 - Refreshed homepage `ARTICLES` like counts from syndication of the
   `@carefreeinv` promoting posts (2026-10-25). View counts stay at the
   2026-08-29 figures already on `dev`, because that payload has no view field.
