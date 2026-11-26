@@ -60,6 +60,9 @@ All notable changes to this project will be documented in this file.
   longer shown.
 - Changed the first homepage hero slide (Business Rocket Boost) button from
   "Learn More" to "Book Your Ignition"; it still opens the same booking link.
+- Refreshed homepage `ARTICLES` engagement counts from the `@carefreeinv`
+  promoting posts observed on 2026-10-24. Titles, summaries, tags, and permalinks
+  are unchanged. `metricsAsOf` on all eight rows is that date.
 - Removed the large heading above the hero slider so it no longer competes with
   the slide titles. The page keeps its single `<h1>` ("Business Optimization,
   Efficiency & Marketing") as visually hidden text for screen readers and
